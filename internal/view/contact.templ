@@ -29,29 +29,20 @@ templ contactContent(errors map[string]string, values map[string]string, success
 		</div>
 	</section>
 
-	<!-- CTA Strip -->
-	<div class="w-full bg-teal-dark py-10">
-		<div class="max-w-site mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-			<div>
-				<h2 class="font-display font-bold text-[1.5rem] text-white leading-snug mb-1">Prefer to call or email?</h2>
-				<p class="font-body font-light text-body-sm text-white/70">Matt&rsquo;s available by phone and email { "for" } booking questions.</p>
-			</div>
-			<div class="flex flex-wrap items-center gap-4">
-				<a
-					href="tel:+14064652235"
-					class="font-display font-bold text-[1.2rem] text-white bg-white/15 px-4 py-2 rounded-[3px]"
-				>
-					(406) 465-2235
-				</a>
-				<a
-					href="mailto:matt@lomooutfitting.com"
-					class="font-body font-light text-body-sm text-white/75 underline"
-				>
-					matt@lomooutfitting.com
-				</a>
-			</div>
+	<!-- CTA -->
+	<section class="w-full py-section bg-white">
+		<div class="max-w-site mx-auto px-6 text-center">
+			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">Prefer to call or email?</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed mb-6">
+				Matt&rsquo;s available by phone and email { "for" } booking questions.
+			</p>
+			<p class="font-body font-light text-body-sm text-stone flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-0">
+				<a href="tel:+14064652235" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">(406) 465-2235</a>
+				<span class="hidden sm:inline mx-2 text-stone/40">&middot;</span>
+				<a href="mailto:matt@lomooutfitting.com" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">matt@lomooutfitting.com</a>
+			</p>
 		</div>
-	</div>
+	</section>
 }
 
 templ BookingForm(errors map[string]string, values map[string]string, success bool) {
@@ -89,6 +80,7 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 						@tripOption("full_day_single", "Full Day — Single Boat", "$675 · 7–8 hours · 1–2 anglers", values)
 						@tripOption("half_day_single", "Half Day — Single Boat", "$575 · 4–5 hours · 1–2 anglers", values)
 						@tripOption("early_season", "Early Season Full Day", "$500 · March–April · 1–2 anglers", values)
+						@tripOption("winter", "Winter Full Day", "$350 · January–February · 1–2 anglers", values)
 						@tripOption("multiple_boats", "Full Day — Multiple Boats", "$675/boat · 3+ anglers", values)
 						<div class="sm:col-span-2">
 							@tripOption("heroes", "Heroes Rate — Full Day", "$500 · Military, Fire, EMS, Law Enforcement", values)

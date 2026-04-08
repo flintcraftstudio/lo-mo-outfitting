@@ -35,7 +35,7 @@ templ homeContent() {
 					Book a Trip
 				</a>
 				<a
-					href="#guides"
+					href="/guides"
 					class="font-body font-semibold text-eyebrow uppercase tracking-[0.08em] border border-ivory/35 text-ivory hover:bg-white/10 px-6 py-3 rounded-btn transition-colors"
 				>
 					Meet Our Guides
@@ -131,6 +131,27 @@ templ homeContent() {
 					</div>
 				</div>
 
+				<!-- Winter -->
+				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+					<div class="aspect-[16/9] overflow-hidden">
+						<img src="/static/img/trips/winter.jpg" alt="Winter fly fishing on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+					</div>
+					<div class="p-6">
+						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
+							Winter
+						</span>
+						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Winter Full Day</h3>
+						<p class="font-display font-bold text-price text-river-deep mb-1">$350</p>
+						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+							January&ndash;February only &middot; 1&ndash;2 anglers<br/>
+							Gear, lunch, drinks included
+						</p>
+						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+							Book This Trip &rarr;
+						</a>
+					</div>
+				</div>
+
 				<!-- Groups -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
 					<div class="aspect-[16/9] overflow-hidden">
@@ -175,13 +196,12 @@ templ homeContent() {
 				@guideCard("/static/img/guides/rain-keating.jpg", "Rain Keating", "Rain Keating", "[VERIFY]", "Guided the Snake, Flathead, and Green rivers before the Missouri got its hooks in him. He calls it home water now. His days off look a lot like his days on.")
 			</div>
 
-			<!-- TODO: Update href to /meet-our-guides when that page is built -->
 			<div class="mt-8 text-center">
 				<a
-					href="/contact"
+					href="/guides"
 					class="font-body font-semibold text-eyebrow uppercase tracking-[0.08em] border border-ivory/35 text-ivory hover:bg-white/10 px-6 py-3 rounded-btn transition-colors inline-block"
 				>
-					Get in Touch &rarr;
+					Meet All 7 Guides &rarr;
 				</a>
 			</div>
 		</div>
@@ -302,36 +322,26 @@ templ homeContent() {
 		</div>
 	</section>
 
-	<!-- CTA Strip -->
-	<div class="w-full bg-teal-dark py-10">
-		<div class="max-w-site mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-			<div>
-				<h2 class="font-display font-bold text-[1.5rem] text-white leading-snug mb-1">Ready to book your trip?</h2>
-				<p class="font-body font-light text-body-sm text-white/70">Email to start. Call when you&rsquo;re ready to talk dates.</p>
-			</div>
-
-			<div class="flex flex-wrap items-center gap-4">
-				<a
-					href="tel:+14064652235"
-					class="font-display font-bold text-[1.2rem] text-white bg-white/15 px-4 py-2 rounded-[3px]"
-				>
-					(406) 465-2235
-				</a>
-				<a
-					href="mailto:matt@lomooutfitting.com"
-					class="font-body font-light text-body-sm text-white/75 underline"
-				>
-					matt@lomooutfitting.com
-				</a>
-				<a
-					href="/contact"
-					class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-river-deep hover:bg-river-mid text-ivory px-6 py-3 rounded-btn transition-colors"
-				>
-					Book Online &rarr;
-				</a>
-			</div>
+	<!-- CTA -->
+	<section class="w-full py-section bg-bone">
+		<div class="max-w-site mx-auto px-6 text-center">
+			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">Ready to book your trip?</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
+				Email to start. Call when you&rsquo;re ready to talk dates.
+			</p>
+			<a
+				href="/contact"
+				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block mb-6"
+			>
+				Book Online &rarr;
+			</a>
+			<p class="font-body font-light text-body-sm text-stone flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-0">
+				<a href="tel:+14064652235" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">(406) 465-2235</a>
+				<span class="hidden sm:inline mx-2 text-stone/40">&middot;</span>
+				<a href="mailto:matt@lomooutfitting.com" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">matt@lomooutfitting.com</a>
+			</p>
 		</div>
-	</div>
+	</section>
 }
 
 templ statBlock(value, label string) {
