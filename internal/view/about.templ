@@ -1,0 +1,182 @@
+package view
+
+templ AboutPage() {
+	@Base("About Lo Mo Outfitting", "Montana-born outfitter Matt Mohar and his crew guide fly fishing trips on the Missouri, Bitterroot, Madison, and Yellowstone rivers.", aboutContent())
+}
+
+templ aboutContent() {
+	<!-- Hero header -->
+	<section class="w-full bg-river-deep py-16 md:py-20">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				About Us
+			</p>
+			<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+				Born on Montana Water
+			</h1>
+			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose">
+				Lo Mo Outfitting was built by a guide who grew up fishing these rivers &mdash;
+				not by a marketing team looking { "for" } the next destination.
+			</p>
+		</div>
+	</section>
+
+	<!-- Our Story — the main event, generous spacing -->
+	<section class="w-full py-20 md:py-32 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<div class="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-start">
+				<!-- Copy leads on desktop -->
+				<div class="order-2 md:order-1">
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">Our Story</p>
+					<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-1">Matt Mohar</h2>
+					<p class="font-body font-bold text-label uppercase tracking-[0.1em] text-teal mb-6">Owner &middot; Outfitter #63793</p>
+					<p class="font-body font-light text-body text-stone leading-relaxed mb-4">
+						Born and raised in Helena, Montana, Matt has spent more than twenty years
+						on the Missouri River and close to ten guiding it. Fly fishing was never
+						a career move &mdash; it was the thing he did before and after everything else.
+					</p>
+					<p class="font-body font-light text-body text-stone leading-relaxed mb-4">
+						He started as a hunting guide in his early twenties, then picked up part-time
+						fly fishing guide work on the Missouri &mdash; all while working fifty hours a week
+						in concrete manufacturing. In his second year of guiding, he made the leap
+						to pursue fly fishing full time.
+					</p>
+					<p class="font-body font-light text-body text-stone leading-relaxed">
+						Over the years, Matt earned his outfitter&rsquo;s license and founded
+						Lo Mo Outfitting to share Montana&rsquo;s world-class rivers with anglers
+						from all walks of life. Every booking still goes through Matt directly &mdash;
+						he picks the right guide { "for" } your group and makes sure you&rsquo;re on the
+						best water { "for" } the day.
+					</p>
+				</div>
+
+				<!-- Photo — right on desktop, first on mobile -->
+				<div class="order-1 md:order-2 aspect-[3/4] bg-[#243d40] rounded-card overflow-hidden md:sticky md:top-24">
+					<img src="/static/img/matt-mohar.jpg" alt="Matt Mohar, owner of Lo Mo Outfitting" class="w-full h-full object-cover" loading="lazy"/>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Lo Mo — split layout, header left / content right -->
+	<section class="w-full py-12 md:py-20 bg-river-mid">
+		<div class="max-w-site mx-auto px-6">
+			<div class="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-16 items-start">
+				<!-- Left: section header -->
+				<div class="md:sticky md:top-24">
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						Why Lo Mo
+					</p>
+					<h2 class="font-display font-bold text-h2 text-ivory leading-snug">
+						What You Get With Us
+					</h2>
+				</div>
+
+				<!-- Right: values as border-left accents -->
+				<div class="space-y-8">
+					@valueBlock("Local Guides", "Every guide on the crew lives in Montana and fishes these rivers on their days off. You won\u2019t get someone reading the water for the first time.")
+					@valueBlock("Direct Booking", "No booking platforms, no automated systems, no middlemen. You talk to Matt, he confirms your dates, and you show up. That\u2019s it.")
+					@valueBlock("No Pretense", "We don\u2019t oversell and we don\u2019t overpromise. You\u2019ll fish with people who care more about putting you on fish than putting on a show.")
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- The Rivers -->
+	<section class="w-full py-16 md:py-24 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Our Waters
+			</p>
+			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-3">
+				Four Premier Montana Rivers
+			</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed max-w-prose mb-10">
+				Lo Mo Outfitting guides fly fishing trips on four of Montana&rsquo;s best rivers.
+				Each one fishes differently depending on the season &mdash; Matt will help you pick the right water { "for" } your trip.
+			</p>
+
+			<!-- Featured: Missouri — full width -->
+			@riverCard(
+				"Missouri River",
+				"Craig, Montana",
+				"Our home water \u2014 7,000 trout per mile and some of the best dry fly fishing in the country. This Blue Ribbon tailwater produces fish from 16\u201321 inches all season. Hatches run from midges and blue wing olives in spring through caddis and hoppers in summer.",
+				true,
+			)
+
+			<!-- Remaining rivers — 3-column grid -->
+			<div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+				@riverCard(
+					"Bitterroot River",
+					"Darby, Montana",
+					"Premier cutthroat water with outstanding surface action from March through summer. The West Fork kicks off with skwala hatches in early spring, followed by blue winged olives, march browns, caddis, salmon flies, and golden stones as the season builds.",
+					false,
+				)
+				@riverCard(
+					"Madison River",
+					"Ennis, Montana",
+					"Year-round fishing for rainbow, cutthroat, and brown trout below Ennis Lake Dam. Spring brings the famous Mother\u2019s Day caddis hatch. Summer shifts to salmon flies, golden stoneflies, and PMDs. Late season is all terrestrials \u2014 hoppers, ants, and beetles.",
+					false,
+				)
+				@riverCard(
+					"Yellowstone River",
+					"Montana",
+					"[PLACEHOLDER \u2014 awaiting details from Matt]",
+					false,
+				)
+			</div>
+		</div>
+	</section>
+
+	<!-- Pull Quote — tight, acts as visual punctuation -->
+	<section class="w-full py-10 md:py-14 bg-river-deep">
+		<div class="max-w-site mx-auto px-6 text-center max-w-2xl">
+			<blockquote class="font-display italic text-[1.5rem] md:text-[1.75rem] text-ivory leading-snug mb-3">
+				&ldquo;Taking people fishing is my passion.&rdquo;
+			</blockquote>
+			<p class="font-body font-light text-body-sm text-ivory/50 uppercase tracking-[0.08em]">
+				&mdash; Matt Mohar, Owner
+			</p>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="w-full py-section bg-bone">
+		<div class="max-w-site mx-auto px-6 text-center">
+			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">Ready to book your trip?</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
+				Email to start. Call when you&rsquo;re ready to talk dates.
+			</p>
+			<a
+				href="/contact"
+				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block mb-6"
+			>
+				Book Online &rarr;
+			</a>
+			<p class="font-body font-light text-body-sm text-stone flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-0">
+				<a href="tel:+14064652235" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">(406) 465-2235</a>
+				<span class="hidden sm:inline mx-2 text-stone/40">&middot;</span>
+				<a href="mailto:matt@lomooutfitting.com" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">matt@lomooutfitting.com</a>
+			</p>
+		</div>
+	</section>
+}
+
+templ valueBlock(title, description string) {
+	<div class="border-l-2 border-teal pl-5">
+		<h3 class="font-display font-bold text-h3 text-ivory mb-1">{ title }</h3>
+		<p class="font-body font-light text-body-sm text-ivory/60 leading-relaxed">
+			{ description }
+		</p>
+	</div>
+}
+
+templ riverCard(name, location, description string, featured bool) {
+	<div class={ "bg-white border rounded-card p-6", templ.KV("border-l-[3px] border-l-teal border-[#E0DBD2]", featured), templ.KV("border-[#E0DBD2]", !featured) }>
+		<p class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal mb-2">{ location }</p>
+		<h3 class="font-display font-bold text-h3 text-river-deep mb-3">{ name }</h3>
+		<p class="font-body font-light text-body-sm text-stone leading-relaxed">
+			{ description }
+		</p>
+	</div>
+}

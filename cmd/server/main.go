@@ -60,6 +60,8 @@ func main() {
 
 	// Pages
 	mux.Handle("GET /{$}", handler.Home())
+	mux.Handle("GET /about", handler.About())
+	mux.Handle("GET /guides", handler.Guides())
 	mux.Handle("GET /contact", handler.Contact())
 	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey))
 
