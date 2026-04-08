@@ -7,14 +7,16 @@ import (
 )
 
 type Config struct {
-	Port           int
-	PostmarkToken  string
-	PostmarkFrom   string
-	PostmarkTo     string
+	Port               int
+	PostmarkToken      string
+	PostmarkFrom       string
+	PostmarkTo         string
 	PixelID            string
 	GtagID             string
 	TurnstileSiteKey   string
 	TurnstileSecretKey string
+	DatabasePath       string
+	AdminPasswordHash  string
 }
 
 // Load reads configuration from environment variables, applying defaults where not set.
@@ -24,15 +26,22 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
+	dbPath := os.Getenv("DATABASE_PATH")
+	if dbPath == "" {
+		dbPath = "./data/lomo.db"
+	}
+
 	return &Config{
-		Port:          port,
-		PostmarkToken: os.Getenv("POSTMARK_SERVER_TOKEN"),
-		PostmarkFrom:  os.Getenv("POSTMARK_FROM"),
-		PostmarkTo:    os.Getenv("POSTMARK_TO"),
+		Port:               port,
+		PostmarkToken:      os.Getenv("POSTMARK_SERVER_TOKEN"),
+		PostmarkFrom:       os.Getenv("POSTMARK_FROM"),
+		PostmarkTo:         os.Getenv("POSTMARK_TO"),
 		PixelID:            os.Getenv("PIXEL_ID"),
 		GtagID:             os.Getenv("GTAG_ID"),
 		TurnstileSiteKey:   os.Getenv("TURNSTILE_SITE_KEY"),
 		TurnstileSecretKey: os.Getenv("TURNSTILE_SECRET_KEY"),
+		DatabasePath:       dbPath,
+		AdminPasswordHash:  os.Getenv("ADMIN_PASSWORD_HASH"),
 	}, nil
 }
 

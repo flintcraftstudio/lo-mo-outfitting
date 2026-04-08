@@ -1,0 +1,62 @@
+package admin
+
+templ AdminBase(title string, body templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" class="bg-bone text-slate-text">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="robots" content="noindex, nofollow"/>
+			<title>{ title } | Lo Mo Bookings</title>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+			<link rel="stylesheet" href="/static/css/site.css"/>
+			<script src="/static/js/htmx.min.js" defer></script>
+			<script src="/static/js/alpine.min.js" defer></script>
+		</head>
+		<body class="min-h-screen font-body antialiased bg-bone">
+			@AdminNav()
+			<main class="max-w-site mx-auto px-6 py-8">
+				@body
+			</main>
+		</body>
+	</html>
+}
+
+templ AdminLoginBase(title string, body templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" class="bg-river-deep text-ivory">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="robots" content="noindex, nofollow"/>
+			<title>{ title } | Lo Mo Bookings</title>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+			<link rel="stylesheet" href="/static/css/site.css"/>
+		</head>
+		<body class="min-h-screen font-body antialiased flex items-center justify-center">
+			@body
+		</body>
+	</html>
+}
+
+templ AdminNav() {
+	<nav class="bg-river-deep text-ivory border-b border-river-mid">
+		<div class="max-w-site mx-auto px-6 flex items-center justify-between h-14">
+			<div class="flex items-center gap-8">
+				<a href="/admin/inquiries" class="font-semibold text-body tracking-wide">Lo Mo Bookings</a>
+				<div class="hidden sm:flex items-center gap-6 text-body-sm">
+					<a href="/admin/inquiries" class="hover:text-teal transition-colors">Inquiries</a>
+					<a href="/admin/upcoming" class="hover:text-teal transition-colors">Upcoming</a>
+					<a href="/admin/all" class="hover:text-teal transition-colors">All Bookings</a>
+				</div>
+			</div>
+			<form method="POST" action="/admin/logout">
+				<button type="submit" class="text-body-sm text-stone hover:text-ivory transition-colors">Log out</button>
+			</form>
+		</div>
+	</nav>
+}

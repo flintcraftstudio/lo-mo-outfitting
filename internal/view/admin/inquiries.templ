@@ -1,0 +1,463 @@
+package admin
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/firefly-software-mt/standard-template/internal/database"
+)
+
+templ InquiriesPage(counts map[string]int, bookings []database.BookingListItem, activeFilter string) {
+	@AdminBase("Inquiries", inquiriesContent(counts, bookings, activeFilter))
+}
+
+templ inquiriesContent(counts map[string]int, bookings []database.BookingListItem, activeFilter string) {
+	<div class="flex flex-col lg:flex-row gap-6 min-h-[calc(100vh-8rem)]">
+		<!-- Left panel: list -->
+		<div class="w-full lg:w-[400px] lg:shrink-0">
+			@StatusPills(counts, activeFilter)
+			<div id="inquiry-list" class="mt-4 space-y-2">
+				@InquiryList(bookings)
+			</div>
+		</div>
+		<!-- Right panel: detail -->
+		<div id="detail-pane" class="flex-1 bg-white rounded-card border border-gray-200 p-6 min-h-[400px]">
+			@EmptyDetail()
+		</div>
+	</div>
+}
+
+templ StatusPills(counts map[string]int, activeFilter string) {
+	<div id="status-pills" class="flex flex-wrap gap-2">
+		@statusPill("", "All Open", openCount(counts), activeFilter)
+		@statusPill("new", "New", counts["new"], activeFilter)
+		@statusPill("deposit_sent", "Deposit Pending", counts["deposit_sent"], activeFilter)
+		@statusPill("confirmed", "Confirmed", counts["confirmed"], activeFilter)
+		@statusPill("complete", "Complete", counts["complete"], activeFilter)
+	</div>
+}
+
+templ StatusPillsOOB(counts map[string]int) {
+	<div id="status-pills" hx-swap-oob="true" class="flex flex-wrap gap-2">
+		@statusPill("", "All Open", openCount(counts), "")
+		@statusPill("new", "New", counts["new"], "")
+		@statusPill("deposit_sent", "Deposit Pending", counts["deposit_sent"], "")
+		@statusPill("confirmed", "Confirmed", counts["confirmed"], "")
+		@statusPill("complete", "Complete", counts["complete"], "")
+	</div>
+}
+
+func openCount(counts map[string]int) int {
+	return counts["new"] + counts["contacted"] + counts["deposit_sent"] + counts["confirmed"]
+}
+
+templ statusPill(filter, label string, count int, activeFilter string) {
+	<a
+		href={ templ.SafeURL(pillHref(filter)) }
+		class={ "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-body-sm font-semibold transition-colors",
+			templ.KV("bg-teal text-white", filter == activeFilter),
+			templ.KV("bg-gray-100 text-slate-text hover:bg-gray-200", filter != activeFilter) }
+	>
+		{ label }
+		<span class="text-xs opacity-70">{ strconv.Itoa(count) }</span>
+	</a>
+}
+
+func pillHref(filter string) string {
+	if filter == "" {
+		return "/admin/inquiries"
+	}
+	return "/admin/inquiries?status=" + filter
+}
+
+templ InquiryList(bookings []database.BookingListItem) {
+	if len(bookings) == 0 {
+		<p class="text-body-sm text-stone py-8 text-center">No inquiries found.</p>
+	}
+	for _, b := range bookings {
+		<div
+			class="bg-white rounded-card border border-gray-200 p-4 cursor-pointer hover:border-teal transition-colors"
+			hx-get={ fmt.Sprintf("/admin/inquiries/%d", b.ID) }
+			hx-target="#detail-pane"
+			hx-swap="innerHTML"
+		>
+			<div class="flex items-start justify-between gap-2">
+				<div>
+					<p class="font-semibold text-body">{ b.ClientName }</p>
+					<p class="text-body-sm text-stone mt-0.5">
+						{ GetLabel(TripLabel, b.TripType) } · { b.AnglerCount } anglers · { b.PreferredDate }
+					</p>
+				</div>
+				<div class="flex items-center gap-1.5 shrink-0">
+					<span class={ "w-2 h-2 rounded-full", StatusColor(b.Status) }></span>
+					<span class="text-body-sm text-stone">{ GetLabel(StatusLabel, b.Status) }</span>
+				</div>
+			</div>
+			if b.Heroes || b.YouthCount != "0" && b.YouthCount != "" || b.TripType == "multiple_boats" {
+				<div class="flex gap-1.5 mt-2">
+					if b.Heroes {
+						<span class="inline-block px-2 py-0.5 bg-teal/10 text-teal text-xs font-semibold rounded">Heroes</span>
+					}
+					if b.YouthCount != "0" && b.YouthCount != "" {
+						<span class="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-semibold rounded">Youth</span>
+					}
+					if b.TripType == "multiple_boats" {
+						<span class="inline-block px-2 py-0.5 bg-yellow-50 text-yellow-700 text-xs font-semibold rounded">Multi-boat</span>
+					}
+				</div>
+			}
+		</div>
+	}
+}
+
+templ EmptyDetail() {
+	<div class="flex items-center justify-center h-full text-stone text-body-sm">
+		Select an inquiry to view details.
+	</div>
+}
+
+templ InquiryDetailPane(booking *database.BookingRequest, events []database.BookingEvent, guides []database.Guide, guideName string) {
+	<div class="space-y-6">
+		<!-- Header -->
+		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+			<div>
+				<h2 class="text-h3 font-semibold">{ booking.ClientName }</h2>
+				<p class="text-body-sm text-stone">Submitted { booking.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</p>
+			</div>
+			<form
+				hx-post={ fmt.Sprintf("/admin/inquiries/%d/status", booking.ID) }
+				hx-target="#detail-pane"
+				hx-swap="innerHTML"
+			>
+				<select
+					name="status"
+					class="border border-gray-300 rounded-btn px-3 py-1.5 text-body-sm bg-white focus:outline-none focus:border-teal"
+					onchange="this.form.requestSubmit()"
+				>
+					<option value="new" selected?={ booking.Status == "new" }>New</option>
+					<option value="contacted" selected?={ booking.Status == "contacted" }>Contacted</option>
+					<option value="deposit_sent" selected?={ booking.Status == "deposit_sent" }>Deposit Sent</option>
+					<option value="confirmed" selected?={ booking.Status == "confirmed" }>Confirmed</option>
+					<option value="complete" selected?={ booking.Status == "complete" }>Complete</option>
+					<option value="cancelled" selected?={ booking.Status == "cancelled" }>Cancelled</option>
+				</select>
+			</form>
+		</div>
+
+		<!-- Trip details -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Trip</h3>
+			<div class="grid grid-cols-2 gap-x-6 gap-y-2 text-body-sm">
+				<div>
+					<span class="text-stone">Type</span>
+					<p class="font-semibold">{ GetLabel(TripLabel, booking.TripType) }</p>
+				</div>
+				<div>
+					<span class="text-stone">Preferred Date</span>
+					<p class="font-semibold">{ booking.PreferredDate }</p>
+				</div>
+				if booking.AlternateDate != "" {
+					<div>
+						<span class="text-stone">Alternate Date</span>
+						<p class="font-semibold">{ booking.AlternateDate }</p>
+					</div>
+				}
+				<div>
+					<span class="text-stone">Anglers</span>
+					<p class="font-semibold">{ booking.AnglerCount }</p>
+				</div>
+				if booking.YouthCount != "0" && booking.YouthCount != "" {
+					<div>
+						<span class="text-stone">Youth (under 16)</span>
+						<p class="font-semibold">{ booking.YouthCount }</p>
+					</div>
+				}
+				if guideName != "" {
+					<div>
+						<span class="text-stone">Guide</span>
+						<p class="font-semibold">{ guideName }</p>
+					</div>
+				}
+			</div>
+		</section>
+
+		<!-- Party -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Party</h3>
+			<div class="grid grid-cols-2 gap-x-6 gap-y-2 text-body-sm">
+				<div>
+					<span class="text-stone">Experience</span>
+					<p class="font-semibold">{ GetLabel(ExperienceLabel, booking.Experience) }</p>
+				</div>
+				<div>
+					<span class="text-stone">Lodging</span>
+					<p class="font-semibold">
+						if booking.Lodging == "other" && booking.LodgingOther != "" {
+							{ booking.LodgingOther }
+						} else {
+							{ GetLabel(LodgingLabel, booking.Lodging) }
+						}
+					</p>
+				</div>
+				if booking.ReferredBy != "" {
+					<div>
+						<span class="text-stone">Referred By</span>
+						<p class="font-semibold">{ booking.ReferredBy }</p>
+					</div>
+				}
+			</div>
+		</section>
+
+		<!-- Client notes -->
+		if booking.ClientNotes != "" {
+			<section>
+				<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Client Notes</h3>
+				<blockquote class="text-body-sm border-l-2 border-teal pl-4 italic text-stone">
+					{ booking.ClientNotes }
+				</blockquote>
+			</section>
+		}
+
+		<!-- Contact -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Contact</h3>
+			<div class="flex flex-col sm:flex-row gap-4 text-body-sm">
+				<a href={ templ.SafeURL("mailto:" + booking.ClientEmail) } class="text-teal hover:underline">{ booking.ClientEmail }</a>
+				<a href={ templ.SafeURL("tel:" + booking.ClientPhone) } class="text-teal hover:underline">{ booking.ClientPhone }</a>
+			</div>
+		</section>
+
+		<!-- Payment -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Payment</h3>
+			<form
+				hx-post={ fmt.Sprintf("/admin/inquiries/%d/payment", booking.ID) }
+				hx-target="#detail-pane"
+				hx-swap="innerHTML"
+				hx-trigger="change"
+			>
+				<select
+					name="payment_method"
+					class="border border-gray-300 rounded-btn px-3 py-1.5 text-body-sm bg-white focus:outline-none focus:border-teal"
+				>
+					<option value="" disabled selected?={ booking.PaymentMethod == nil }>Not set</option>
+					<option value="cash" selected?={ booking.PaymentMethod != nil && *booking.PaymentMethod == "cash" }>Cash</option>
+					<option value="venmo" selected?={ booking.PaymentMethod != nil && *booking.PaymentMethod == "venmo" }>Venmo</option>
+					<option value="stripe" selected?={ booking.PaymentMethod != nil && *booking.PaymentMethod == "stripe" }>Stripe</option>
+					<option value="other" selected?={ booking.PaymentMethod != nil && *booking.PaymentMethod == "other" }>Other</option>
+				</select>
+			</form>
+		</section>
+
+		<!-- Matt's notes -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Private Notes</h3>
+			<form
+				hx-post={ fmt.Sprintf("/admin/inquiries/%d/note", booking.ID) }
+				hx-target="#detail-pane"
+				hx-swap="innerHTML"
+				hx-trigger="blur from:find textarea"
+			>
+				<textarea
+					name="note"
+					rows="3"
+					class="w-full border border-gray-300 rounded-btn px-3 py-2 text-body-sm bg-white focus:outline-none focus:border-teal resize-y"
+					placeholder="Add private notes..."
+				>{ booking.MatNotes }</textarea>
+			</form>
+		</section>
+
+		<!-- Activity timeline -->
+		<section>
+			<h3 class="text-eyebrow uppercase tracking-widest text-stone mb-3">Activity</h3>
+			@ActivityTimeline(events)
+		</section>
+
+		<!-- Action bar -->
+		@ActionBar(booking, guides)
+	</div>
+}
+
+templ ActivityTimeline(events []database.BookingEvent) {
+	if len(events) == 0 {
+		<p class="text-body-sm text-stone">No activity yet.</p>
+	} else {
+		<div class="space-y-2">
+			for _, e := range events {
+				<div class="flex gap-3 text-body-sm">
+					<span class="text-stone shrink-0 w-32">{ e.CreatedAt.Format("Jan 2 3:04 PM") }</span>
+					<span class={ "shrink-0 font-semibold", eventTypeColor(e.EventType) }>{ eventTypeLabel(e.EventType) }</span>
+					<span class="text-stone">{ e.Detail }</span>
+				</div>
+			}
+		</div>
+	}
+}
+
+func eventTypeLabel(t string) string {
+	switch t {
+	case "submitted":
+		return "Submitted"
+	case "email_sent":
+		return "Email Sent"
+	case "email_failed":
+		return "Email Failed"
+	case "status_changed":
+		return "Status"
+	case "guide_assigned":
+		return "Guide"
+	case "note_added":
+		return "Note"
+	case "payment_method_set":
+		return "Payment"
+	default:
+		return t
+	}
+}
+
+func eventTypeColor(t string) string {
+	switch t {
+	case "email_failed":
+		return "text-red-600"
+	case "status_changed":
+		return "text-blue-600"
+	case "guide_assigned":
+		return "text-green-600"
+	case "payment_method_set":
+		return "text-yellow-600"
+	default:
+		return "text-slate-text"
+	}
+}
+
+templ ActionBar(booking *database.BookingRequest, guides []database.Guide) {
+	<div
+		class="flex flex-wrap gap-2 pt-4 border-t border-gray-200"
+		x-data="{ showGuide: false, showNote: false, showCancel: false }"
+	>
+		<!-- Status transition buttons -->
+		switch booking.Status {
+		case "new":
+			@statusButton(booking.ID, "contacted", "Mark as Contacted", "bg-blue-600 hover:bg-blue-700 text-white")
+		case "contacted":
+			@statusButton(booking.ID, "deposit_sent", "Deposit Sent", "bg-yellow-600 hover:bg-yellow-700 text-white")
+		case "deposit_sent":
+			@statusButton(booking.ID, "confirmed", "Mark Confirmed", "bg-green-600 hover:bg-green-700 text-white")
+		case "confirmed":
+			@statusButton(booking.ID, "complete", "Mark Complete", "bg-stone hover:bg-gray-600 text-white")
+		}
+
+		<!-- Assign guide (not for complete/cancelled) -->
+		if booking.Status != "complete" && booking.Status != "cancelled" {
+			<button
+				type="button"
+				class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-gray-100 hover:bg-gray-200 text-slate-text transition-colors"
+				@click="showGuide = !showGuide; showNote = false; showCancel = false"
+			>
+				Assign Guide
+			</button>
+		}
+
+		<!-- Add note (always available) -->
+		<button
+			type="button"
+			class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-gray-100 hover:bg-gray-200 text-slate-text transition-colors"
+			@click="showNote = !showNote; showGuide = false; showCancel = false"
+		>
+			Add Note
+		</button>
+
+		<!-- Cancel (not for complete/cancelled) -->
+		if booking.Status != "complete" && booking.Status != "cancelled" {
+			<button
+				type="button"
+				class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-red-50 hover:bg-red-100 text-red-700 transition-colors"
+				@click="showCancel = !showCancel; showGuide = false; showNote = false"
+			>
+				Cancel Inquiry
+			</button>
+		}
+
+		<!-- Inline guide assignment -->
+		<div x-show="showGuide" x-cloak class="w-full mt-2">
+			<form
+				hx-post={ fmt.Sprintf("/admin/inquiries/%d/guide", booking.ID) }
+				hx-target="#detail-pane"
+				hx-swap="innerHTML"
+				class="flex items-center gap-2"
+			>
+				<select
+					name="guide_id"
+					class="border border-gray-300 rounded-btn px-3 py-1.5 text-body-sm bg-white focus:outline-none focus:border-teal flex-1"
+				>
+					<option value="" disabled selected>Select a guide...</option>
+					for _, g := range guides {
+						<option value={ strconv.FormatInt(g.ID, 10) }>{ g.Name }</option>
+					}
+				</select>
+				<button type="submit" class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-teal hover:bg-teal-dark text-white transition-colors">
+					Assign
+				</button>
+			</form>
+		</div>
+
+		<!-- Inline note -->
+		<div x-show="showNote" x-cloak class="w-full mt-2">
+			<form
+				hx-post={ fmt.Sprintf("/admin/inquiries/%d/note", booking.ID) }
+				hx-target="#detail-pane"
+				hx-swap="innerHTML"
+				class="flex flex-col gap-2"
+			>
+				<textarea
+					name="note"
+					rows="2"
+					class="w-full border border-gray-300 rounded-btn px-3 py-2 text-body-sm bg-white focus:outline-none focus:border-teal resize-y"
+					placeholder="Add a note..."
+				></textarea>
+				<div class="flex justify-end">
+					<button type="submit" class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-teal hover:bg-teal-dark text-white transition-colors">
+						Save Note
+					</button>
+				</div>
+			</form>
+		</div>
+
+		<!-- Inline cancel confirmation -->
+		<div x-show="showCancel" x-cloak class="w-full mt-2 bg-red-50 border border-red-200 rounded-card p-4">
+			<p class="text-body-sm text-red-700 mb-3">Are you sure you want to cancel this inquiry?</p>
+			<div class="flex gap-2">
+				<form
+					hx-post={ fmt.Sprintf("/admin/inquiries/%d/status", booking.ID) }
+					hx-target="#detail-pane"
+					hx-swap="innerHTML"
+				>
+					<input type="hidden" name="status" value="cancelled"/>
+					<button type="submit" class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-red-600 hover:bg-red-700 text-white transition-colors">
+						Yes, Cancel
+					</button>
+				</form>
+				<button
+					type="button"
+					class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-gray-100 hover:bg-gray-200 text-slate-text transition-colors"
+					@click="showCancel = false"
+				>
+					Never mind
+				</button>
+			</div>
+		</div>
+	</div>
+}
+
+templ statusButton(bookingID int64, targetStatus, label, classes string) {
+	<form
+		hx-post={ fmt.Sprintf("/admin/inquiries/%d/status", bookingID) }
+		hx-target="#detail-pane"
+		hx-swap="innerHTML"
+	>
+		<input type="hidden" name="status" value={ targetStatus }/>
+		<button type="submit" class={ "px-3 py-1.5 rounded-btn text-body-sm font-semibold transition-colors", classes }>
+			{ label }
+		</button>
+	</form>
+}

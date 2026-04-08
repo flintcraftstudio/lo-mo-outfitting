@@ -1,0 +1,146 @@
+package admin
+
+import (
+	"fmt"
+	"strconv"
+	"time"
+
+	"github.com/firefly-software-mt/standard-template/internal/database"
+)
+
+templ UpcomingPage(summary *database.UpcomingSummary, bookings []database.BookingListItem) {
+	@AdminBase("Upcoming Trips", upcomingContent(summary, bookings))
+}
+
+templ upcomingContent(summary *database.UpcomingSummary, bookings []database.BookingListItem) {
+	<div class="space-y-6">
+		<h1 class="text-h2 font-semibold">Upcoming Trips</h1>
+		<p class="text-body-sm text-stone">Confirmed trips in the next 60 days.</p>
+
+		<!-- Summary cards -->
+		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+			@metricCard("Trips", strconv.Itoa(summary.TripCount))
+			@metricCard("Guides Scheduled", strconv.Itoa(summary.GuidesScheduled))
+			@metricCard("Total Anglers", strconv.Itoa(summary.TotalAnglers))
+			@metricCard("Deposit Outstanding", strconv.Itoa(summary.DepositOutstanding))
+		</div>
+
+		<!-- Grouped trip cards -->
+		if len(bookings) == 0 {
+			<p class="text-body-sm text-stone py-8 text-center">No confirmed trips in the next 60 days.</p>
+		} else {
+			@groupedTrips(bookings)
+		}
+	</div>
+}
+
+templ metricCard(label, value string) {
+	<div class="bg-white rounded-card border border-gray-200 p-4">
+		<p class="text-eyebrow uppercase tracking-widest text-stone mb-1">{ label }</p>
+		<p class="text-stat font-semibold text-slate-text">{ value }</p>
+	</div>
+}
+
+func monthKey(dateStr string) string {
+	t, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		return dateStr
+	}
+	return t.Format("January 2006")
+}
+
+func dayBlock(dateStr string) (string, string) {
+	t, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		return "?", "?"
+	}
+	return strconv.Itoa(t.Day()), t.Format("Mon")
+}
+
+func isToday(dateStr string) bool {
+	return dateStr == time.Now().Format("2006-01-02")
+}
+
+templ groupedTrips(bookings []database.BookingListItem) {
+	<!-- Group by month -->
+	for _, group := range groupByMonth(bookings) {
+		<div class="space-y-3">
+			<h2 class="text-h3 font-semibold text-stone border-b border-gray-200 pb-2">{ group.Month }</h2>
+			for _, b := range group.Bookings {
+				@tripCard(b)
+			}
+		</div>
+	}
+}
+
+type monthGroup struct {
+	Month    string
+	Bookings []database.BookingListItem
+}
+
+func groupByMonth(bookings []database.BookingListItem) []monthGroup {
+	var groups []monthGroup
+	var current *monthGroup
+	for _, b := range bookings {
+		mk := monthKey(b.PreferredDate)
+		if current == nil || current.Month != mk {
+			groups = append(groups, monthGroup{Month: mk})
+			current = &groups[len(groups)-1]
+		}
+		current.Bookings = append(current.Bookings, b)
+	}
+	return groups
+}
+
+templ tripCard(b database.BookingListItem) {
+	<a
+		href={ templ.SafeURL(fmt.Sprintf("/admin/inquiries?status=confirmed#booking-%d", b.ID)) }
+		class="flex gap-4 bg-white rounded-card border border-gray-200 p-4 hover:border-teal transition-colors"
+	>
+		<!-- Date block -->
+		<div class={ "flex flex-col items-center justify-center w-14 h-14 rounded-card shrink-0",
+			templ.KV("bg-teal text-white", isToday(b.PreferredDate)),
+			templ.KV("bg-gray-100 text-slate-text", !isToday(b.PreferredDate)) }>
+			<span class="text-h3 font-semibold leading-none">{ dayNum(b.PreferredDate) }</span>
+			<span class="text-xs uppercase">{ dayAbbr(b.PreferredDate) }</span>
+		</div>
+
+		<!-- Details -->
+		<div class="flex-1 min-w-0">
+			<p class="font-semibold text-body truncate">{ b.ClientName }</p>
+			<p class="text-body-sm text-stone mt-0.5">
+				{ GetLabel(TripLabel, b.TripType) } · { b.AnglerCount } anglers
+				if b.Lodging != "" {
+					 · { GetLabel(LodgingLabel, b.Lodging) }
+				}
+			</p>
+			if b.GuideName != "" {
+				<p class="text-body-sm text-stone mt-0.5">Guide: { b.GuideName }</p>
+			}
+
+			<!-- Tags -->
+			<div class="flex gap-1.5 mt-2">
+				<span class="inline-block px-2 py-0.5 bg-gray-100 text-xs font-semibold rounded">{ GetLabel(TripLabel, b.TripType) }</span>
+				if b.Heroes {
+					<span class="inline-block px-2 py-0.5 bg-teal/10 text-teal text-xs font-semibold rounded">Heroes</span>
+				}
+				if b.YouthCount != "0" && b.YouthCount != "" {
+					<span class="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-semibold rounded">Youth</span>
+				}
+				if b.PaymentMethod == nil {
+					<span class="inline-block px-2 py-0.5 bg-yellow-50 text-yellow-700 text-xs font-semibold rounded">Deposit Pending</span>
+				}
+			</div>
+		</div>
+	</a>
+}
+
+func dayNum(dateStr string) string {
+	d, _ := dayBlock(dateStr)
+	return d
+}
+
+func dayAbbr(dateStr string) string {
+	_, a := dayBlock(dateStr)
+	return a
+}

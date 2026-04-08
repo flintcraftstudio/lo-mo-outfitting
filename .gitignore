@@ -39,3 +39,6 @@ web/static/css/site.css
 # Tailwind
 tailwind/tailwindcss
 tailwind/tailwindcss.exe
+
+# SQLite database
+data/

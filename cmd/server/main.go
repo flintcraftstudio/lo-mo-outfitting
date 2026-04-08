@@ -7,7 +7,9 @@ import (
 	"os"
 
 	"github.com/firefly-software-mt/standard-template/internal/config"
+	"github.com/firefly-software-mt/standard-template/internal/database"
 	"github.com/firefly-software-mt/standard-template/internal/handler"
+	adminhandler "github.com/firefly-software-mt/standard-template/internal/handler/admin"
 	"github.com/firefly-software-mt/standard-template/internal/mail"
 	"github.com/firefly-software-mt/standard-template/internal/middleware"
 	"github.com/firefly-software-mt/standard-template/internal/view"
@@ -44,6 +46,15 @@ func main() {
 		slog.Warn("TURNSTILE_SITE_KEY or TURNSTILE_SECRET_KEY not set, Turnstile disabled")
 	}
 
+	// Database
+	db, err := database.Open(cfg.DatabasePath)
+	if err != nil {
+		slog.Error("database error", "err", err)
+		os.Exit(1)
+	}
+	defer db.Close()
+	slog.Info("database ready", "path", cfg.DatabasePath)
+
 	// Mail client (nil if Postmark is not configured)
 	var mailer *mail.Client
 	if cfg.PostmarkToken != "" {
@@ -63,7 +74,40 @@ func main() {
 	mux.Handle("GET /about", handler.About())
 	mux.Handle("GET /guides", handler.Guides())
 	mux.Handle("GET /contact", handler.Contact())
-	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey))
+	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey, db))
+
+	// Admin auth routes (public)
+	mux.Handle("GET /admin/login", adminhandler.LoginPage())
+	mux.Handle("POST /admin/login", adminhandler.LoginSubmit(db, cfg.AdminPasswordHash))
+	mux.Handle("POST /admin/logout", adminhandler.Logout(db))
+
+	// Admin protected routes
+	adminMux := http.NewServeMux()
+	adminMux.HandleFunc("GET /admin/{$}", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/admin/inquiries", http.StatusSeeOther)
+	})
+	// Inquiry board
+	adminMux.Handle("GET /admin/inquiries", adminhandler.Inquiries(db))
+	adminMux.Handle("GET /admin/inquiries/{id}", adminhandler.InquiryDetail(db))
+	adminMux.Handle("POST /admin/inquiries/{id}/status", adminhandler.StatusUpdate(db))
+	adminMux.Handle("POST /admin/inquiries/{id}/guide", adminhandler.GuideAssign(db))
+	adminMux.Handle("POST /admin/inquiries/{id}/note", adminhandler.NoteAdd(db))
+	adminMux.Handle("POST /admin/inquiries/{id}/payment", adminhandler.PaymentMethod(db))
+
+	// Upcoming trips + All bookings
+	adminMux.Handle("GET /admin/upcoming", adminhandler.Upcoming(db))
+	adminMux.Handle("GET /admin/all", adminhandler.AllBookings(db))
+
+	protectedAdmin := middleware.AdminAuth(db)(adminMux)
+	mux.Handle("GET /admin/", protectedAdmin)
+	mux.Handle("POST /admin/", protectedAdmin)
+
+	// Clean expired sessions on startup
+	if n, err := db.CleanExpiredSessions(); err != nil {
+		slog.Error("clean expired sessions", "err", err)
+	} else if n > 0 {
+		slog.Info("cleaned expired sessions", "count", n)
+	}
 
 	// 404 catch-all
 	mux.Handle("GET /", handler.NotFound())

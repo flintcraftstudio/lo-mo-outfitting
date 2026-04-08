@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/firefly-software-mt/standard-template/internal/database"
 	"github.com/firefly-software-mt/standard-template/internal/mail"
 	"github.com/firefly-software-mt/standard-template/internal/view"
 )
@@ -54,8 +55,8 @@ func Contact() http.HandlerFunc {
 	}
 }
 
-// ContactSubmit handles POST /contact, validates input, and sends booking request.
-func ContactSubmit(mailer *mail.Client, turnstileSecret string) http.HandlerFunc {
+// ContactSubmit handles POST /contact, validates input, saves to database, and sends booking email.
+func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
 			http.Error(w, "bad request", http.StatusBadRequest)
@@ -99,6 +100,40 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string) http.HandlerFunc
 			}
 		}
 
+		// Save booking to database
+		booking := database.BookingRequest{
+			IPAddress:     r.RemoteAddr,
+			TripType:      values["trip_type"],
+			PreferredDate: values["preferred_date"],
+			AlternateDate: values["alternate_date"],
+			AnglerCount:   values["angler_count"],
+			YouthCount:    values["youth_count"],
+			Heroes:        values["trip_type"] == "heroes",
+			Experience:    values["experience"],
+			Lodging:       values["lodging"],
+			LodgingOther:  values["lodging_other"],
+			ClientNotes:   values["client_notes"],
+			ReferredBy:    values["referred_by"],
+			ClientName:    values["client_name"],
+			ClientEmail:   values["client_email"],
+			ClientPhone:   values["client_phone"],
+		}
+
+		bookingID, err := db.InsertBooking(&booking)
+		if err != nil {
+			slog.Error("database insert error", "err", err)
+			errors = map[string]string{"form": "Failed to save your request. Please try again or call us directly."}
+			if err := view.BookingForm(errors, values, false).Render(r.Context(), w); err != nil {
+				slog.Error("render error", "err", err)
+			}
+			return
+		}
+
+		if err := db.InsertEvent(bookingID, "submitted", "Booking request submitted via website"); err != nil {
+			slog.Error("event insert error", "err", err)
+		}
+
+		// Send notification email
 		if mailer != nil {
 			msg := mail.Message{
 				Name:    values["client_name"],
@@ -108,11 +143,16 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string) http.HandlerFunc
 			}
 			if err := mailer.Send(msg); err != nil {
 				slog.Error("postmark send error", "err", err)
-				errors = map[string]string{"form": "Failed to send your request. Please try again or call us directly."}
-				if err := view.BookingForm(errors, values, false).Render(r.Context(), w); err != nil {
-					slog.Error("render error", "err", err)
+				if err := db.InsertEvent(bookingID, "email_failed", err.Error()); err != nil {
+					slog.Error("event insert error", "err", err)
 				}
-				return
+			} else {
+				if err := db.SetEmailedAt(bookingID, time.Now()); err != nil {
+					slog.Error("set emailed_at error", "err", err)
+				}
+				if err := db.InsertEvent(bookingID, "email_sent", "Notification email sent"); err != nil {
+					slog.Error("event insert error", "err", err)
+				}
 			}
 		}
 

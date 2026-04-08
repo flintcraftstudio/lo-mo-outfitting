@@ -1,0 +1,119 @@
+package admin
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/firefly-software-mt/standard-template/internal/database"
+)
+
+templ AllBookingsPage(bookings []database.BookingListItem, query string, page, totalPages int) {
+	@AdminBase("All Bookings", allBookingsContent(bookings, query, page, totalPages))
+}
+
+templ allBookingsContent(bookings []database.BookingListItem, query string, page, totalPages int) {
+	<div class="space-y-6">
+		<h1 class="text-h2 font-semibold">All Bookings</h1>
+
+		<!-- Search bar -->
+		<div>
+			<input
+				type="search"
+				name="q"
+				value={ query }
+				placeholder="Search by name, email, or phone..."
+				class="w-full max-w-md border border-gray-300 rounded-btn px-3 py-2 text-body-sm bg-white focus:outline-none focus:border-teal"
+				hx-get="/admin/all"
+				hx-trigger="input changed delay:300ms"
+				hx-target="#bookings-table-wrapper"
+				hx-swap="innerHTML"
+				hx-include="this"
+			/>
+		</div>
+
+		<!-- Table -->
+		<div id="bookings-table-wrapper">
+			@AllBookingsTableBody(bookings, query, page, totalPages)
+		</div>
+	</div>
+}
+
+templ AllBookingsTableBody(bookings []database.BookingListItem, query string, page, totalPages int) {
+	<div class="overflow-x-auto">
+		<table class="w-full text-body-sm">
+			<thead>
+				<tr class="border-b border-gray-200 text-left text-stone">
+					<th class="pb-2 pr-4 font-semibold">Submitted</th>
+					<th class="pb-2 pr-4 font-semibold">Client</th>
+					<th class="pb-2 pr-4 font-semibold">Trip</th>
+					<th class="pb-2 pr-4 font-semibold">Date</th>
+					<th class="pb-2 pr-4 font-semibold">Status</th>
+					<th class="pb-2 font-semibold">Guide</th>
+				</tr>
+			</thead>
+			<tbody>
+				if len(bookings) == 0 {
+					<tr>
+						<td colspan="6" class="py-8 text-center text-stone">No bookings found.</td>
+					</tr>
+				}
+				for _, b := range bookings {
+					<tr
+						class="border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
+						onclick={ goToInquiry(b.ID) }
+					>
+						<td class="py-3 pr-4">{ b.CreatedAt.Format("Jan 2, 2006") }</td>
+						<td class="py-3 pr-4 font-semibold">{ b.ClientName }</td>
+						<td class="py-3 pr-4">{ GetLabel(TripLabel, b.TripType) }</td>
+						<td class="py-3 pr-4">{ b.PreferredDate }</td>
+						<td class="py-3 pr-4">
+							<span class="inline-flex items-center gap-1.5">
+								<span class={ "w-2 h-2 rounded-full", StatusColor(b.Status) }></span>
+								{ GetLabel(StatusLabel, b.Status) }
+							</span>
+						</td>
+						<td class="py-3">{ b.GuideName }</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Pagination -->
+	if totalPages > 1 {
+		<div class="flex items-center justify-between pt-4">
+			<p class="text-body-sm text-stone">
+				Page { strconv.Itoa(page) } of { strconv.Itoa(totalPages) }
+			</p>
+			<div class="flex gap-2">
+				if page > 1 {
+					<a
+						href={ templ.SafeURL(paginationHref(query, page-1)) }
+						class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-gray-100 hover:bg-gray-200 text-slate-text transition-colors"
+					>
+						Previous
+					</a>
+				}
+				if page < totalPages {
+					<a
+						href={ templ.SafeURL(paginationHref(query, page+1)) }
+						class="px-3 py-1.5 rounded-btn text-body-sm font-semibold bg-gray-100 hover:bg-gray-200 text-slate-text transition-colors"
+					>
+						Next
+					</a>
+				}
+			</div>
+		</div>
+	}
+}
+
+func paginationHref(query string, page int) string {
+	if query != "" {
+		return fmt.Sprintf("/admin/all?q=%s&page=%d", query, page)
+	}
+	return fmt.Sprintf("/admin/all?page=%d", page)
+}
+
+script goToInquiry(id int64) {
+	window.location.href = "/admin/inquiries/" + id;
+}

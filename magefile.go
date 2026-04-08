@@ -7,7 +7,9 @@ import (
 	"os"
 	"runtime"
 
+	"github.com/firefly-software-mt/standard-template/internal/database"
 	"github.com/magefile/mage/sh"
+	"golang.org/x/crypto/bcrypt"
 )
 
 const tailwindVersion = "v3.4.17"
@@ -75,6 +77,32 @@ func Dev() error {
 // Run starts the server
 func Run() error {
 	return sh.Run("./bin/server")
+}
+
+// Seed sets the admin password. Usage: mage seed <password>
+func Seed(password string) error {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return fmt.Errorf("hash password: %w", err)
+	}
+
+	dbPath := os.Getenv("DATABASE_PATH")
+	if dbPath == "" {
+		dbPath = "./data/lomo.db"
+	}
+
+	db, err := database.Open(dbPath)
+	if err != nil {
+		return fmt.Errorf("open database: %w", err)
+	}
+	defer db.Close()
+
+	if err := db.SetSetting("admin_password_hash", string(hash)); err != nil {
+		return fmt.Errorf("save password hash: %w", err)
+	}
+
+	fmt.Println("Admin password set successfully.")
+	return nil
 }
 
 func tailwindBinaryPath() string {

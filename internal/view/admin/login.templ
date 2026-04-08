@@ -1,0 +1,39 @@
+package admin
+
+templ LoginPage(errMsg string) {
+	@AdminLoginBase("Login", loginForm(errMsg))
+}
+
+templ loginForm(errMsg string) {
+	<div class="w-full max-w-sm px-6">
+		<div class="text-center mb-8">
+			<h1 class="text-h2 font-semibold mb-2">Lo Mo Bookings</h1>
+			<p class="text-body-sm text-stone">Sign in to manage inquiries</p>
+		</div>
+		<form method="POST" action="/admin/login" class="space-y-4">
+			if errMsg != "" {
+				<div class="bg-red-900/30 border border-red-500/50 text-red-200 px-4 py-3 rounded-card text-body-sm">
+					{ errMsg }
+				</div>
+			}
+			<div>
+				<label for="password" class="block text-body-sm font-semibold mb-1">Password</label>
+				<input
+					type="password"
+					id="password"
+					name="password"
+					required
+					autofocus
+					class="w-full px-3 py-2 bg-river-mid border border-river-mid rounded-btn text-ivory placeholder-stone focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
+					placeholder="Enter admin password"
+				/>
+			</div>
+			<button
+				type="submit"
+				class="w-full bg-teal hover:bg-teal-dark text-river-deep font-semibold py-2 px-4 rounded-btn transition-colors"
+			>
+				Sign in
+			</button>
+		</form>
+	</div>
+}
