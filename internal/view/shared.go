@@ -2,8 +2,8 @@ package view
 
 import "time"
 
-// SiteName is the display name used in templates. Override per-project.
-const SiteName = "Standard Template"
+// SiteName is the display name used in templates.
+const SiteName = "Lo Mo Outfitting"
 
 // Tracking IDs and Turnstile site key, set once at startup from config.
 var (

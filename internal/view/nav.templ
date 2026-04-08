@@ -1,16 +1,51 @@
 package view
 
 templ Nav() {
-	<nav class="border-b border-ff-border bg-[#0f1117eb] backdrop-blur-[12px]">
-		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 sm:px-12">
-			<a href="/" class="text-[15px] font-normal tracking-tight text-ff-cream">{ SiteName }</a>
-			<div class="flex items-center gap-8 text-[12px] font-medium uppercase tracking-[0.08em]">
-				<a href="/" class="text-ff-ash transition hover:text-ff-cream">Home</a>
-				<a
-					href="/contact"
-					class="rounded-sm border border-ff-dusk-lo px-4 py-2 text-ff-ice transition hover:border-ff-dusk hover:bg-ff-dusk-lo hover:text-ff-paper"
-				>Contact</a>
+	<nav
+		class="w-full bg-river-deep sticky top-0 z-50 border-b border-white/[0.06]"
+		x-data="{ open: false }"
+	>
+		<div class="max-w-site mx-auto px-6 h-[62px] flex items-center justify-between">
+			<!-- Wordmark -->
+			<a href="/" class="font-display font-bold text-base text-ivory">
+				Lo Mo Outfitting
+			</a>
+
+			<!-- Desktop links -->
+			<div class="hidden md:flex items-center gap-6">
+				<a href="/#trips" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/60 hover:text-ivory transition-colors">Trips</a>
+				<a href="/#guides" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/60 hover:text-ivory transition-colors">Guides</a>
+				<a href="/#heroes" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/60 hover:text-ivory transition-colors">Heroes</a>
+				<a href="/contact" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/60 hover:text-ivory transition-colors">Contact</a>
+				<a href="tel:+14065551234" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-teal">[PHONE]</a>
+				<a href="/contact" class="font-body font-bold text-eyebrow uppercase tracking-[0.08em] bg-teal hover:bg-teal-dark text-white px-4 py-[7px] rounded-btn transition-colors">Book Now</a>
 			</div>
+
+			<!-- Mobile hamburger -->
+			<button
+				class="md:hidden text-ivory/70"
+				@click="open = !open"
+				aria-label="Toggle menu"
+			>
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+					<path x-show="!open" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+					<path x-show="open" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Mobile drawer -->
+		<div
+			x-show="open"
+			x-transition
+			class="md:hidden bg-river-deep border-t border-white/10 px-6 pb-6 flex flex-col gap-5"
+		>
+			<a href="/#trips" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/70 pt-5" @click="open = false">Trips</a>
+			<a href="/#guides" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/70" @click="open = false">Guides</a>
+			<a href="/#heroes" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/70" @click="open = false">Heroes</a>
+			<a href="/contact" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/70">Contact</a>
+			<a href="tel:+14065551234" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-teal">[PHONE]</a>
+			<a href="/contact" class="font-body font-bold text-eyebrow uppercase tracking-[0.08em] bg-teal text-white px-4 py-3 rounded-btn text-center">Book Now</a>
 		</div>
 	</nav>
 }

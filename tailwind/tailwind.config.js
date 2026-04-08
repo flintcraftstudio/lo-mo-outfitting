@@ -1,6 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
-
 module.exports = {
   content: [
     "./internal/view/**/*.templ",
@@ -8,28 +6,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ff: {
-          dark:    "#0f1117",
-          dark2:   "#161a24",
-          panel:   "#13161f",
-          panel2:  "#1a1e2b",
-          dusk:    "#5b7ec4",
-          "dusk-hover": "#6d8fd4",
-          "dusk-mid": "#2a3d6e",
-          "dusk-lo": "#1e2d52",
-          ice:     "#a8c0e8",
-          moon:    "#c8d5ed",
-          paper:   "#edf0f7",
-          cream:   "#dde2ed",
-          ash:     "#7a8099",
-          stone:   "#3d4459",
-          border:  "rgba(255,255,255,0.07)",
-          border2: "rgba(255,255,255,0.12)",
-        },
+        "river-deep":  "#1A2E30",
+        "river-mid":   "#2A4A4E",
+        "teal":        "#3E9E98",
+        "teal-dark":   "#2C7A75",
+        "bone":        "#F4F1EB",
+        "stone":       "#7A8E8F",
+        "slate-text":  "#1A2E30",
+        "ivory":       "#F4F1EB",
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', ...defaultTheme.fontFamily.serif],
-        body:    ['"DM Sans"', ...defaultTheme.fontFamily.sans],
+        display: ["Playfair Display", "Georgia", "serif"],
+        body:    ["Source Sans 3", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        "eyebrow":  ["0.6875rem", { lineHeight: "1", letterSpacing: "0.15em" }],
+        "label":    ["0.5625rem", { lineHeight: "1", letterSpacing: "0.12em" }],
+        "body-sm":  ["0.875rem",  { lineHeight: "1.65" }],
+        "body":     ["1rem",      { lineHeight: "1.65" }],
+        "price":    ["1.4rem",    { lineHeight: "1.2"  }],
+        "stat":     ["2rem",      { lineHeight: "1.1"  }],
+        "h3":       ["1.15rem",   { lineHeight: "1.3"  }],
+        "h2":       ["2rem",      { lineHeight: "1.2"  }],
+        "h1":       ["3rem",      { lineHeight: "1.1"  }],
+        "h1-mob":   ["2rem",      { lineHeight: "1.1"  }],
+      },
+      spacing: {
+        "section": "3.5rem",
+      },
+      borderRadius: {
+        "card": "3px",
+        "btn":  "2px",
+      },
+      maxWidth: {
+        "site":     "1280px",
+        "prose":    "520px",
+        "hero-sub": "480px",
       },
     },
   },

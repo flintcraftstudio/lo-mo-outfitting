@@ -1,14 +1,16 @@
 package view
 
 templ ContactPage(errors map[string]string, values map[string]string, success bool) {
-	@Base("Contact", "Get in touch with us.", contactContent(errors, values, success))
+	@Base("Contact", "Get in touch with Lo Mo Outfitting to book your Missouri River fly fishing trip.", contactContent(errors, values, success))
 }
 
 templ contactContent(errors map[string]string, values map[string]string, success bool) {
-	<section class="py-24 sm:py-[80px]">
-		<div class="mx-auto max-w-5xl px-6 sm:px-12">
-			@eyebrow("Say hello")
-			<h1 class="mb-10 font-display text-[36px] font-medium tracking-tight text-ff-paper">Contact</h1>
+	<section class="w-full py-section bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Get in Touch
+			</p>
+			<h1 class="font-display font-bold text-h2 text-river-deep leading-snug mb-10">Contact</h1>
 			<div class="max-w-lg">
 				@ContactForm(errors, values, success)
 			</div>
@@ -19,64 +21,64 @@ templ contactContent(errors map[string]string, values map[string]string, success
 templ ContactForm(errors map[string]string, values map[string]string, success bool) {
 	<form hx-post="/contact" hx-swap="outerHTML" class="space-y-5">
 		if success {
-			<div class="rounded border border-ff-dusk-mid bg-ff-panel p-6">
-				<p class="text-[15px] font-normal text-ff-ice">Thanks! We'll be in touch soon.</p>
+			<div class="rounded-card border border-teal/30 bg-teal/10 p-6">
+				<p class="font-body text-body text-river-deep">Thanks! We&rsquo;ll be in touch soon.</p>
 			</div>
 		} else {
 			if errors["form"] != "" {
-				<div class="rounded border border-red-500/40 bg-red-500/10 p-4">
-					<p class="text-[13px] text-red-400">{ errors["form"] }</p>
+				<div class="rounded-card border border-red-500/40 bg-red-500/10 p-4">
+					<p class="font-body text-body-sm text-red-700">{ errors["form"] }</p>
 				</div>
 			}
 			<div>
-				<label for="name" class="mb-1.5 block text-[13px] font-medium text-ff-cream">Name</label>
+				<label for="name" class="mb-1.5 block font-body font-semibold text-body-sm text-river-deep">Name</label>
 				<input
 					type="text"
 					id="name"
 					name="name"
 					value={ values["name"] }
-					class="w-full rounded-sm border border-ff-border2 bg-ff-panel px-4 py-2.5 text-[15px] font-light text-ff-cream placeholder-ff-stone outline-none transition focus:border-[#5b7ec473]"
+					class="w-full rounded-btn border border-[#E0DBD2] bg-white px-4 py-2.5 font-body font-light text-body text-river-deep placeholder-stone outline-none transition focus:border-teal"
 					placeholder="Your name"
 				/>
 				if errors["name"] != "" {
-					<p class="mt-1 text-[11px] text-red-400">{ errors["name"] }</p>
+					<p class="mt-1 font-body text-[0.75rem] text-red-600">{ errors["name"] }</p>
 				}
 			</div>
 			<div>
-				<label for="email" class="mb-1.5 block text-[13px] font-medium text-ff-cream">Email</label>
+				<label for="email" class="mb-1.5 block font-body font-semibold text-body-sm text-river-deep">Email</label>
 				<input
 					type="email"
 					id="email"
 					name="email"
 					value={ values["email"] }
-					class="w-full rounded-sm border border-ff-border2 bg-ff-panel px-4 py-2.5 text-[15px] font-light text-ff-cream placeholder-ff-stone outline-none transition focus:border-[#5b7ec473]"
+					class="w-full rounded-btn border border-[#E0DBD2] bg-white px-4 py-2.5 font-body font-light text-body text-river-deep placeholder-stone outline-none transition focus:border-teal"
 					placeholder="you@example.com"
 				/>
 				if errors["email"] != "" {
-					<p class="mt-1 text-[11px] text-red-400">{ errors["email"] }</p>
+					<p class="mt-1 font-body text-[0.75rem] text-red-600">{ errors["email"] }</p>
 				}
 			</div>
 			<div>
-				<label for="message" class="mb-1.5 block text-[13px] font-medium text-ff-cream">Message</label>
+				<label for="message" class="mb-1.5 block font-body font-semibold text-body-sm text-river-deep">Message</label>
 				<textarea
 					id="message"
 					name="message"
 					rows="5"
-					class="w-full rounded-sm border border-ff-border2 bg-ff-panel px-4 py-2.5 text-[15px] font-light text-ff-cream placeholder-ff-stone outline-none transition focus:border-[#5b7ec473]"
-					placeholder="Tell us about your project..."
+					class="w-full rounded-btn border border-[#E0DBD2] bg-white px-4 py-2.5 font-body font-light text-body text-river-deep placeholder-stone outline-none transition focus:border-teal"
+					placeholder="Tell us about the trip you have in mind..."
 				>{ values["message"] }</textarea>
 				if errors["message"] != "" {
-					<p class="mt-1 text-[11px] text-red-400">{ errors["message"] }</p>
+					<p class="mt-1 font-body text-[0.75rem] text-red-600">{ errors["message"] }</p>
 				}
 			</div>
 			if TurnstileSiteKey != "" {
-				<div class="cf-turnstile" data-sitekey={ TurnstileSiteKey } data-theme="dark"></div>
+				<div class="cf-turnstile" data-sitekey={ TurnstileSiteKey } data-theme="light"></div>
 			}
 			<button
 				type="submit"
-				class="rounded-sm bg-ff-dusk px-[26px] py-[13px] text-[12px] font-medium uppercase tracking-[0.12em] text-white transition hover:bg-ff-dusk-hover active:scale-[0.98]"
+				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors"
 			>
-				Send message
+				Send Message
 			</button>
 		}
 	</form>

@@ -3,10 +3,47 @@ package view
 import "fmt"
 
 templ Footer() {
-	<footer class="border-t border-ff-border">
-		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-8 text-[13px] text-ff-stone sm:px-12">
-			<p>&copy; { fmt.Sprint(Year()) } { SiteName }</p>
-			<p class="text-ff-ash">fireflysoftware.dev</p>
+	<footer class="w-full bg-river-deep">
+		<div class="max-w-site mx-auto px-6 pt-12 pb-6">
+			<!-- 3-column grid -->
+			<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr] gap-8 mb-10">
+				<!-- Col 1: Brand -->
+				<div>
+					<p class="font-display font-bold text-base text-ivory mb-2">Lo Mo Outfitting LLC</p>
+					<p class="font-body font-light text-body-sm text-ivory/40 leading-relaxed max-w-[200px]">
+						Missouri River fly fishing out of Craig, Montana.
+						Local guides. Real fish. No pretense.
+					</p>
+				</div>
+
+				<!-- Col 2: Nav -->
+				<div>
+					<p class="font-body font-medium text-label uppercase tracking-[0.12em] text-ivory/30 mb-4">Navigation</p>
+					<ul class="space-y-2">
+						<li><a href="/#trips" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Trip Options</a></li>
+						<li><a href="/#guides" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Meet Our Guides</a></li>
+						<li><a href="/#heroes" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Heroes Program</a></li>
+						<li><a href="/contact" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Contact</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 3: Contact -->
+				<div>
+					<p class="font-body font-medium text-label uppercase tracking-[0.12em] text-ivory/30 mb-4">Contact</p>
+					<ul class="space-y-2">
+						<li><a href="tel:+14065551234" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">[PHONE]</a></li>
+						<li><a href="mailto:matt@lomooutfitting.com" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">matt@lomooutfitting.com</a></li>
+						<li><span class="font-body text-body-sm text-ivory/60">Craig, Montana</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Bottom bar -->
+			<div class="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+				<p class="font-body font-light text-xs text-ivory/30">&copy; { fmt.Sprint(Year()) } Lo Mo Outfitting LLC &middot; All rights reserved.</p>
+				<p class="font-body font-light text-xs text-ivory/30">Montana Outfitter License [OTF-XXXXX]</p>
+				<p class="font-body font-light text-xs text-ivory/30">Site by <a href="https://fireflysoftware.dev" class="hover:text-ivory/50 transition-colors">Firefly Software</a></p>
+			</div>
 		</div>
 	</footer>
 }

@@ -1,12 +1,77 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  ::selection {
-    background: rgba(91, 126, 196, 0.35);
-    color: #edf0f7;
+  :root {
+    --river-deep:  #1A2E30;
+    --river-mid:   #2A4A4E;
+    --teal:        #3E9E98;
+    --teal-dark:   #2C7A75;
+    --bone:        #F4F1EB;
+    --stone:       #7A8E8F;
+    --border:      #E0DBD2;
+    --ivory:       #F4F1EB;
+
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-body:    "Source Sans 3", system-ui, sans-serif;
+
+    --sp-xs:      0.25rem;
+    --sp-sm:      0.5rem;
+    --sp-md:      1rem;
+    --sp-lg:      1.5rem;
+    --sp-xl:      2rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a[href^="tel"] {
+    color: var(--teal);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Focus indicators for keyboard navigation */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+}
+
+/* Hero entrance animation */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  opacity: 0;
+  animation: hero-fade-up 0.7s ease-out forwards;
+}
+
+.hero-enter-1 { animation-delay: 0.1s; }
+.hero-enter-2 { animation-delay: 0.2s; }
+.hero-enter-3 { animation-delay: 0.35s; }
+.hero-enter-4 { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    opacity: 1;
+    animation: none;
   }
 }

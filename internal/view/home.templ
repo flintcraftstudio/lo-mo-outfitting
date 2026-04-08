@@ -1,89 +1,374 @@
 package view
 
 templ HomePage() {
-	@Base("Home", "Fast, handcrafted websites built with Go and Tailwind CSS.", homeContent())
+	@Base("Missouri River Fly Fishing — Craig, Montana", "Guided fly fishing trips on the Missouri River near Craig, Montana. Local guides, no pretense. Book your trip with Lo Mo Outfitting.", homeContent())
 }
 
 templ homeContent() {
 	<!-- Hero -->
-	<section class="relative overflow-hidden py-24 sm:py-32">
-		<div class="mx-auto max-w-5xl px-6 sm:px-12">
-			<p class="mb-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ff-dusk">Client Name</p>
-			<h1 class="max-w-2xl font-display text-[42px] font-medium leading-tight tracking-tight text-ff-paper sm:text-[68px] sm:leading-[1.05]">
-				A headline that says something&nbsp;memorable.
+	<section class="relative w-full bg-river-deep overflow-hidden min-h-[600px] md:min-h-[85vh] flex flex-col justify-end">
+		<!-- Background photo with overlay -->
+		<div class="absolute inset-0">
+			<img src="/static/img/hero-river.jpg" alt="Missouri River near Craig, Montana" class="w-full h-full object-cover" loading="eager"/>
+			<div class="absolute inset-0 bg-river-deep/65"></div>
+		</div>
+
+		<!-- Content -->
+		<div class="relative max-w-site mx-auto px-6 pb-20 md:pb-28 pt-32 md:pt-40">
+			<p class="hero-enter hero-enter-1 font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-4">
+				Missouri River &middot; Craig, Montana
+			</p>
+			<h1 class="hero-enter hero-enter-2 font-display font-bold text-h1-mob md:text-h1 text-ivory leading-tight mb-5 max-w-xl">
+				The Missouri.<br/>
+				Local guides.<br/>
+				No pretense.
 			</h1>
-			<p class="mt-6 max-w-xl text-[15px] font-light leading-relaxed text-ff-ash">
-				Replace this with a short paragraph about the client. Keep it to two or three sentences that explain what they do and why visitors should care.
+			<p class="hero-enter hero-enter-3 font-body font-light text-body text-ivory/70 leading-relaxed mb-8 max-w-hero-sub">
+				Born and raised on this river. Matt Mohar and a crew of seven guides
+				who actually live here &mdash; not a booking platform in waders.
 			</p>
-			<div class="mt-10 flex flex-wrap gap-4">
-				<a href="/contact" class="rounded-sm bg-ff-dusk px-[26px] py-[13px] text-[12px] font-medium uppercase tracking-[0.12em] text-white transition hover:bg-ff-dusk-hover active:scale-[0.98]">
-					Get in touch
+			<div class="hero-enter hero-enter-4 flex flex-wrap gap-4">
+				<a
+					href="/contact"
+					class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors"
+				>
+					Book a Trip
 				</a>
-				<a href="#services" class="rounded-sm px-[26px] py-[13px] text-[12px] font-medium uppercase tracking-[0.08em] text-ff-ash transition hover:text-ff-cream">
-					Learn more &gt;
+				<a
+					href="#guides"
+					class="font-body font-semibold text-eyebrow uppercase tracking-[0.08em] border border-ivory/35 text-ivory hover:bg-white/10 px-6 py-3 rounded-btn transition-colors"
+				>
+					Meet Our Guides
 				</a>
-			</div>
-		</div>
-		<!-- Subtle radial glow -->
-		<div class="pointer-events-none absolute -right-20 -top-[60px] h-[420px] w-[500px] bg-[radial-gradient(at_65%_30%,#1e2d52_0%,#161a24_55%,transparent_80%)]"></div>
-	</section>
-
-	<!-- Stats -->
-	<section class="border-y border-ff-border">
-		<div class="mx-auto grid max-w-5xl grid-cols-2 divide-x divide-ff-border sm:grid-cols-4">
-			@stat("100%", "Uptime SLA")
-			@stat("< 1s", "Page loads")
-			@stat("0", "WordPress dependencies")
-			@stat("24h", "Support response")
-		</div>
-	</section>
-
-	<!-- Services -->
-	<section id="services" class="py-24 sm:py-[80px]">
-		<div class="mx-auto max-w-5xl px-6 sm:px-12">
-			@eyebrow("What we offer")
-			<h2 class="mb-12 font-display text-[36px] font-medium tracking-tight text-ff-paper sm:text-[52px]">Services</h2>
-			<div class="grid gap-6 sm:grid-cols-3">
-				@serviceCard("Websites", "Fast, responsive marketing sites handcrafted with modern tools. No bloated page builders.")
-				@serviceCard("Development", "Custom software built to solve your specific problems, not shoehorned into a template.")
-				@serviceCard("Support", "Ongoing maintenance, updates, and a real person to call when something needs to change.")
 			</div>
 		</div>
 	</section>
 
-	<!-- CTA -->
-	<section class="relative overflow-hidden border-t border-ff-border">
-		<div class="mx-auto max-w-5xl px-6 py-24 text-center sm:px-12 sm:py-[80px]">
-			<h2 class="font-display text-[36px] font-medium tracking-tight text-ff-paper">Ready to start?</h2>
-			<p class="mx-auto mt-4 max-w-md text-ff-ash">
-				Tell us about your project. We'll get back to you within one business day.
-			</p>
-			<a href="/contact" class="mt-10 inline-block rounded-sm bg-ff-dusk px-[26px] py-[13px] text-[12px] font-medium uppercase tracking-[0.12em] text-white transition hover:bg-ff-dusk-hover active:scale-[0.98]">
-				Start a project
-			</a>
+	<!-- Stats Bar -->
+	<div class="w-full bg-river-deep border-t border-white/[0.06]">
+		<div class="max-w-site mx-auto px-6 py-7 grid grid-cols-2 md:grid-cols-4 gap-6">
+			@statBlock("20+", "Years on the Mo")
+			@statBlock("7", "Licensed Guides")
+			@statBlock("35mi", "Blue-Ribbon Water")
+			@statBlock("5K+", "Trout per Mile")
 		</div>
-		<!-- Subtle radial glow -->
-		<div class="pointer-events-none absolute -bottom-20 -left-[60px] h-[380px] w-[480px] bg-[radial-gradient(at_30%_70%,#1e2d52_0%,#161a24_55%,transparent_80%)]"></div>
+	</div>
+
+	<!-- Trip Options -->
+	<section id="trips" class="w-full py-16 md:py-24 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Float Trip Options
+			</p>
+			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-3">
+				Choose Your Day on the Water
+			</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed max-w-prose mb-10">
+				All trips include fly fishing gear and shuttle transportation. Full day trips include a shoreline lunch and cold drinks. Gratuity for your guide is not included &mdash; standard is $150 for a half day, $200 for a full day.
+			</p>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+				<!-- Featured: Full Day -->
+				<div class="bg-white border border-[#E0DBD2] border-l-[3px] border-l-teal rounded-card overflow-hidden">
+					<div class="aspect-[16/9] overflow-hidden">
+						<img src="/static/img/trips/full-day.jpg" alt="Anglers with a rainbow trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+					</div>
+					<div class="p-6">
+						<span class="font-body font-bold text-[0.5625rem] uppercase tracking-[0.08em] bg-teal text-white px-2 py-[3px] rounded-[2px] inline-block mb-2">
+							Most Popular
+						</span>
+						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Full Day &mdash; Single Boat</h3>
+						<p class="font-display font-bold text-price text-river-deep mb-1">$675</p>
+						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+							1&ndash;2 anglers &middot; 7&ndash;8 hours<br/>
+							Gear, lunch, drinks, shuttle included
+						</p>
+						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+							Book This Trip &rarr;
+						</a>
+					</div>
+				</div>
+
+				<!-- Half Day -->
+				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+					<div class="aspect-[16/9] overflow-hidden">
+						<img src="/static/img/trips/half-day.jpg" alt="Guide and angler with a brown trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+					</div>
+					<div class="p-6">
+						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
+							Half Day
+						</span>
+						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Half Day &mdash; Single Boat</h3>
+						<p class="font-display font-bold text-price text-river-deep mb-1">$575</p>
+						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+							1&ndash;2 anglers &middot; 4&ndash;5 hours<br/>
+							Gear and shuttle included &middot; No lunch
+						</p>
+						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+							Book This Trip &rarr;
+						</a>
+					</div>
+				</div>
+
+				<!-- Early Season -->
+				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+					<div class="aspect-[16/9] overflow-hidden">
+						<img src="/static/img/trips/off-season.png" alt="Angler with a brown trout in early season on the Missouri" class="w-full h-full object-cover" loading="lazy"/>
+					</div>
+					<div class="p-6">
+						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
+							Off Season
+						</span>
+						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Early Season Full Day</h3>
+						<p class="font-display font-bold text-price text-river-deep mb-1">$500</p>
+						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+							March&ndash;April only &middot; 1&ndash;2 anglers<br/>
+							Gear, lunch, drinks included
+						</p>
+						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+							Book This Trip &rarr;
+						</a>
+					</div>
+				</div>
+
+				<!-- Groups -->
+				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+					<div class="aspect-[16/9] overflow-hidden">
+						<img src="/static/img/trips/multiple-boats.jpg" alt="Two anglers with a rainbow trout on a group trip" class="w-full h-full object-cover" loading="lazy"/>
+					</div>
+					<div class="p-6">
+						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
+							Groups
+						</span>
+						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Full Day &mdash; Multiple Boats</h3>
+						<p class="font-display font-bold text-price text-river-deep mb-1">$675 <span class="font-body font-light text-body-sm text-stone">per boat</span></p>
+						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+							1&ndash;2 anglers per boat &middot; Parties of 3+<br/>
+							Gear, lunch, drinks included
+						</p>
+						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+							Book This Trip &rarr;
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
-}
 
-templ eyebrow(label string) {
-	<div class="mb-6 flex items-center gap-3">
-		<span class="block h-px w-7 bg-ff-dusk"></span>
-		<span class="text-[11px] font-medium uppercase tracking-[0.2em] text-ff-dusk">{ label }</span>
+	<!-- Guides Preview -->
+	<section id="guides" class="w-full py-16 md:py-24 bg-river-deep">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				The Crew
+			</p>
+			<h2 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+				Guides Who Live on the Water
+			</h2>
+			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose mb-10">
+				Seven licensed guides. Most of them fish this river on their days off.
+				You&rsquo;ll get someone who knows where the fish are, not where they were last season.
+			</p>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+				@guideCard("/static/img/guides/ria-french.jpg", "Ria French", "Ria French", "GUD-LIC-37359", "Great Falls native. Former paramedic turned full-time guide. On the Trout Unlimited board for the Missouri River Flyfishers chapter \u2014 she fishes this river when she\u2019s not working it.")
+				@guideCard("/static/img/guides/colter-day.jpg", "Colter Day", "Colter Day", "[VERIFY]", "Lifetime Montana local. Missouri River and Bitterroot specialist. Patient with beginners, pushes experienced anglers to fish better water.")
+				@guideCard("/static/img/guides/rain-keating.jpg", "Rain Keating", "Rain Keating", "[VERIFY]", "Guided the Snake, Flathead, and Green rivers before the Missouri got its hooks in him. He calls it home water now. His days off look a lot like his days on.")
+			</div>
+
+			<!-- TODO: Update href to /meet-our-guides when that page is built -->
+			<div class="mt-8 text-center">
+				<a
+					href="/contact"
+					class="font-body font-semibold text-eyebrow uppercase tracking-[0.08em] border border-ivory/35 text-ivory hover:bg-white/10 px-6 py-3 rounded-btn transition-colors inline-block"
+				>
+					Get in Touch &rarr;
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Heroes Program -->
+	<section id="heroes" class="w-full py-16 md:py-24 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+				<!-- Left col: copy -->
+				<div>
+					<div class="inline-flex items-center gap-2 border border-river-deep/20 bg-river-deep/5 rounded-[3px] px-3 py-2 mb-5">
+						<span class="font-body font-bold text-label uppercase tracking-[0.1em] text-river-deep">Montana Heroes Program</span>
+					</div>
+
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-stone mb-3">
+						Military &middot; Fire &middot; EMS &middot; Law Enforcement
+					</p>
+					<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-4">
+						A Full Day, at a Different Rate.
+					</h2>
+					<p class="font-body font-light text-body text-stone leading-relaxed mb-5">
+						Some people don&rsquo;t take enough days off. Matt built this program for the ones
+						who serve &mdash; active and retired military, National Guard, firefighters, search
+						and rescue, law enforcement, and EMTs. A full day on the Missouri, gear and
+						lunch included, at $500.
+					</p>
+
+					<p class="font-display font-bold text-[3rem] leading-none text-teal mb-1">$500</p>
+					<p class="font-body font-light text-body-sm text-stone mb-5">full day trip, gear and lunch included</p>
+
+					<ul class="mb-7 space-y-1">
+						<li class="font-body font-light text-body-sm text-stone">
+							<span class="text-river-deep/40 mr-2">&mdash;</span>Active and retired military
+						</li>
+						<li class="font-body font-light text-body-sm text-stone">
+							<span class="text-river-deep/40 mr-2">&mdash;</span>National Guard
+						</li>
+						<li class="font-body font-light text-body-sm text-stone">
+							<span class="text-river-deep/40 mr-2">&mdash;</span>Firefighters and search and rescue
+						</li>
+						<li class="font-body font-light text-body-sm text-stone">
+							<span class="text-river-deep/40 mr-2">&mdash;</span>Law enforcement and EMT/Paramedics
+						</li>
+					</ul>
+
+					<a
+						href="/contact?rate=heroes"
+						class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block"
+					>
+						Book the Heroes Rate
+					</a>
+				</div>
+
+				<!-- Right col: pull quote panel -->
+				<div class="bg-river-mid rounded-card p-8 flex flex-col justify-center min-h-[260px] md:sticky md:top-24">
+					<blockquote class="font-display italic text-[1.35rem] text-ivory leading-snug mb-4">
+						&ldquo;Taking people fishing is my passion.&rdquo;
+					</blockquote>
+					<p class="font-body font-light text-body-sm text-ivory/50 uppercase tracking-[0.08em]">
+						&mdash; Matt Mohar, Owner
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Reviews — hidden until real reviews are provided by client -->
+	<!-- TODO: Matt to provide 3 reviews — exact text, reviewer name, platform source (Google or Facebook) -->
+	<!--
+	<section id="reviews" class="w-full py-16 md:py-20 bg-white">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				What Anglers Say
+			</p>
+			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-10">
+				On the Water and After
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+				@reviewCard("[AWAITING CLIENT REVIEW]", "[Name]", "Google")
+				@reviewCard("[AWAITING CLIENT REVIEW]", "[Name]", "Facebook")
+				@reviewCard("[AWAITING CLIENT REVIEW]", "[Name]", "Google")
+			</div>
+
+			<div class="mt-8 text-center">
+				<a href="/read-our-reviews" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
+					Read All Reviews &rarr;
+				</a>
+			</div>
+		</div>
+	</section>
+	-->
+
+	<!-- About Matt -->
+	<section class="w-full py-16 md:py-24 bg-river-mid">
+		<div class="max-w-site mx-auto px-6">
+			<div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 items-start">
+				<!-- Photo -->
+				<div class="aspect-[3/4] bg-[#243d40] rounded-card overflow-hidden">
+					<img src="/static/img/matt-mohar.jpg" alt="Matt Mohar on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+				</div>
+
+				<!-- Copy -->
+				<div>
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">The Outfitter</p>
+					<h2 class="font-display font-bold text-h2 text-ivory leading-snug mb-1">Matt Mohar</h2>
+					<p class="font-body font-bold text-label uppercase tracking-[0.1em] text-teal mb-6">Owner &middot; Lo Mo Outfitting</p>
+					<p class="font-body font-light text-body text-ivory/70 leading-relaxed mb-4">
+						Born and raised in Helena, Montana. I&rsquo;ve been fly fishing the Missouri River { "for" } more than 20 years and guiding on it { "for" } close to ten. This is home water &mdash; not a destination I fly into { "for" } the season.
+					</p>
+					<p class="font-body font-light text-body text-ivory/70 leading-relaxed">
+						I built Lo Mo around guides who feel the same way. You won&rsquo;t get someone
+						reading the water { "for" } the first time. You&rsquo;ll fish with people who are out here on their days off.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Strip -->
+	<div class="w-full bg-teal-dark py-10">
+		<div class="max-w-site mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+			<div>
+				<h2 class="font-display font-bold text-[1.5rem] text-white leading-snug mb-1">Ready to book your trip?</h2>
+				<p class="font-body font-light text-body-sm text-white/70">Email to start. Call when you&rsquo;re ready to talk dates.</p>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-4">
+				<a
+					href="tel:+14065551234"
+					class="font-display font-bold text-[1.2rem] text-white bg-white/15 px-4 py-2 rounded-[3px]"
+				>
+					[PHONE]
+				</a>
+				<a
+					href="mailto:matt@lomooutfitting.com"
+					class="font-body font-light text-body-sm text-white/75 underline"
+				>
+					matt@lomooutfitting.com
+				</a>
+				<a
+					href="/contact"
+					class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-river-deep hover:bg-river-mid text-ivory px-6 py-3 rounded-btn transition-colors"
+				>
+					Book Online &rarr;
+				</a>
+			</div>
+		</div>
 	</div>
 }
 
-templ stat(value, label string) {
-	<div class="px-6 py-8 text-center">
-		<p class="font-display text-[22px] font-medium text-ff-paper">{ value }</p>
-		<p class="mt-1 text-[13px] text-ff-ash">{ label }</p>
+templ statBlock(value, label string) {
+	<div class="text-center">
+		<span class="font-display font-bold text-stat text-teal block">{ value }</span>
+		<span class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/40 mt-1 block">{ label }</span>
 	</div>
 }
 
-templ serviceCard(title, description string) {
-	<div class="rounded border border-ff-border bg-ff-panel p-7 transition hover:border-[#5b7ec452]">
-		<h3 class="mb-2 font-display text-[22px] font-medium text-ff-paper">{ title }</h3>
-		<p class="text-[13px] font-light leading-relaxed text-ff-ash">{ description }</p>
+templ guideCard(photo, alt, name, license, bio string) {
+	<div class="bg-river-mid rounded-card overflow-hidden">
+		<!-- Photo slot -->
+		<div class="aspect-[3/4] bg-[#243d40] relative">
+			<img src={ photo } alt={ alt } class="w-full h-full object-cover" loading="lazy"/>
+			<!-- License badge -->
+			<div class="absolute bottom-3 left-3 bg-river-deep/85 px-2 py-1 rounded-[2px]">
+				<span class="font-body font-bold text-[0.5rem] uppercase tracking-[0.08em] text-teal">{ license }</span>
+			</div>
+		</div>
+		<!-- Info -->
+		<div class="p-4">
+			<h3 class="font-display font-bold text-base text-ivory mb-2">{ name }</h3>
+			<p class="font-body font-light text-body-sm text-ivory/60 leading-relaxed">
+				{ bio }
+			</p>
+		</div>
+	</div>
+}
+
+templ reviewCard(quote, reviewer, platform string) {
+	<div class="bg-bone rounded-card p-6">
+		<p class="text-teal text-sm tracking-[0.15em] mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+		<blockquote class="font-display italic text-body text-river-deep leading-relaxed mb-3">
+			&ldquo;{ quote }&rdquo;
+		</blockquote>
+		<p class="font-body font-bold text-label uppercase tracking-[0.06em] text-stone">
+			&mdash; { reviewer } &middot; { platform }
+		</p>
 	</div>
 }
