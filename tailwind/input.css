@@ -41,7 +41,10 @@
 
   /* Focus indicators for keyboard navigation */
   a:focus-visible,
-  button:focus-visible {
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
     outline: 2px solid var(--teal);
     outline-offset: 2px;
   }
@@ -75,3 +78,7 @@
     animation: none;
   }
 }
+
+/* HTMX submit button text swap */
+button[disabled] .htmx-indicator-hide { display: none; }
+button[disabled] .htmx-indicator-show { display: inline; }
