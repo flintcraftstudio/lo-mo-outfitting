@@ -46,7 +46,7 @@ templ homeContent() {
 
 	<!-- Stats Bar -->
 	<div class="w-full bg-river-deep border-t border-white/[0.06]">
-		<div class="max-w-site mx-auto px-6 py-7 grid grid-cols-2 md:grid-cols-4 gap-6">
+		<div class="max-w-site mx-auto px-6 py-10 md:py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
 			@statBlock("20+", "Years on the Mo")
 			@statBlock("7", "Licensed Guides")
 			@statBlock("35mi", "Blue-Ribbon Water")
@@ -67,27 +67,28 @@ templ homeContent() {
 				All trips include fly fishing gear and shuttle transportation. Full day trips include a shoreline lunch and cold drinks. Gratuity for your guide is not included &mdash; standard is $150 for a half day, $200 for a full day.
 			</p>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-				<!-- Featured: Full Day -->
-				<div class="bg-white border border-[#E0DBD2] border-l-[3px] border-l-teal rounded-card overflow-hidden">
-					<div class="aspect-[16/9] overflow-hidden">
-						<img src="/static/img/trips/full-day.jpg" alt="Anglers with a rainbow trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
-					</div>
-					<div class="p-6">
-						<span class="font-body font-bold text-[0.5625rem] uppercase tracking-[0.08em] bg-teal text-white px-2 py-[3px] rounded-[2px] inline-block mb-2">
-							Most Popular
-						</span>
-						<h3 class="font-display font-bold text-h3 text-river-deep mb-1">Full Day &mdash; Single Boat</h3>
-						<p class="font-display font-bold text-price text-river-deep mb-1">$675</p>
-						<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
-							1&ndash;2 anglers &middot; 7&ndash;8 hours<br/>
-							Gear, lunch, drinks, shuttle included
-						</p>
-						<a href="/contact" class="font-body font-bold text-label uppercase tracking-[0.08em] text-teal hover:text-teal-dark transition-colors">
-							Book This Trip &rarr;
-						</a>
-					</div>
+			<!-- Featured: Full Day -->
+			<div class="bg-river-deep border border-river-deep rounded-card overflow-hidden mb-4 sm:bg-white sm:border-[#E0DBD2] sm:border-l-[3px] sm:border-l-teal sm:grid sm:grid-cols-[1fr_1.2fr]">
+				<div class="aspect-[4/3] sm:aspect-auto sm:min-h-full overflow-hidden">
+					<img src="/static/img/trips/full-day.jpg" alt="Anglers with a rainbow trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
 				</div>
+				<div class="p-6 sm:p-8 flex flex-col justify-center">
+					<span class="font-body font-bold text-[0.5625rem] uppercase tracking-[0.08em] bg-teal text-white px-2 py-[3px] rounded-[2px] inline-block mb-3 self-start">
+						Most Popular
+					</span>
+					<h3 class="font-display font-bold text-h2 text-ivory sm:text-river-deep mb-1">Full Day &mdash; Single Boat</h3>
+					<p class="font-display font-bold text-[1.75rem] text-ivory sm:text-river-deep mb-2">$675</p>
+					<p class="font-body font-light text-body text-ivory/60 sm:text-stone leading-relaxed mb-5">
+						1&ndash;2 anglers &middot; 7&ndash;8 hours<br/>
+						Gear, lunch, drinks, shuttle included
+					</p>
+					<a href="/contact" class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-6 py-3 rounded-btn transition-colors inline-block self-start">
+						Book This Trip &rarr;
+					</a>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
 				<!-- Half Day -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
@@ -323,22 +324,22 @@ templ homeContent() {
 	</section>
 
 	<!-- CTA -->
-	<section class="w-full py-section bg-bone">
+	<section class="w-full py-16 md:py-24 bg-river-deep">
 		<div class="max-w-site mx-auto px-6 text-center">
-			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">Ready to book your trip?</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
+			<h2 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">Ready to Book Your Trip?</h2>
+			<p class="font-body font-light text-body text-ivory/60 leading-relaxed mb-10">
 				Email to start. Call when you&rsquo;re ready to talk dates.
 			</p>
 			<a
 				href="/contact"
-				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block mb-6"
+				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block mb-8"
 			>
 				Book Online &rarr;
 			</a>
-			<p class="font-body font-light text-body-sm text-stone flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-0">
-				<a href="tel:+14064652235" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">(406) 465-2235</a>
-				<span class="hidden sm:inline mx-2 text-stone/40">&middot;</span>
-				<a href="mailto:matt@lomooutfitting.com" class="text-river-deep hover:text-teal transition-colors py-2 sm:py-0">matt@lomooutfitting.com</a>
+			<p class="font-body font-light text-body-sm text-ivory/40 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-0">
+				<a href="tel:+14064652235" class="text-ivory/60 hover:text-teal transition-colors py-2 sm:py-0">(406) 465-2235</a>
+				<span class="hidden sm:inline mx-2 text-ivory/20">&middot;</span>
+				<a href="mailto:matt@lomooutfitting.com" class="text-ivory/60 hover:text-teal transition-colors py-2 sm:py-0">matt@lomooutfitting.com</a>
 			</p>
 		</div>
 	</section>
@@ -346,8 +347,8 @@ templ homeContent() {
 
 templ statBlock(value, label string) {
 	<div class="text-center">
-		<span class="font-display font-bold text-stat text-teal block">{ value }</span>
-		<span class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/40 mt-1 block">{ label }</span>
+		<span class="font-display font-bold text-[2.75rem] leading-none text-teal block">{ value }</span>
+		<span class="font-body font-semibold text-eyebrow uppercase tracking-[0.12em] text-ivory/40 mt-3 block">{ label }</span>
 	</div>
 }
 
@@ -356,10 +357,12 @@ templ guideCard(photo, alt, name, license, bio string) {
 		<!-- Photo slot -->
 		<div class="aspect-[3/4] bg-[#243d40] relative">
 			<img src={ photo } alt={ alt } class="w-full h-full object-cover" loading="lazy"/>
-			<!-- License badge -->
-			<div class="absolute bottom-3 left-3 bg-river-deep/85 px-2 py-1 rounded-[2px]">
-				<span class="font-body font-bold text-[0.5rem] uppercase tracking-[0.08em] text-teal">{ license }</span>
-			</div>
+			if license != "" && license[0] != '[' {
+				<!-- License badge -->
+				<div class="absolute bottom-3 left-3 bg-river-deep/85 px-3 py-1 rounded-full">
+					<span class="font-body font-bold text-[0.5rem] uppercase tracking-[0.08em] text-teal">{ license }</span>
+				</div>
+			}
 		</div>
 		<!-- Info -->
 		<div class="p-4">
