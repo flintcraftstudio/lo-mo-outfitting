@@ -9,9 +9,8 @@ Lo Mo Outfitting — a brochure website for a Montana fly fishing outfitter. Bui
 ## Build & Dev Commands
 
 ```bash
+mage Dev               # build CSS + templ generate + run server on :8080
 mage InstallTailwind   # download Tailwind standalone CLI (one-time)
-mage Dev               # watch mode for CSS (terminal 1)
-go run ./cmd/server    # run server on :8080 (terminal 2)
 mage Build             # full production build: CSS + templ generate + go build
 mage BuildCSS          # compile Tailwind only
 mage GenerateTempl     # run templ generate only
@@ -19,7 +18,7 @@ mage BuildGo           # templ generate + go build (outputs ./bin/server)
 docker compose up      # run via Docker
 ```
 
-After editing `.templ` files, run `templ generate` before `go run` or `go build`.
+`mage Dev` is the recommended way to develop. It builds CSS, generates templ, and starts the server in one command.
 
 ## Architecture
 

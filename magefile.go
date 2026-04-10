@@ -63,15 +63,15 @@ func Build() error {
 	return BuildGo()
 }
 
-// Dev runs Tailwind in watch mode (run `go run ./cmd/server` in a second terminal)
+// Dev builds CSS, generates templ, and runs the server.
 func Dev() error {
-	return sh.Run(
-		tailwindBinaryPath(),
-		"-c", "./tailwind/tailwind.config.js",
-		"-i", "./tailwind/input.css",
-		"-o", "./web/static/css/site.css",
-		"--watch",
-	)
+	if err := BuildCSS(); err != nil {
+		return err
+	}
+	if err := GenerateTempl(); err != nil {
+		return err
+	}
+	return sh.Run("go", "run", "./cmd/server")
 }
 
 // Run starts the server

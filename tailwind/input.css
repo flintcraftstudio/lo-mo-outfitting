@@ -79,6 +79,77 @@
   }
 }
 
+/* Star entrance — scale + fade, one at a time */
+@keyframes star-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.star-enter {
+  opacity: 0;
+  animation: star-pop 0.35s ease-out forwards;
+}
+
+.star-enter-1 { animation-delay: 0.15s; }
+.star-enter-2 { animation-delay: 0.3s; }
+.star-enter-3 { animation-delay: 0.45s; }
+.star-enter-4 { animation-delay: 0.6s; }
+.star-enter-5 { animation-delay: 0.75s; }
+
+/* Rating text fades in after stars finish */
+.rating-enter {
+  opacity: 0;
+  animation: hero-fade-up 0.5s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+/* Review card scroll entrance */
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.review-card {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.review-card.is-visible {
+  animation: card-rise 0.5s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-enter,
+  .rating-enter {
+    opacity: 1;
+    animation: none;
+  }
+
+  .review-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .review-card.is-visible {
+    animation: none;
+  }
+}
+
 /* HTMX submit button text swap */
 button[disabled] .htmx-indicator-hide { display: none; }
 button[disabled] .htmx-indicator-show { display: inline; }
