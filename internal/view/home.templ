@@ -224,34 +224,42 @@ templ homeContent() {
 	<!-- On the Water — Vimeo facade (iframe loads on click, not on page load) -->
 	<section class="w-full py-16 md:py-24 bg-white">
 		<div class="max-w-site mx-auto px-6">
-			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-				On the Water
-			</p>
-			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-3">
-				This Is What a Day Looks Like
-			</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed max-w-prose mb-8">
-				No stock footage. This is the Missouri from the drift boat &mdash; the water, the fish, the kind of day you book.
-			</p>
-			<div
-				class="vimeo-facade relative w-full rounded-card bg-river-deep"
-				style="aspect-ratio:16/9;"
-				data-vimeo-id="1054620835"
-				data-vimeo-hash="d4e8ab9317"
-				role="button"
-				tabindex="0"
-				aria-label="Play video: a day on the Missouri River"
-			>
-				<!-- Poster image — Vimeo thumbnail -->
-				<img
-					src="https://vumbnail.com/1054620835.jpg"
-					alt="Fish swimming beside the drift boat on the Missouri River"
-					class="absolute inset-0 w-full h-full object-cover rounded-card"
-					loading="lazy"
-				/>
-				<!-- Play button -->
-				<div class="facade-play">
-					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+			<div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 items-center">
+				<!-- Copy -->
+				<div>
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						On the Water
+					</p>
+					<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-3">
+						This Is What a Day Looks Like
+					</h2>
+					<p class="font-body font-light text-body text-stone leading-relaxed mb-8 md:mb-0">
+						No stock footage. This is the Missouri from the drift boat &mdash; the water, the fish, the kind of day you book.
+					</p>
+				</div>
+				<!-- Vertical video -->
+				<div class="flex justify-center">
+					<div
+						class="vimeo-facade relative rounded-card bg-river-deep w-full max-w-[360px]"
+						style="aspect-ratio:9/16;"
+						data-vimeo-id="1054620835"
+						data-vimeo-hash="d4e8ab9317"
+						role="button"
+						tabindex="0"
+						aria-label="Play video: a day on the Missouri River"
+					>
+						<!-- Poster image — Vimeo thumbnail -->
+						<img
+							src="https://vumbnail.com/1054620835.jpg"
+							alt="Fish swimming beside the drift boat on the Missouri River"
+							class="absolute inset-0 w-full h-full object-cover rounded-card"
+							loading="lazy"
+						/>
+						<!-- Play button -->
+						<div class="facade-play">
+							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
