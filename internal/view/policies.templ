@@ -1,0 +1,368 @@
+package view
+
+templ PoliciesPage() {
+	@Base("Trip Policies & FAQ", "Booking policies, cancellation terms, youth angler rules, and frequently asked questions for Lo Mo Outfitting float trips on the Missouri River.", policiesContent())
+}
+
+templ policiesContent() {
+	<!-- Hero header -->
+	<section class="w-full bg-river-deep py-16 md:py-20">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Before You Book
+			</p>
+			<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+				Policies &amp; FAQ
+			</h1>
+			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose">
+				Read through before submitting a booking request. Most questions are answered here.
+				If something isn&rsquo;t covered, email Matt directly at
+				<a href="mailto:matt@lomooutfitting.com" class="text-teal hover:text-teal-dark transition-colors">matt@lomooutfitting.com</a>.
+			</p>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="w-full py-16 md:py-24 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Frequently Asked Questions
+			</p>
+			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-10">
+				Common Questions
+			</h2>
+
+			<div class="space-y-6 max-w-3xl">
+				@faqItem("How do I request a booking?", faqBooking())
+				@faqItem("What does the deposit cover?", faqDeposit())
+				@faqItem("What do I need to bring?", faqBring())
+				@faqItem("Do I need a Montana fishing license?", faqLicense())
+				@faqItem("Where do I stay?", faqLodging())
+				@faqItem("How do I get to Craig?", faqDirections())
+				@faqItem("What if I've never fly fished before?", faqBeginners())
+				@faqItem("Can I bring my kids?", faqKids())
+				@faqItem("What about gratuity?", faqGratuity())
+			</div>
+		</div>
+	</section>
+
+	<!-- Policies Section -->
+	<section class="w-full py-16 md:py-24 bg-river-mid">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Trip Policies
+			</p>
+			<h2 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+				What to Expect
+			</h2>
+			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose mb-12">
+				These policies apply to all Lo Mo Outfitting bookings. Read them before submitting a request.
+			</p>
+
+			<div class="space-y-10 max-w-3xl">
+				<!-- Angler Expectations -->
+				@policyBlock("Angler Expectations", anglerExpectations())
+				<!-- Youth Angler Policy -->
+				@policyBlock("Youth Angler Policy", youthPolicy())
+				<!-- What Guides Provide -->
+				@policyBlock("What Guides Provide", guidesProvide())
+				<!-- Gratuity -->
+				@policyBlock("Gratuity", gratuityPolicy())
+				<!-- Cancellation Policy -->
+				@policyBlock("Cancellation Policy", cancellationPolicy())
+				<!-- Multiple Boat Trip Policies -->
+				@policyBlock("Multiple Boat Trip Policies", multiBoatPolicy())
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="w-full py-section bg-bone">
+		<div class="max-w-site mx-auto px-6 text-center">
+			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">Ready to book?</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
+				Questions not covered here? Email Matt at
+				<a href="mailto:matt@lomooutfitting.com" class="text-river-deep hover:text-teal transition-colors">matt@lomooutfitting.com</a>
+				&mdash; he&rsquo;ll get back to you within one business day.
+			</p>
+			<a
+				href="/contact"
+				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block"
+			>
+				Submit a Booking Request &rarr;
+			</a>
+		</div>
+	</section>
+}
+
+// --- FAQ answer components ---
+
+templ faqItem(question string, answer templ.Component) {
+	<details class="group bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+		<summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-display font-bold text-h3 text-river-deep leading-snug select-none">
+			{ question }
+			<svg class="w-5 h-5 text-stone/50 transition-transform group-open:rotate-180 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+			</svg>
+		</summary>
+		<div class="px-6 pb-6 font-body font-light text-body-sm text-stone leading-relaxed">
+			@answer
+		</div>
+	</details>
+}
+
+templ faqBooking() {
+	<p>
+		Fill out the booking form at <a href="/contact" class="text-teal hover:text-teal-dark transition-colors">lomooutfitting.com/booking</a>.
+		Include your preferred dates, trip type, number of anglers, and whether any anglers are youth.
+		Matt will confirm availability and send a deposit link within one business day.
+	</p>
+}
+
+templ faqDeposit() {
+	<p class="mb-4">
+		The deposit is 80% of the total trip fee, paid at time of booking to hold your date.
+		The remaining 20% is paid to the guide on the day of your trip.
+	</p>
+	<div class="overflow-x-auto">
+		<table class="w-full text-left border-collapse">
+			<thead>
+				<tr class="border-b border-[#E0DBD2]">
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-river-deep py-2 pr-4">Trip</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-river-deep py-2 pr-4">Total</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-river-deep py-2 pr-4">Deposit (80%)</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-river-deep py-2">Day-of (20%)</th>
+				</tr>
+			</thead>
+			<tbody class="text-stone">
+				@depositRow("Full Day — Single Boat", "$675", "$540", "$135")
+				@depositRow("Half Day — Single Boat", "$575", "$460", "$115")
+				@depositRow("Early Season Full Day", "$500", "$400", "$100")
+				@depositRow("Heroes Program — Full Day", "$500", "$400", "$100")
+				@depositRow("Multiple Boats", "$675/boat", "$540/boat", "$135/boat")
+			</tbody>
+		</table>
+	</div>
+}
+
+templ depositRow(trip, total, deposit, dayOf string) {
+	<tr class="border-b border-[#E0DBD2]/50">
+		<td class="py-2 pr-4">{ trip }</td>
+		<td class="py-2 pr-4">{ total }</td>
+		<td class="py-2 pr-4">{ deposit }</td>
+		<td class="py-2">{ dayOf }</td>
+	</tr>
+}
+
+templ faqBring() {
+	<p class="mb-3">
+		The guides provide all fly fishing gear &mdash; rods, reels, flies, and terminal tackle.
+		Full day trips include a shoreline lunch and cold drinks. What you need to bring:
+	</p>
+	<ul class="list-disc pl-5 space-y-1 mb-3">
+		<li>Layers appropriate { "for" } the weather. Montana weather changes quickly on the water.</li>
+		<li>Hat and polarized sunglasses.</li>
+		<li>Sunscreen and bug spray.</li>
+		<li>Closed-toe shoes or water shoes. Waders are not required from a drift boat.</li>
+		<li>All personal items in one small to medium duffle bag &mdash; drift boats have limited storage.</li>
+	</ul>
+	<p>
+		Guides do not provide waders, rain gear, or any clothing. If you need waders, fly shops in Craig and Wolf Creek carry gear and can outfit you before your trip.
+	</p>
+}
+
+templ faqLicense() {
+	<p class="mb-3">
+		Yes. All anglers 12 and older are required by Montana law to purchase a fishing license before the trip date.
+		Licenses are purchased through Montana Fish, Wildlife &amp; Parks &mdash; not through Lo Mo Outfitting.
+	</p>
+	<p class="mb-3">
+		Purchase at: <a href="https://fwp.mt.gov/buyandapply/fishinglicenses" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">fwp.mt.gov/buyandapply/fishinglicenses</a>
+	</p>
+	<p>License fees are set by the state and are separate from your trip cost.</p>
+}
+
+templ faqLodging() {
+	<p class="mb-3">All trips launch from around Craig, Montana. Lodging options:</p>
+	<ul class="list-disc pl-5 space-y-1 mb-3">
+		<li><strong>Craig</strong> &mdash; Several lodges and cabins on or near the river. Book early, especially { "for" } peak season (June&ndash;August).</li>
+		<li><strong>Wolf Creek</strong> &mdash; 15 minutes south of Craig, additional lodging options.</li>
+		<li><strong>Helena</strong> &mdash; 45 minutes south via I-15. Full range of hotels. Good option if you want city amenities.</li>
+		<li><strong>Great Falls</strong> &mdash; 55 minutes north. Full range of hotels.</li>
+		<li>Tent and RV camping is also available in the area.</li>
+	</ul>
+	<p>Matt will confirm your meeting location before the trip based on where you&rsquo;re staying.</p>
+}
+
+templ faqDirections() {
+	<p>
+		Craig is on I-15, Exit 234, between Helena and Great Falls. If flying in, Helena Regional Airport (HLN) and
+		Great Falls International Airport (GTF) are both within an hour. Car rental is available at both airports.
+		Matt will confirm the exact meeting location closer to your trip date.
+	</p>
+}
+
+templ faqBeginners() {
+	<p>
+		Beginners are welcome. Tell Matt when you book &mdash; he&rsquo;ll match you with a guide who enjoys teaching.
+		The Missouri River is a great place to learn. Most first-timers catch fish.
+	</p>
+}
+
+templ faqKids() {
+	<p class="mb-3">
+		Children 6 and older are welcome. For safety reasons, children 5 and younger cannot be accommodated on the boats.
+	</p>
+	<p>
+		Youth anglers 12 and under must be accompanied by a parent or guardian and count as one of the 2 anglers per boat.
+		Per Montana State Boating Regulations (MCA Title 23, Chapter 2, Part 6), children under 12 must wear a
+		U.S. Coast Guard approved life vest at all times on the boat.
+	</p>
+}
+
+templ faqGratuity() {
+	<p>
+		Gratuity is not included in the trip price and is not required, but it is appreciated.
+		Standard gratuity is $150 { "for" } a half day trip and $200 { "for" } a full day trip, per guide.
+		For multiple-boat trips, tip each guide individually.
+	</p>
+}
+
+// --- Policy block components ---
+
+templ policyBlock(title string, content templ.Component) {
+	<div class="border-l-2 border-teal pl-6">
+		<h3 class="font-display font-bold text-h3 text-ivory mb-3">{ title }</h3>
+		<div class="font-body font-light text-body-sm text-ivory/65 leading-relaxed">
+			@content
+		</div>
+	</div>
+}
+
+templ anglerExpectations() {
+	<p class="mb-3">All anglers are required to:</p>
+	<ul class="list-disc pl-5 space-y-1">
+		<li>Purchase a valid Montana fishing license { "for" } every angler 12 and older before the trip date.</li>
+		<li>Dress appropriately { "for" } expected weather conditions &mdash; including layers, a hat, sunglasses, and closed-toe shoes.</li>
+		<li>Be on time to the meeting location confirmed by Matt before the trip.</li>
+		<li>Keep all personal items in one small to medium duffle bag. Drift boats have limited storage.</li>
+	</ul>
+}
+
+templ youthPolicy() {
+	<ul class="list-disc pl-5 space-y-1">
+		<li>Children 5 and younger cannot be accommodated { "for" } safety reasons.</li>
+		<li>Youth anglers 12 and under must be accompanied by a parent or guardian at all times.</li>
+		<li>Youth anglers 12 and under count as one of the 2 anglers per boat.</li>
+		<li>Per Montana State Boating Regulations (MCA Title 23, Chapter 2, Part 6), children under 12 must wear a U.S. Coast Guard approved life vest at all times on the boat.</li>
+	</ul>
+}
+
+templ guidesProvide() {
+	<p class="mb-3">
+		<strong class="text-ivory/80">Full day trips:</strong> Fly fishing gear, shoreline lunch, cold soft drinks, shuttle transportation.
+	</p>
+	<p class="mb-3">
+		<strong class="text-ivory/80">Half day trips:</strong> Fly fishing gear, cold soft drinks, shuttle transportation. No meal is provided on half day trips.
+	</p>
+	<p>
+		Guides do not provide: waders, rain gear, coats, sunscreen, bug spray, medications, or personal items. These are the responsibility of the angler.
+	</p>
+}
+
+templ gratuityPolicy() {
+	<p>
+		Standard gratuity is $150 per guide { "for" } a half day trip and $200 per guide { "for" } a full day trip.
+		For multiple-boat trips, tip each guide individually. Gratuity is not included in the trip price and is appreciated but not required.
+	</p>
+}
+
+templ cancellationPolicy() {
+	<p class="mb-4">
+		<strong class="text-ivory/80">14 or more days&rsquo; notice:</strong> 50% of the deposit is returned.
+	</p>
+	<div class="overflow-x-auto mb-4">
+		<table class="w-full text-left border-collapse">
+			<thead>
+				<tr class="border-b border-ivory/20">
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2 pr-4">Trip</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2 pr-4">Deposit Paid</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2">Refund (50%)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">Full Day Single Boat</td>
+					<td class="py-2 pr-4">$540</td>
+					<td class="py-2">$270</td>
+				</tr>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">Half Day Single Boat</td>
+					<td class="py-2 pr-4">$460</td>
+					<td class="py-2">$230</td>
+				</tr>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">Early Season / Heroes</td>
+					<td class="py-2 pr-4">$400</td>
+					<td class="py-2">$200</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p class="mb-3">
+		<strong class="text-ivory/80">Less than 14 days&rsquo; notice:</strong> No refund, unless a detailed explanation is provided.
+		To request a refund, email <a href="mailto:matt@lomooutfitting.com" class="text-teal hover:text-teal-dark transition-colors">matt@lomooutfitting.com</a> with
+		the subject line &ldquo;Refund&rdquo; before the trip date. All requests are considered case by case and require a conversation with Matt.
+	</p>
+	<p class="mb-3">
+		<strong class="text-ivory/80">After the trip is completed:</strong> No refunds.
+	</p>
+	<p>
+		<strong class="text-ivory/80">Weather cancellation:</strong> Weather cancellations are determined by the Outfitter only, with 24&ndash;72 hours notice. If a weather cancellation occurs, anglers may roll over to another available date at current rates or receive a full return of the deposit paid at booking.
+	</p>
+}
+
+templ multiBoatPolicy() {
+	<p class="mb-3">
+		Multiple boat trips are { "for" } parties of 3 or more anglers. Maximum 2 anglers per boat.
+	</p>
+	<ul class="list-disc pl-5 space-y-1 mb-4">
+		<li>Multiple boat bookings are always full day (7&ndash;8 hours).</li>
+		<li>Deposit of 80% per boat is due at time of booking to hold all boats.</li>
+		<li>Remaining 20% per boat is paid day of trip.</li>
+	</ul>
+	<p class="mb-4">
+		<strong class="text-ivory/80">Example:</strong> A two-boat trip totals $1,350. Deposit at booking: $1,080. Day-of payment: $270.
+	</p>
+	<div class="overflow-x-auto mb-4">
+		<table class="w-full text-left border-collapse">
+			<thead>
+				<tr class="border-b border-ivory/20">
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2 pr-4">Boats</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2 pr-4">Deposit Paid</th>
+					<th class="font-body font-semibold text-label uppercase tracking-[0.1em] text-ivory/60 py-2">Refund (14+ days)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">2 boats</td>
+					<td class="py-2 pr-4">$1,080</td>
+					<td class="py-2">$675</td>
+				</tr>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">3 boats</td>
+					<td class="py-2 pr-4">$1,620</td>
+					<td class="py-2">$1,012.50</td>
+				</tr>
+				<tr class="border-b border-ivory/10">
+					<td class="py-2 pr-4">4+ boats</td>
+					<td class="py-2 pr-4">varies</td>
+					<td class="py-2">No refund</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p>
+		Less than 14 days&rsquo; notice: No refund. See standard cancellation policy above { "for" } refund request process. Weather cancellation terms are identical to single-boat trips.
+	</p>
+}

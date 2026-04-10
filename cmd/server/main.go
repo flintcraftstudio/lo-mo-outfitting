@@ -75,6 +75,9 @@ func main() {
 	mux.Handle("GET /guides", handler.Guides())
 	mux.Handle("GET /contact", handler.Contact())
 	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey, db))
+	mux.Handle("GET /policies", handler.Policies())
+	mux.Handle("GET /reviews", handler.Reviews())
+	mux.Handle("GET /store", handler.Store())
 
 	// Admin auth routes (public)
 	mux.Handle("GET /admin/login", adminhandler.LoginPage())
