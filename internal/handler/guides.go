@@ -7,10 +7,10 @@ import (
 	"github.com/firefly-software-mt/standard-template/internal/view"
 )
 
-// Store handles GET /store and renders the store page.
-func Store() http.HandlerFunc {
+// Guides handles GET /guides and renders the guides page.
+func Guides() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if err := view.StorePage().Render(r.Context(), w); err != nil {
+		if err := view.GuidesPage().Render(r.Context(), w); err != nil {
 			slog.Error("render error", "err", err)
 		}
 	}

@@ -5,142 +5,221 @@ templ StorePage() {
 }
 
 templ storeContent() {
-	<!-- Hero header -->
-	<section class="w-full bg-river-deep py-16 md:py-20">
-		<div class="max-w-site mx-auto px-6">
-			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-				Lo Mo Outfitting
-			</p>
-			<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
-				The Lo Mo Store
-			</h1>
-			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose">
-				Gear and apparel from Lo Mo Outfitting. Email Matt to place an order &mdash;
-				include what you want, size, quantity, and your shipping address.
-			</p>
-		</div>
-	</section>
-
-	<!-- Team photo -->
-	<section class="w-full">
+	<!-- Hero — stacked on mobile, side-by-side on desktop -->
+	<section class="w-full bg-river-deep">
 		<div class="max-w-site mx-auto">
-			<img
-				src="/static/img/store/lomo-team-gear.jpg"
-				alt="The Lo Mo Outfitting team showing off their gear"
-				class="w-full h-[280px] md:h-[360px] object-cover"
-				loading="eager"
-			/>
+			<div class="grid grid-cols-1 md:grid-cols-2">
+				<!-- Copy -->
+				<div class="px-6 py-16 md:py-24 flex flex-col justify-center">
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-ivory/40 mb-3">
+						Lo Mo Outfitting
+					</p>
+					<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+						The Lo Mo Store
+					</h1>
+					<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose mb-8">
+						Sun hoodies, t-shirts, hats, and mugs &mdash; all with the Lo Mo logo.
+						Email Matt with the item, color, size, quantity, and your shipping address.
+					</p>
+					<div class="flex flex-col sm:flex-row items-start gap-3">
+						<a
+							href="mailto:matt@lomooutfitting.com"
+							class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block"
+						>
+							Email Matt to Order &rarr;
+						</a>
+						<a href="tel:+14064652235" class="font-body font-light text-body-sm text-ivory/50 hover:text-ivory transition-colors py-3">
+							(406) 465-2235
+						</a>
+					</div>
+				</div>
+				<!-- Team photo -->
+				<div class="h-[280px] md:h-auto">
+					<img
+						src="/static/img/store/lomo-team-gear.jpg"
+						alt="The Lo Mo Outfitting team showing off their gear"
+						class="w-full h-full object-cover object-top"
+						loading="eager"
+					/>
+				</div>
+			</div>
 		</div>
 	</section>
 
-	<!-- Men's Sun Hoodies -->
+	<!-- Men's Sun Hoodies — editorial lookbook -->
 	<section class="w-full py-16 md:py-24 bg-bone">
 		<div class="max-w-site mx-auto px-6">
-			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-				Sun Hoodies
-			</p>
-			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-2">
-				Men&rsquo;s Sun Hoodies
-			</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
-				$45 &middot; Sizes M&ndash;XL
-			</p>
+			<div class="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-12 items-start mb-10">
+				<div>
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						Sun Hoodies
+					</p>
+					<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-1">
+						Men&rsquo;s Sun Hoodies
+					</h2>
+					<p class="font-body font-light text-body text-stone leading-relaxed">
+						Long-sleeve sun hoodies with the Lo Mo logo on the back.
+						Five colors. Sizes M&ndash;XL.
+					</p>
+				</div>
+				<p class="font-display font-bold text-[2.5rem] text-river-deep leading-none md:text-right">
+					$45
+				</p>
+			</div>
 
-			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-				@storeProductCard("/static/img/store/mens-hoodie-white.jpg", "Men's Sun Hoodie — White", "White")
-				@storeProductCard("/static/img/store/mens-hoodie-black.png", "Men's Sun Hoodie — Black", "Black")
-				@storeProductCard("/static/img/store/mens-hoodie-turquoise.png", "Men's Sun Hoodie — Turquoise", "Turquoise")
-				@storeProductCard("/static/img/store/mens-hoodie-blue.png", "Men's Sun Hoodie — Blue", "Blue")
-				@storeProductCard("/static/img/store/mens-hoodie-olive.png", "Men's Sun Hoodie — Olive", "Olive")
+			<!-- Featured image + color gallery -->
+			<div class="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4 md:gap-6">
+				<!-- Hero: on-model shot -->
+				<div class="overflow-hidden rounded-card bg-[#f5f3ee]">
+					<img
+						src="/static/img/store/mens-hoodie-white-model.jpg"
+						alt="Men's white sun hoodie with Lo Mo Outfitting logo on back, worn by model"
+						class="w-full h-full object-cover aspect-[3/4] md:aspect-[4/3]"
+						loading="lazy"
+					/>
+				</div>
+				<!-- Color options — 2x2 grid -->
+				<div class="grid grid-cols-2 gap-4 md:gap-6">
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-black.jpg", "Men's Sun Hoodie — Black", "Black")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-turquoise.jpg", "Men's Sun Hoodie — Turquoise", "Turquoise")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-blue.jpg", "Men's Sun Hoodie — Blue", "Blue")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-olive.jpg", "Men's Sun Hoodie — Olive", "Olive")
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Women's Sun Hoodies -->
-	<section class="w-full py-16 md:py-24 bg-white">
+	<!-- Women's Sun Hoodies — side-by-side editorial -->
+	<section class="w-full py-16 md:py-20 bg-river-mid">
 		<div class="max-w-site mx-auto px-6">
-			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-				Sun Hoodies
-			</p>
-			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-2">
-				Women&rsquo;s Sun Hoodies
-			</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
-				$45 &middot; Sizes S&ndash;XL
-			</p>
-
-			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-				@storeProductCard("/static/img/store/womens-hoodie-blue.png", "Women's Sun Hoodie — Blue", "Blue")
-				@storeProductCard("/static/img/store/womens-hoodie-pink.png", "Women's Sun Hoodie — Pink", "Pink")
-				@storeProductCard("/static/img/store/womens-hoodie-purple.png", "Women's Sun Hoodie — Purple", "Purple")
+			<div class="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-12 items-start">
+				<!-- Left: copy -->
+				<div class="md:sticky md:top-24">
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						Sun Hoodies
+					</p>
+					<h2 class="font-display font-bold text-h3 text-ivory leading-snug mb-1">
+						Women&rsquo;s Sun Hoodies
+					</h2>
+					<p class="font-display font-bold text-[2rem] text-ivory/80 leading-none mb-4">
+						$45
+					</p>
+					<p class="font-body font-light text-body-sm text-ivory/55 leading-relaxed mb-6">
+						Women&rsquo;s cut sun hoodies. Three colors. Sizes S&ndash;XL.
+					</p>
+					<a
+						href="mailto:matt@lomooutfitting.com"
+						class="font-body font-semibold text-body-sm text-ivory/60 hover:text-ivory transition-colors"
+					>
+						Email to order &rarr;
+					</a>
+				</div>
+				<!-- Right: 3 images in a row -->
+				<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-blue.jpg", "Women's Sun Hoodie — Blue", "Blue")
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-pink.jpg", "Women's Sun Hoodie — Pink", "Pink")
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-purple.jpg", "Women's Sun Hoodie — Purple", "Purple")
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- T-Shirts -->
-	<section class="w-full py-16 md:py-24 bg-bone">
+	<!-- T-Shirts — compact, different rhythm -->
+	<section class="w-full py-16 md:py-20 bg-bone">
 		<div class="max-w-site mx-auto px-6">
-			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-				T-Shirts
-			</p>
-			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-2">
-				Men&rsquo;s Plain T-Shirts
-			</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
-				$25 &middot; Sizes M&ndash;XL
-			</p>
-
-			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-				@storeProductCard("/static/img/store/mens-tshirt-black.jpg", "Men's T-Shirt — Black", "Black")
-				@storeProductCard("/static/img/store/mens-tshirt-gray.png", "Men's T-Shirt — Gray", "Gray")
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+				<!-- Images: side by side -->
+				<div class="grid grid-cols-2 gap-4">
+					@lookbookImageLabeled("/static/img/store/mens-tshirt-black.jpg", "Men's T-Shirt — Black", "Black")
+					@lookbookImageLabeled("/static/img/store/mens-tshirt-gray.jpg", "Men's T-Shirt — Gray", "Gray")
+				</div>
+				<!-- Copy: right side -->
+				<div>
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						T-Shirts
+					</p>
+					<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-1">
+						Men&rsquo;s Plain T-Shirts
+					</h2>
+					<p class="font-display font-bold text-[2rem] text-river-deep/70 leading-none mb-4">
+						$25
+					</p>
+					<p class="font-body font-light text-body-sm text-stone leading-relaxed mb-4">
+						Cotton tees with the Lo Mo logo. Sizes M&ndash;XL.
+					</p>
+					<a
+						href="mailto:matt@lomooutfitting.com"
+						class="font-body font-semibold text-body-sm text-stone/60 hover:text-river-deep transition-colors"
+					>
+						Email to order &rarr;
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Drinkware -->
-	<section class="w-full py-16 md:py-24 bg-white">
+	<!-- Drinkware — staggered layout -->
+	<section class="w-full py-16 md:py-20 bg-white">
 		<div class="max-w-site mx-auto px-6">
 			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
 				Drinkware
 			</p>
-			<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-2">
-				Mugs
-			</h2>
-			<p class="font-body font-light text-body text-stone leading-relaxed mb-8">
-				Logo mugs { "for" } camp, the truck, or back home.
-			</p>
+			<div class="flex items-baseline justify-between mb-8">
+				<h2 class="font-display font-bold text-h3 text-river-deep leading-snug">
+					Mugs &amp; Go Cups
+				</h2>
+				<a
+					href="mailto:matt@lomooutfitting.com"
+					class="font-body font-semibold text-body-sm text-stone/60 hover:text-river-deep transition-colors hidden sm:block"
+				>
+					Email to order &rarr;
+				</a>
+			</div>
 
-			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-				@storeProductPriceCard("/static/img/store/metal-go-mug-20oz.png", "20 oz Metal Go Mug", "20 oz Metal Go Mug", "$25")
-				@storeProductPriceCard("/static/img/store/ceramic-mug-15oz.png", "15 oz Ceramic Mug", "15 oz Ceramic", "$15")
-				@storeProductPriceCard("/static/img/store/ceramic-mug-11oz.png", "11 oz Ceramic Mug", "11 oz Ceramic", "$12")
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+				@drinkwareItem("/static/img/store/metal-go-mug-20oz.jpg", "20 oz Metal Go Mug", "20 oz Metal Go Mug", "$25")
+				@drinkwareItem("/static/img/store/ceramic-mug-15oz.jpg", "15 oz Ceramic Mug", "15 oz Ceramic Mug", "$15")
+				@drinkwareItem("/static/img/store/ceramic-mug-11oz.jpg", "11 oz Ceramic Mug", "11 oz Ceramic Mug", "$12")
 			</div>
 		</div>
 	</section>
 
-	<!-- Trucker Hats (no image) -->
-	<section class="w-full py-12 md:py-16 bg-bone">
+	<!-- Trucker Hats -->
+	<section class="w-full py-16 md:py-20 bg-river-mid">
 		<div class="max-w-site mx-auto px-6">
-			<div class="max-w-2xl">
-				<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-					Also Available
-				</p>
-				<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">
-					Trucker Hats &middot; $25
-				</h2>
-				<p class="font-body font-light text-body text-stone leading-relaxed">
-					Email Matt { "for" } current colors and availability.
-				</p>
+			<div class="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-12 items-center">
+				<div>
+					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+						Also Available
+					</p>
+					<h2 class="font-display font-bold text-h3 text-ivory leading-snug mb-1">
+						Trucker Hats
+					</h2>
+					<p class="font-display font-bold text-[2rem] text-ivory/80 leading-none mb-4">
+						$25
+					</p>
+					<p class="font-body font-light text-body-sm text-ivory/55 leading-relaxed">
+						Multiple colors available. Email Matt { "for" } current stock.
+					</p>
+				</div>
+				<div class="overflow-hidden rounded-card">
+					<img
+						src="/static/img/store/trucker-hat.jpg"
+						alt="Lo Mo Outfitting trucker hat worn outdoors"
+						class="w-full aspect-square object-cover object-top"
+						loading="lazy"
+					/>
+				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- How to Order CTA -->
-	<section class="w-full py-section bg-river-deep">
+	<section class="w-full py-section bg-bone">
 		<div class="max-w-site mx-auto px-6 text-center">
-			<h2 class="font-display font-bold text-h3 text-ivory leading-snug mb-2">How to Order</h2>
-			<p class="font-body font-light text-body text-ivory/65 leading-relaxed mb-8 max-w-lg mx-auto">
-				Email Matt with what you&rsquo;re looking { "for" } &mdash; item, color, size, quantity, and your shipping address.
+			<h2 class="font-display font-bold text-h3 text-river-deep leading-snug mb-2">How to Order</h2>
+			<p class="font-body font-light text-body text-stone leading-relaxed mb-8 max-w-lg mx-auto">
+				Email Matt with the item, color, size, quantity, and your shipping address.
 				He&rsquo;ll get back to you within one business day.
 			</p>
 			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -150,7 +229,7 @@ templ storeContent() {
 				>
 					Email Matt &rarr;
 				</a>
-				<a href="tel:+14064652235" class="font-body font-light text-body text-ivory/60 hover:text-ivory transition-colors">
+				<a href="tel:+14064652235" class="font-body font-light text-body text-river-deep/60 hover:text-river-deep transition-colors">
 					(406) 465-2235
 				</a>
 			</div>
@@ -158,25 +237,23 @@ templ storeContent() {
 	</section>
 }
 
-templ storeProductCard(imgSrc, alt, label string) {
-	<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
-		<div class="aspect-square bg-[#f5f3ee] overflow-hidden">
-			<img src={ imgSrc } alt={ alt } class="w-full h-full object-cover" loading="lazy"/>
+templ lookbookImageLabeled(imgSrc, alt, label string) {
+	<div>
+		<div class="overflow-hidden rounded-card bg-[#f5f3ee] mb-2">
+			<img src={ imgSrc } alt={ alt } class="w-full aspect-[3/4] object-cover" loading="lazy"/>
 		</div>
-		<div class="px-4 py-3">
-			<p class="font-body font-semibold text-body-sm text-river-deep">{ label }</p>
-		</div>
+		<p class="font-body text-xs text-stone/70 tracking-wide">{ label }</p>
 	</div>
 }
 
-templ storeProductPriceCard(imgSrc, alt, label, price string) {
-	<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
-		<div class="aspect-square bg-[#f5f3ee] overflow-hidden">
-			<img src={ imgSrc } alt={ alt } class="w-full h-full object-cover" loading="lazy"/>
+templ drinkwareItem(imgSrc, alt, name, price string) {
+	<div>
+		<div class="overflow-hidden rounded-card bg-[#f5f3ee] mb-3">
+			<img src={ imgSrc } alt={ alt } class="w-full aspect-[3/4] object-cover object-center" loading="lazy"/>
 		</div>
-		<div class="px-4 py-3 flex items-center justify-between">
-			<p class="font-body font-semibold text-body-sm text-river-deep">{ label }</p>
-			<p class="font-body font-bold text-body-sm text-teal">{ price }</p>
+		<div class="flex items-baseline justify-between">
+			<p class="font-body font-semibold text-body-sm text-river-deep">{ name }</p>
+			<p class="font-body font-bold text-body-sm text-river-deep/60">{ price }</p>
 		</div>
 	</div>
 }
