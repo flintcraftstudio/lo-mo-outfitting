@@ -150,6 +150,64 @@
   }
 }
 
+/* Hero background video — fades in over the poster image */
+.hero-video {
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+}
+
+/* Vimeo facade — click-to-play poster */
+.vimeo-facade {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.vimeo-facade .facade-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(62, 158, 152, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 1;
+}
+
+.vimeo-facade:hover .facade-play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: rgba(44, 122, 117, 0.95);
+}
+
+.vimeo-facade .facade-play svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  margin-left: 3px; /* optical center for play triangle */
+}
+
+.vimeo-facade.is-playing {
+  cursor: default;
+}
+
+.vimeo-facade.is-playing .facade-play {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    transition: none;
+  }
+  .vimeo-facade .facade-play {
+    transition: none;
+  }
+}
+
 /* HTMX submit button text swap */
 button[disabled] .htmx-indicator-hide { display: none; }
 button[disabled] .htmx-indicator-show { display: inline; }
