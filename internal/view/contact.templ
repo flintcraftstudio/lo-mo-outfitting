@@ -46,7 +46,7 @@ templ contactContent(errors map[string]string, values map[string]string, success
 }
 
 templ BookingForm(errors map[string]string, values map[string]string, success bool) {
-	<form hx-post="/contact" hx-swap="outerHTML" hx-target="this" hx-disabled-elt="find button[type=submit]" hx-on::after-swap="this.querySelector('.text-red-600')?.scrollIntoView({behavior:'smooth',block:'center'})" class="space-y-10" x-data={ formAlpineData(values) }>
+	<form hx-post="/contact" hx-swap="outerHTML" hx-target="this" hx-disabled-elt="find button[type=submit]" hx-on::after-swap="this.querySelector('.text-red-600')?.scrollIntoView({behavior:'smooth',block:'center'})" class="space-y-10">
 		if success {
 			<div class="rounded-card border border-teal/30 bg-teal/10 p-8">
 				<h2 class="font-display font-bold text-h3 text-river-deep mb-2">Request received</h2>
@@ -165,36 +165,6 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 					</div>
 				</div>
 
-				<!-- Lodging -->
-				<div class="mb-6">
-					@formLabel("lodging", "Where are you staying?", true)
-					<select id="lodging" name="lodging" class={ inputClasses() } x-model="lodging" required>
-						<option value="">Select</option>
-						<option value="craig" selected?={ values["lodging"] == "craig" }>Craig</option>
-						<option value="wolf_creek" selected?={ values["lodging"] == "wolf_creek" }>Wolf Creek</option>
-						<option value="helena" selected?={ values["lodging"] == "helena" }>Helena</option>
-						<option value="great_falls" selected?={ values["lodging"] == "great_falls" }>Great Falls</option>
-						<option value="not_sure" selected?={ values["lodging"] == "not_sure" }>Not sure yet</option>
-						<option value="other" selected?={ values["lodging"] == "other" }>Other</option>
-					</select>
-					if errors["lodging"] != "" {
-						@fieldError(errors["lodging"])
-					}
-				</div>
-
-				<!-- Lodging other (conditional) -->
-				<div class="mb-6" x-show="lodging === 'other'" x-transition>
-					@formLabel("lodging_other", "Tell us where", false)
-					<input
-						type="text"
-						id="lodging_other"
-						name="lodging_other"
-						value={ values["lodging_other"] }
-						class={ inputClasses() }
-						placeholder="City or area"
-					/>
-				</div>
-
 				<!-- Referred by -->
 				<div class="mb-6">
 					@formLabel("referred_by", "How did you hear about us?", false)
@@ -300,15 +270,6 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 			</div>
 		}
 	</form>
-}
-
-// formAlpineData returns the Alpine.js x-data for the booking form.
-func formAlpineData(values map[string]string) string {
-	lodging := values["lodging"]
-	if lodging == "" {
-		lodging = ""
-	}
-	return "{ lodging: '" + lodging + "' }"
 }
 
 func inputClasses() string {

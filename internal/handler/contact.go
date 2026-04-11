@@ -30,15 +30,6 @@ var experienceLabels = map[string]string{
 	"advanced":    "Advanced angler",
 }
 
-var lodgingLabels = map[string]string{
-	"craig":       "Craig",
-	"wolf_creek":  "Wolf Creek",
-	"helena":      "Helena",
-	"great_falls": "Great Falls",
-	"not_sure":    "Not sure yet",
-	"other":       "Other",
-}
-
 // Contact handles GET /contact and renders the booking form.
 func Contact() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -70,8 +61,6 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			"angler_count":   strings.TrimSpace(r.FormValue("angler_count")),
 			"youth_count":    strings.TrimSpace(r.FormValue("youth_count")),
 			"experience":     strings.TrimSpace(r.FormValue("experience")),
-			"lodging":        strings.TrimSpace(r.FormValue("lodging")),
-			"lodging_other":  strings.TrimSpace(r.FormValue("lodging_other")),
 			"referred_by":    strings.TrimSpace(r.FormValue("referred_by")),
 			"client_notes":   strings.TrimSpace(r.FormValue("client_notes")),
 			"client_name":    strings.TrimSpace(r.FormValue("client_name")),
@@ -110,8 +99,6 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			YouthCount:    values["youth_count"],
 			Heroes:        values["trip_type"] == "heroes",
 			Experience:    values["experience"],
-			Lodging:       values["lodging"],
-			LodgingOther:  values["lodging_other"],
 			ClientNotes:   values["client_notes"],
 			ReferredBy:    values["referred_by"],
 			ClientName:    values["client_name"],
@@ -187,10 +174,6 @@ func validateBooking(v map[string]string) map[string]string {
 		errors["experience"] = "Please select your experience level."
 	}
 
-	if v["lodging"] == "" {
-		errors["lodging"] = "Please select where you're staying."
-	}
-
 	if v["client_name"] == "" {
 		errors["client_name"] = "Name is required."
 	}
@@ -238,11 +221,6 @@ func formatBookingEmail(v map[string]string) string {
 	b.WriteString("\nPARTY\n")
 	if label, ok := experienceLabels[v["experience"]]; ok {
 		b.WriteString(fmt.Sprintf("  Experience:     %s\n", label))
-	}
-	if v["lodging"] == "other" && v["lodging_other"] != "" {
-		b.WriteString(fmt.Sprintf("  Lodging:        %s\n", v["lodging_other"]))
-	} else if label, ok := lodgingLabels[v["lodging"]]; ok {
-		b.WriteString(fmt.Sprintf("  Lodging:        %s\n", label))
 	}
 	if v["referred_by"] != "" {
 		b.WriteString(fmt.Sprintf("  Referred by:    %s\n", v["referred_by"]))

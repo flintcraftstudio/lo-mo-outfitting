@@ -110,9 +110,6 @@ templ tripCard(b database.BookingListItem) {
 			<p class="font-semibold text-body truncate">{ b.ClientName }</p>
 			<p class="text-body-sm text-stone mt-0.5">
 				{ GetLabel(TripLabel, b.TripType) } · { b.AnglerCount } anglers
-				if b.Lodging != "" {
-					 · { GetLabel(LodgingLabel, b.Lodging) }
-				}
 			</p>
 			if b.GuideName != "" {
 				<p class="text-body-sm text-stone mt-0.5">Guide: { b.GuideName }</p>

@@ -91,6 +91,8 @@ func main() {
 	})
 	// Inquiry board
 	adminMux.Handle("GET /admin/inquiries", adminhandler.Inquiries(db))
+	adminMux.Handle("GET /admin/inquiries/new", adminhandler.NewBookingForm())
+	adminMux.Handle("POST /admin/inquiries/new", adminhandler.NewBookingSubmit(db))
 	adminMux.Handle("GET /admin/inquiries/{id}", adminhandler.InquiryDetail(db))
 	adminMux.Handle("POST /admin/inquiries/{id}/status", adminhandler.StatusUpdate(db))
 	adminMux.Handle("POST /admin/inquiries/{id}/guide", adminhandler.GuideAssign(db))

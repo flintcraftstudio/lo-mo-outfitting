@@ -18,16 +18,6 @@ var ExperienceLabel = map[string]string{
 	"advanced":    "Advanced",
 }
 
-// LodgingLabel returns a human-readable label for a lodging value.
-var LodgingLabel = map[string]string{
-	"craig":       "Craig",
-	"wolf_creek":  "Wolf Creek",
-	"helena":      "Helena",
-	"great_falls": "Great Falls",
-	"not_sure":    "Not sure yet",
-	"other":       "Other",
-}
-
 // StatusLabel returns a human-readable label for a booking status.
 var StatusLabel = map[string]string{
 	"new":          "New",
