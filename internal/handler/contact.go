@@ -239,10 +239,16 @@ func formatBookingEmail(v map[string]string) string {
 
 // verifyTurnstile checks a Turnstile token against the Cloudflare API.
 func verifyTurnstile(secret, token, remoteIP string) bool {
+	if token == "" {
+		slog.Warn("turnstile token is empty — widget may not have loaded or HTMX did not include it")
+		return false
+	}
+
+	// Note: remoteip is omitted — behind a reverse proxy r.RemoteAddr is the
+	// proxy's IP, which can cause Cloudflare to reject the token.
 	resp, err := http.PostForm("https://challenges.cloudflare.com/turnstile/v0/siteverify", url.Values{
 		"secret":   {secret},
 		"response": {token},
-		"remoteip": {remoteIP},
 	})
 	if err != nil {
 		slog.Error("turnstile verify request failed", "err", err)
@@ -251,7 +257,9 @@ func verifyTurnstile(secret, token, remoteIP string) bool {
 	defer resp.Body.Close()
 
 	var result struct {
-		Success bool `json:"success"`
+		Success    bool     `json:"success"`
+		ErrorCodes []string `json:"error-codes"`
+		Hostname   string   `json:"hostname"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		slog.Error("turnstile verify decode failed", "err", err)
@@ -259,7 +267,11 @@ func verifyTurnstile(secret, token, remoteIP string) bool {
 	}
 
 	if !result.Success {
-		slog.Warn("turnstile verification failed")
+		slog.Warn("turnstile verification failed",
+			"error_codes", result.ErrorCodes,
+			"hostname", result.Hostname,
+			"remote_ip", remoteIP,
+		)
 	}
 	return result.Success
 }

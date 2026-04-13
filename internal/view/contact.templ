@@ -46,7 +46,7 @@ templ contactContent(errors map[string]string, values map[string]string, success
 }
 
 templ BookingForm(errors map[string]string, values map[string]string, success bool) {
-	<form hx-post="/contact" hx-swap="outerHTML" hx-target="this" hx-disabled-elt="find button[type=submit]" hx-on::after-swap="this.querySelector('.text-red-600')?.scrollIntoView({behavior:'smooth',block:'center'})" class="space-y-10">
+	<form hx-post="/contact" hx-swap="outerHTML" hx-target="this" hx-disabled-elt="find button[type=submit]" hx-on::after-swap="(this.querySelector('.text-red-700')||this.querySelector('.text-red-600'))?.scrollIntoView({behavior:'smooth',block:'center'})" class="space-y-10">
 		if success {
 			<div class="rounded-card border border-teal/30 bg-teal/10 p-8">
 				<h2 class="font-display font-bold text-h3 text-river-deep mb-2">Request received</h2>
@@ -58,12 +58,6 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 				</p>
 			</div>
 		} else {
-			if errors["form"] != "" {
-				<div class="rounded-card border border-red-500/40 bg-red-500/10 p-4">
-					<p class="font-body text-body-sm text-red-700">{ errors["form"] }</p>
-				</div>
-			}
-
 			<!-- Section 1: Trip Details -->
 			<fieldset>
 				<legend class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-6">
@@ -254,8 +248,37 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 
 			<!-- Turnstile + Submit -->
 			<div>
+				if errors["form"] != "" {
+					<div class="rounded-card border border-red-500/40 bg-red-500/10 p-4 mb-5">
+						<p class="font-body text-body-sm text-red-700">{ errors["form"] }</p>
+					</div>
+				}
 				if TurnstileSiteKey != "" {
-					<div class="cf-turnstile mb-5" data-sitekey={ TurnstileSiteKey } data-theme="light"></div>
+					<div id="turnstile-container" class="mb-5"></div>
+					<script>
+						(function() {
+							function renderWidget() {
+								var container = document.getElementById('turnstile-container');
+								if (!container || !window.turnstile) return;
+								container.innerHTML = '';
+								turnstile.render(container, {
+									sitekey: '{ TurnstileSiteKey }',
+									theme: 'light'
+								});
+							}
+							if (window.turnstile) {
+								renderWidget();
+							} else {
+								// Script still loading — wait for it
+								var interval = setInterval(function() {
+									if (window.turnstile) {
+										clearInterval(interval);
+										renderWidget();
+									}
+								}, 100);
+							}
+						})();
+					</script>
 				}
 				<button
 					type="submit"
