@@ -1,9 +1,9 @@
 /**
  * Performance-first video loading for Lo Mo Outfitting.
  *
- * - Hero background video: loads only on fast connections, respects
- *   prefers-reduced-motion and Save-Data. Uses preload="none" +
- *   IntersectionObserver so zero bytes transfer until conditions are met.
+ * - Hero background video: two videos crossfade in a loop.
+ *   Photo → river scenery → brown trout → river scenery → …
+ *   Loads only on fast connections, respects reduced-motion and Save-Data.
  *
  * - Vimeo facade: renders a poster + play button. The ~500KB Vimeo
  *   player iframe loads only on click. Zero cost until interaction.
@@ -18,45 +18,110 @@
     navigator.connection.effectiveType &&
     ["slow-2g", "2g"].indexOf(navigator.connection.effectiveType) !== -1;
 
-  // ── Hero background video ───────────────────────────────────────
+  // ── Hero background video crossfade ────────────────────────────
   function initHeroVideo() {
-    var video = document.getElementById("hero-video");
-    if (!video) return;
+    var video1 = document.getElementById("hero-video");
+    var video2 = document.getElementById("hero-video-2");
+    if (!video1) return;
 
-    // Skip on reduced motion, save-data, or slow connections
     if (reducedMotion || saveData || slowConnection) {
-      video.remove();
+      video1.remove();
+      if (video2) video2.remove();
       return;
     }
 
-    // Start loading the video source
-    var source = video.querySelector("source");
-    if (source && source.dataset.src) {
-      source.src = source.dataset.src;
-      video.load();
-    }
+    var videos = [video1];
+    if (video2) videos.push(video2);
 
-    // Wait until enough data is buffered to play through, then fade in
-    // after a short settling delay so it always reads as a smooth crossfade
-    // rather than a jarring pop.
-    function fadeIn() {
+    // Load sources for all hero videos
+    videos.forEach(function (v) {
+      var source = v.querySelector("source");
+      if (source && source.dataset.src) {
+        source.src = source.dataset.src;
+        v.load();
+      }
+    });
+
+    function fadeIn(el) {
       setTimeout(function () {
-        video.style.opacity = "1";
-      }, 600);
+        el.style.opacity = "1";
+      }, 100);
     }
 
-    video.addEventListener("canplaythrough", function () {
-      video.play().then(fadeIn).catch(function () {
-        video.remove();
+    function fadeOut(el) {
+      el.style.opacity = "0";
+    }
+
+    if (videos.length === 1) {
+      // Single video — simple loop
+      video1.loop = true;
+      video1.addEventListener("canplaythrough", function () {
+        video1.play().then(function () { fadeIn(video1); }).catch(function () {
+          video1.remove();
+        });
+      }, { once: true });
+      return;
+    }
+
+    // Two videos — crossfade loop
+    var active = 0;
+    var swapping = false;
+
+    function doSwap() {
+      if (swapping) return;
+      swapping = true;
+
+      var current = videos[active];
+      var next = videos[1 - active];
+
+      next.currentTime = 0;
+      next.play().then(function () {
+        fadeIn(next);
+        setTimeout(function () {
+          fadeOut(current);
+          current.pause();
+          swapping = false;
+        }, 1900);
+        active = 1 - active;
+        attachNearEnd(videos[active]);
+      }).catch(function () { swapping = false; });
+    }
+
+    // Start crossfade 2s before the video ends — no gap
+    function attachNearEnd(v) {
+      function handler() {
+        if (v === videos[active] && v.duration && v.duration - v.currentTime < 2) {
+          v.removeEventListener("timeupdate", handler);
+          // Pre-buffer the next video
+          var next = videos[1 - active];
+          next.currentTime = 0;
+          next.load();
+          if (next.readyState >= 3) {
+            doSwap();
+          } else {
+            next.addEventListener("canplay", function () { doSwap(); }, { once: true });
+          }
+        }
+      }
+      v.addEventListener("timeupdate", handler);
+    }
+
+    videos.forEach(function (v) { attachNearEnd(v); });
+
+    // Start first video once ready
+    video1.addEventListener("canplaythrough", function () {
+      video1.play().then(function () { fadeIn(video1); }).catch(function () {
+        video1.remove();
+        video2.remove();
       });
     }, { once: true });
 
-    // Fallback: if canplaythrough never fires (e.g. browser quirks),
-    // try playing after a generous timeout and fade if it works.
+    // Fallback for canplaythrough
     setTimeout(function () {
-      if (video.readyState < 4 && video.parentNode) {
-        video.play().then(fadeIn).catch(function () {
-          video.remove();
+      if (video1.readyState < 4 && video1.parentNode) {
+        video1.play().then(function () { fadeIn(video1); }).catch(function () {
+          video1.remove();
+          if (video2.parentNode) video2.remove();
         });
       }
     }, 8000);

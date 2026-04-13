@@ -10,18 +10,27 @@ templ homeContent() {
 		<!-- Background photo with overlay; video layers on top when available -->
 		<div class="absolute inset-0">
 			<img src="/static/img/hero-river.jpg" alt="Missouri River near Craig, Montana" class="w-full h-full object-cover" loading="eager"/>
-			<!-- Ambient video — loads only on fast connections, respects reduced-motion -->
+			<!-- Ambient videos — crossfade loop, loads only on fast connections -->
 			<video
 				id="hero-video"
 				class="hero-video absolute inset-0 w-full h-full object-cover"
 				autoplay
 				muted
-				loop
 				playsinline
 				preload="none"
 				aria-hidden="true"
 			>
-				<source data-src="https://img1.wsimg.com/blobby/go/84a3c98d-12f1-4497-9007-5097c9844efd/video/ad231a1d-d5c2-4340-802c-35c6a4fe5d48.mp4" type="video/mp4"/>
+				<source data-src="/static/video/river-scenery.mp4" type="video/mp4"/>
+			</video>
+			<video
+				id="hero-video-2"
+				class="hero-video absolute inset-0 w-full h-full object-cover"
+				muted
+				playsinline
+				preload="none"
+				aria-hidden="true"
+			>
+				<source data-src="/static/video/brown-trout.mp4" type="video/mp4"/>
 			</video>
 			<div class="absolute inset-0 bg-river-deep/65"></div>
 		</div>
@@ -221,49 +230,6 @@ templ homeContent() {
 		</div>
 	</section>
 
-	<!-- On the Water — Vimeo facade (iframe loads on click, not on page load) -->
-	<section class="w-full py-16 md:py-24 bg-white">
-		<div class="max-w-site mx-auto px-6">
-			<div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 items-center">
-				<!-- Copy -->
-				<div>
-					<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
-						On the Water
-					</p>
-					<h2 class="font-display font-bold text-h2 text-river-deep leading-snug mb-3">
-						This Is What a Day Looks Like
-					</h2>
-					<p class="font-body font-light text-body text-stone leading-relaxed mb-8 md:mb-0">
-						No stock footage. This is the Missouri from the drift boat &mdash; the water, the fish, the kind of day you book.
-					</p>
-				</div>
-				<!-- Vertical video -->
-				<div class="flex justify-center">
-					<div
-						class="vimeo-facade relative rounded-card bg-river-deep w-full max-w-[360px]"
-						style="aspect-ratio:9/16;"
-						data-vimeo-id="1054620835"
-						data-vimeo-hash="d4e8ab9317"
-						role="button"
-						tabindex="0"
-						aria-label="Play video: a day on the Missouri River"
-					>
-						<!-- Poster image — Vimeo thumbnail -->
-						<img
-							src="https://vumbnail.com/1054620835.jpg"
-							alt="Fish swimming beside the drift boat on the Missouri River"
-							class="absolute inset-0 w-full h-full object-cover rounded-card"
-							loading="lazy"
-						/>
-						<!-- Play button -->
-						<div class="facade-play">
-							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<!-- Heroes Program -->
 	<section id="heroes" class="w-full py-16 md:py-24 bg-bone">
