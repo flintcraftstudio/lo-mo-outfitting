@@ -28,6 +28,8 @@ RUN CGO_ENABLED=0 go build -o /app ./cmd/server
 
 FROM debian:bookworm-slim
 
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /app /app
 COPY --from=build /src/web/static /web/static
 

@@ -77,6 +77,12 @@ func main() {
 		http.ServeFile(w, r, "web/static/sitemap.xml")
 	})
 
+	// Health check
+	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	})
+
 	// Pages
 	mux.Handle("GET /{$}", handler.Home())
 	mux.Handle("GET /about", handler.About())
