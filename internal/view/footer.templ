@@ -9,7 +9,10 @@ templ Footer() {
 			<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr] gap-8 mb-10">
 				<!-- Col 1: Brand -->
 				<div>
-					<p class="font-display font-bold text-base text-ivory mb-2">Lo Mo Outfitting LLC</p>
+					<div class="flex items-center gap-3 mb-3">
+						<img src="/static/img/logo-mascot.png" alt="Lo Mo Outfitting mascot" class="h-12 w-auto rounded-lg"/>
+						<p class="font-display font-bold text-base text-ivory">Lo Mo Outfitting LLC</p>
+					</div>
 					<p class="font-body font-light text-body-sm text-ivory/40 leading-relaxed max-w-[200px]">
 						Missouri River fly fishing out of Craig, Montana.
 						Local guides. Real fish. No pretense.
@@ -46,7 +49,7 @@ templ Footer() {
 			<div class="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
 				<p class="font-body font-light text-xs text-ivory/30">&copy; { fmt.Sprint(Year()) } Lo Mo Outfitting LLC &middot; All rights reserved.</p>
 				<p class="font-body font-light text-xs text-ivory/30">Montana Outfitter License #63793</p>
-				<p class="font-body font-light text-xs text-ivory/30">Site by <a href="https://fireflysoftware.dev" class="hover:text-ivory/50 transition-colors">Firefly Software</a></p>
+				<p class="font-body font-light text-xs text-ivory/30 flex items-center gap-1">Site by <a href="https://flintcraftstudio.com" class="hover:text-ivory/50 transition-colors inline-flex items-center gap-1"><img src="/static/img/flintcraft-logo.png" alt="" class="h-3.5 w-auto inline" aria-hidden="true"/>FlintCraft Studio</a></p>
 			</div>
 		</div>
 	</footer>
