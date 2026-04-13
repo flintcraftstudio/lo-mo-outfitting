@@ -160,16 +160,35 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 				</div>
 
 				<!-- Referred by -->
-				<div class="mb-6">
-					@formLabel("referred_by", "How did you hear about us?", false)
-					<input
-						type="text"
-						id="referred_by"
-						name="referred_by"
-						value={ values["referred_by"] }
-						class={ inputClasses() }
-						placeholder="Google, friend, returning client, etc."
-					/>
+				<div class="mb-6" x-data={ referralAlpineInit(values["referred_by"]) }>
+					<p class="mb-3 font-body font-semibold text-body-sm text-river-deep">How did you hear about us?</p>
+					<div class="space-y-2">
+						@referralOption("Google", values)
+						@referralOption("Facebook", values)
+						@referralOption("Friend / Word of Mouth", values)
+						@referralOption("Returning Client", values)
+						<label class="flex items-center gap-3 cursor-pointer group">
+							<input
+								type="radio"
+								name="referred_by"
+								value="other"
+								checked?={ isOtherReferral(values["referred_by"]) }
+								class="w-4 h-4 text-teal border-[#E0DBD2] focus:ring-teal focus:ring-offset-0"
+								x-on:change="showOther = true"
+							/>
+							<span class="font-body font-light text-body-sm text-river-deep group-hover:text-river-deep/80">Other</span>
+						</label>
+						<div x-show="showOther" x-cloak class="pl-7 pt-1">
+							<input
+								type="text"
+								name="referred_by_other"
+								x-ref="otherInput"
+								value={ referralOtherValue(values["referred_by"]) }
+								class={ inputClasses() }
+								placeholder="How did you find us?"
+								/>
+						</div>
+					</div>
 				</div>
 
 				<!-- Notes -->
@@ -325,6 +344,48 @@ templ tripOption(value string, title string, detail string, values map[string]st
 			<p class="font-display font-bold text-h3 text-river-deep mb-0.5">{ title }</p>
 			<p class="font-body font-light text-[0.8125rem] text-stone">{ detail }</p>
 		</div>
+	</label>
+}
+
+var knownReferrals = []string{"Google", "Facebook", "Friend / Word of Mouth", "Returning Client"}
+
+func isOtherReferral(val string) bool {
+	if val == "" {
+		return false
+	}
+	for _, known := range knownReferrals {
+		if val == known {
+			return false
+		}
+	}
+	return true
+}
+
+func referralOtherValue(val string) string {
+	if isOtherReferral(val) && val != "other" {
+		return val
+	}
+	return ""
+}
+
+func referralAlpineInit(val string) string {
+	if isOtherReferral(val) {
+		return "{ showOther: true }"
+	}
+	return "{ showOther: false }"
+}
+
+templ referralOption(label string, values map[string]string) {
+	<label class="flex items-center gap-3 cursor-pointer group">
+		<input
+			type="radio"
+			name="referred_by"
+			value={ label }
+			checked?={ values["referred_by"] == label }
+			class="w-4 h-4 text-teal border-[#E0DBD2] focus:ring-teal focus:ring-offset-0"
+			x-on:change="showOther = false"
+		/>
+		<span class="font-body font-light text-body-sm text-river-deep group-hover:text-river-deep/80">{ label }</span>
 	</label>
 }
 

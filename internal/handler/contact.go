@@ -54,6 +54,13 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			return
 		}
 
+		referredBy := strings.TrimSpace(r.FormValue("referred_by"))
+		if referredBy == "other" {
+			if other := strings.TrimSpace(r.FormValue("referred_by_other")); other != "" {
+				referredBy = other
+			}
+		}
+
 		values := map[string]string{
 			"trip_type":      strings.TrimSpace(r.FormValue("trip_type")),
 			"preferred_date": strings.TrimSpace(r.FormValue("preferred_date")),
@@ -61,7 +68,7 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			"angler_count":   strings.TrimSpace(r.FormValue("angler_count")),
 			"youth_count":    strings.TrimSpace(r.FormValue("youth_count")),
 			"experience":     strings.TrimSpace(r.FormValue("experience")),
-			"referred_by":    strings.TrimSpace(r.FormValue("referred_by")),
+			"referred_by":    referredBy,
 			"client_notes":   strings.TrimSpace(r.FormValue("client_notes")),
 			"client_name":    strings.TrimSpace(r.FormValue("client_name")),
 			"client_email":   strings.TrimSpace(r.FormValue("client_email")),
