@@ -273,31 +273,7 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 					</div>
 				}
 				if TurnstileSiteKey != "" {
-					<div id="turnstile-container" class="mb-5"></div>
-					<script>
-						(function() {
-							function renderWidget() {
-								var container = document.getElementById('turnstile-container');
-								if (!container || !window.turnstile) return;
-								container.innerHTML = '';
-								turnstile.render(container, {
-									sitekey: '{ TurnstileSiteKey }',
-									theme: 'light'
-								});
-							}
-							if (window.turnstile) {
-								renderWidget();
-							} else {
-								// Script still loading — wait for it
-								var interval = setInterval(function() {
-									if (window.turnstile) {
-										clearInterval(interval);
-										renderWidget();
-									}
-								}, 100);
-							}
-						})();
-					</script>
+					<div class="cf-turnstile mb-5" data-sitekey={ TurnstileSiteKey } data-theme="light"></div>
 				}
 				<button
 					type="submit"
