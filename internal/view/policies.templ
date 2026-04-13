@@ -1,7 +1,7 @@
 package view
 
 templ PoliciesPage() {
-	@Base("Trip Policies & FAQ", "Booking policies, cancellation terms, youth angler rules, and frequently asked questions for Lo Mo Outfitting float trips on the Missouri River.", policiesContent())
+	@BaseWithPath("Trip Policies & FAQ", "Booking policies, cancellation terms, youth angler rules, and frequently asked questions for Lo Mo Outfitting guided fly fishing trips.", "/policies", policiesContent())
 }
 
 templ policiesContent() {
@@ -45,6 +45,80 @@ templ policiesContent() {
 			</div>
 		</div>
 	</section>
+
+	<!-- FAQPage structured data -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "How do I request a booking?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Fill out the booking form at lomooutfitting.com/contact. Include your preferred dates, trip type, number of anglers, and whether any anglers are youth. Matt will confirm availability and send a deposit link within one business day."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "What does the deposit cover?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "The deposit is 80% of the total trip fee, paid at time of booking to hold your date. The remaining 20% is paid to the guide on the day of your trip. Full day single boat: $675 total ($540 deposit). Half day single boat: $575 total ($460 deposit). Early season and Heroes program: $500 total ($400 deposit)."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "What do I need to bring?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Guides provide all fly fishing gear, rods, reels, flies, and terminal tackle. Full day trips include a shoreline lunch and cold drinks. You need to bring: layers for changing weather, hat and polarized sunglasses, sunscreen and bug spray, closed-toe shoes or water shoes, and all personal items in one small to medium duffle bag."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Do I need a Montana fishing license?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Yes. All anglers 12 and older are required by Montana law to purchase a fishing license before the trip date. Licenses are purchased through Montana Fish, Wildlife & Parks at fwp.mt.gov — not through Lo Mo Outfitting."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Where do I stay?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "All trips launch from around Craig, Montana. Lodging options include Craig (lodges and cabins on or near the river), Wolf Creek (15 minutes south), Helena (45 minutes south via I-15), and Great Falls (55 minutes north). Tent and RV camping is also available. Matt will confirm your meeting location before the trip."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "What if I've never fly fished before?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Beginners are welcome. Tell Matt when you book — he'll match you with a guide who enjoys teaching. The Missouri River is a great place to learn. Most first-timers catch fish."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Can I bring my kids?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Children 6 and older are welcome. Children 5 and younger cannot be accommodated for safety reasons. Youth anglers 12 and under must be accompanied by a parent or guardian and count as one of the 2 anglers per boat. Per Montana State Boating Regulations, children under 12 must wear a U.S. Coast Guard approved life vest at all times."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "What about gratuity?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Gratuity is not included in the trip price and is not required, but it is appreciated. Standard gratuity is $150 for a half day trip and $200 for a full day trip, per guide. For multiple-boat trips, tip each guide individually."
+				}
+			}
+		]
+	}
+	</script>
 
 	<!-- Policies Section -->
 	<section class="w-full py-16 md:py-24 bg-river-mid">
@@ -113,7 +187,7 @@ templ faqItem(question string, answer templ.Component) {
 
 templ faqBooking() {
 	<p>
-		Fill out the booking form at <a href="/contact" class="text-teal hover:text-teal-dark transition-colors">lomooutfitting.com/booking</a>.
+		Fill out the booking form at <a href="/contact" class="text-teal hover:text-teal-dark transition-colors">lomooutfitting.com/contact</a>.
 		Include your preferred dates, trip type, number of anglers, and whether any anglers are youth.
 		Matt will confirm availability and send a deposit link within one business day.
 	</p>

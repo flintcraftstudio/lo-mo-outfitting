@@ -1,7 +1,7 @@
 package view
 
 templ ReviewsPage() {
-	@Base("Angler Reviews", "Read what anglers say about guided fly fishing trips with Lo Mo Outfitting on the Missouri River near Craig, Montana.", reviewsContent())
+	@BaseWithPath("Angler Reviews — Lo Mo Outfitting", "Read what anglers say about guided fly fishing trips with Lo Mo Outfitting on Montana's Missouri, Bitterroot, Yellowstone, and Madison rivers.", "/reviews", reviewsContent())
 }
 
 templ reviewsContent() {
@@ -191,7 +191,7 @@ By the end of the trip, I wasn't just impressed with his guiding; I wanted to be
 				Ready to write your own review? Book a float with Lo Mo and see what the river gives you.
 			</p>
 			<a
-				href="/booking"
+				href="/contact"
 				class="font-body font-bold text-eyebrow uppercase tracking-[0.1em] bg-teal hover:bg-teal-dark text-white px-7 py-3 rounded-btn transition-colors inline-block mb-8"
 			>
 				Submit a Booking Request &rarr;

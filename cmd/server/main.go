@@ -69,6 +69,14 @@ func main() {
 	// Static files
 	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static"))))
 
+	// SEO files
+	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/static/robots.txt")
+	})
+	mux.HandleFunc("GET /sitemap.xml", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/static/sitemap.xml")
+	})
+
 	// Pages
 	mux.Handle("GET /{$}", handler.Home())
 	mux.Handle("GET /about", handler.About())

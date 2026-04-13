@@ -1,6 +1,10 @@
 package view
 
 templ Base(title, description string, body templ.Component) {
+	@BaseWithPath(title, description, "", body)
+}
+
+templ BaseWithPath(title, description, path string, body templ.Component) {
 	<!DOCTYPE html>
 	<html lang="en" class="bg-river-deep text-ivory">
 		<head>
@@ -8,6 +12,25 @@ templ Base(title, description string, body templ.Component) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<meta name="description" content={ description }/>
 			<title>{ title } | { SiteName }</title>
+			<!-- Canonical -->
+			if path != "" {
+				<link rel="canonical" href={ SiteURL + path }/>
+			}
+			<!-- Open Graph -->
+			<meta property="og:type" content="website"/>
+			<meta property="og:site_name" content={ SiteName }/>
+			<meta property="og:title" content={ title }/>
+			<meta property="og:description" content={ description }/>
+			<meta property="og:image" content={ SiteURL + DefaultOGImage }/>
+			if path != "" {
+				<meta property="og:url" content={ SiteURL + path }/>
+			}
+			<!-- Twitter Card -->
+			<meta name="twitter:card" content="summary_large_image"/>
+			<meta name="twitter:title" content={ title }/>
+			<meta name="twitter:description" content={ description }/>
+			<meta name="twitter:image" content={ SiteURL + DefaultOGImage }/>
+			<!-- Favicon -->
 			<link rel="icon" type="image/x-icon" href="/static/favicon/favicon.ico"/>
 			<link rel="icon" type="image/svg+xml" href="/static/favicon/favicon.svg"/>
 			<link rel="icon" type="image/png" sizes="96x96" href="/static/favicon/favicon-96x96.png"/>
@@ -32,6 +55,42 @@ templ Base(title, description string, body templ.Component) {
 			<script src="/static/js/htmx.min.js" defer></script>
 			<script src="/static/js/alpine.min.js" defer></script>
 			<script src="/static/js/video.js" defer></script>
+			<!-- LocalBusiness structured data -->
+			<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "LocalBusiness",
+				"name": "Lo Mo Outfitting",
+				"description": "Guided fly fishing trips on Montana's Missouri, Bitterroot, Yellowstone, and Madison rivers. Local guides, no pretense.",
+				"url": "https://lomooutfitting.com",
+				"telephone": "+1-406-465-2235",
+				"email": "matt@lomooutfitting.com",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "1730 Hollins Avenue",
+					"addressLocality": "Helena",
+					"addressRegion": "MT",
+					"postalCode": "59601",
+					"addressCountry": "US"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": 46.5927,
+					"longitude": -112.0361
+				},
+				"areaServed": [
+					{ "@type": "Place", "name": "Missouri River, Craig, Montana" },
+					{ "@type": "Place", "name": "Bitterroot River, Montana" },
+					{ "@type": "Place", "name": "Yellowstone River, Montana" },
+					{ "@type": "Place", "name": "Madison River, Montana" }
+				],
+				"priceRange": "$500–$675",
+				"image": "https://lomooutfitting.com/static/img/hero-river.jpg",
+				"sameAs": [
+					"https://www.facebook.com/lomooutfitting"
+				]
+			}
+			</script>
 		</head>
 		<body class="min-h-screen font-body antialiased">
 			@Nav()

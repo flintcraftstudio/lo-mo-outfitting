@@ -1,7 +1,7 @@
 package view
 
 templ ContactPage(errors map[string]string, values map[string]string, success bool) {
-	@Base("Book a Trip", "Book a guided fly fishing trip on the Missouri River with Lo Mo Outfitting. Craig, Montana.", contactContent(errors, values, success))
+	@BaseWithPath("Book a Trip", "Book a guided fly fishing trip on Montana's best rivers with Lo Mo Outfitting. Missouri, Bitterroot, Yellowstone, and Madison.", "/contact", contactContent(errors, values, success))
 }
 
 templ contactContent(errors map[string]string, values map[string]string, success bool) {

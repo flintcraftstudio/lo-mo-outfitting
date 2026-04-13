@@ -1,7 +1,7 @@
 package view
 
 templ GuidesPage() {
-	@Base("Meet Our Guides | Lo Mo Outfitting", "Seven licensed Montana fly fishing guides who live on the water they fish. Meet the Lo Mo Outfitting crew.", guidesContent())
+	@BaseWithPath("Meet Our Guides", "Seven licensed Montana fly fishing guides who live on the water they fish. Meet the Lo Mo Outfitting crew.", "/guides", guidesContent())
 }
 
 templ guidesContent() {
@@ -12,12 +12,12 @@ templ guidesContent() {
 				The Crew
 			</p>
 			<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
-				Seven Guides. One River.
+				Seven Guides. Montana Water.
 			</h1>
 			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose">
-				Every guide on this roster fishes the Missouri when they&rsquo;re not working it.
+				Every guide on this roster fishes their home water when they&rsquo;re not working it.
 				That&rsquo;s not a line &mdash; it&rsquo;s how Matt built the crew. You&rsquo;ll spend the day
-				with someone who knows this water the way you know your own neighborhood.
+				with someone who knows their river the way you know your own neighborhood.
 			</p>
 		</div>
 	</section>
@@ -71,7 +71,7 @@ templ guidesContent() {
 					"Andrew Osborn",
 					"/static/img/guides/andrew-osborn.jpg",
 					"Andrew Osborn with a brown trout in the river",
-					"Missouri River",
+					"Yellowstone River \u00b7 Madison River",
 					"",
 					"Late convert. Better teacher for it.",
 					"Moved to Montana from Nebraska a couple of years ago and the rivers here changed everything. I\u2019ve been fishing hard ever since \u2014 Missouri, Yellowstone, Madison. I came to fly fishing later than most of the guides on this crew, which I think makes me a better teacher. I remember what it\u2019s like to not know what you\u2019re doing. I\u2019ll get you there.",
@@ -80,10 +80,10 @@ templ guidesContent() {
 					"Dylan Huseby",
 					"/static/img/guides/dylan-huseby.jpg",
 					"Dylan Huseby in the Montana outdoors",
-					"Missouri River",
+					"Bitterroot River",
 					"",
 					"Loves the cast as much as the catch.",
-					"I guide because I love teaching the cast as much as I love making it. A good drift is a good drift whether you\u2019ve been fishing for thirty years or thirty minutes. I fish the Missouri because it rewards patience and punishes sloppiness \u2014 which makes it a great place to learn, and a great place to keep learning.",
+					"I guide because I love teaching the cast as much as I love making it. A good drift is a good drift whether you\u2019ve been fishing for thirty years or thirty minutes. I fish the Bitterroot because it rewards patience and punishes sloppiness \u2014 which makes it a great place to learn, and a great place to keep learning.",
 				)
 				@guidesPageCard(
 					"Sam Botz",

@@ -31,6 +31,7 @@ FROM debian:bookworm-slim
 COPY --from=build /app /app
 COPY --from=build /src/web/static /web/static
 
+ENV PORT=8080
 EXPOSE 8080
 
 CMD ["/app"]
