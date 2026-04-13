@@ -1,0 +1,194 @@
+package view
+
+templ PrivacyPage() {
+	@BaseWithPath("Privacy Policy", "How Lo Mo Outfitting collects, uses, and protects your information.", "/privacy", privacyContent())
+}
+
+templ privacyContent() {
+	<!-- Hero header -->
+	<section class="w-full bg-river-deep py-16 md:py-20">
+		<div class="max-w-site mx-auto px-6">
+			<p class="font-body font-bold text-eyebrow uppercase tracking-[0.15em] text-teal mb-3">
+				Legal
+			</p>
+			<h1 class="font-display font-bold text-h2 text-ivory leading-snug mb-3">
+				Privacy Policy
+			</h1>
+			<p class="font-body font-light text-body text-ivory/65 leading-relaxed max-w-prose">
+				Last updated: April 13, 2026
+			</p>
+		</div>
+	</section>
+
+	<!-- Content -->
+	<section class="w-full py-16 md:py-24 bg-bone">
+		<div class="max-w-site mx-auto px-6">
+			<div class="max-w-3xl space-y-10">
+
+				<!-- Intro -->
+				<div>
+					<p class="font-body font-light text-body text-stone leading-relaxed">
+						Lo Mo Outfitting LLC (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the website
+						<a href="https://lomooutfitting.com" class="text-teal hover:text-teal-dark transition-colors">lomooutfitting.com</a>.
+						This page explains what information we collect, how we use it, and your choices.
+					</p>
+				</div>
+
+				@privacyBlock("Information We Collect", privacyCollection())
+				@privacyBlock("How We Use Your Information", privacyUse())
+				@privacyBlock("Analytics", privacyAnalytics())
+				@privacyBlock("Advertising", privacyAdvertising())
+				@privacyBlock("Spam Prevention", privacySpam())
+				@privacyBlock("Cookies", privacyCookies())
+				@privacyBlock("Third-Party Services", privacyThirdParty())
+				@privacyBlock("Data Sharing", privacySharing())
+				@privacyBlock("Data Retention", privacyRetention())
+				@privacyBlock("Your Rights", privacyRights())
+				@privacyBlock("Contact", privacyContact())
+			</div>
+		</div>
+	</section>
+}
+
+templ privacyBlock(title string, content templ.Component) {
+	<div>
+		<h2 class="font-display font-bold text-h3 text-river-deep mb-3">{ title }</h2>
+		<div class="font-body font-light text-body text-stone leading-relaxed space-y-3">
+			@content
+		</div>
+	</div>
+}
+
+templ privacyCollection() {
+	<p>
+		When you submit the booking request form on our website, we collect:
+	</p>
+	<ul class="list-disc pl-5 space-y-1">
+		<li>Your name, email address, and phone number</li>
+		<li>Trip preferences (dates, trip type, number of anglers, experience level)</li>
+		<li>Any additional notes you include in the form</li>
+		<li>How you heard about us (referral source)</li>
+	</ul>
+	<p>
+		This information is provided voluntarily by you when you fill out the form.
+	</p>
+}
+
+templ privacyUse() {
+	<p>We use the information you provide to:</p>
+	<ul class="list-disc pl-5 space-y-1">
+		<li>Respond to your booking request and confirm trip details</li>
+		<li>Match you with the right guide { "for" } your trip</li>
+		<li>Contact you about your upcoming trip</li>
+	</ul>
+	<p>We do not use your information { "for" } marketing purposes beyond responding to your inquiry.</p>
+}
+
+templ privacyAnalytics() {
+	<p>
+		This website uses <strong class="text-river-deep">Google Analytics</strong> (provided by Google LLC) to understand
+		how visitors interact with our site. Google Analytics collects information such as pages visited, time on site,
+		and referral sources. This data is aggregated and anonymous &mdash; we do not use it to identify individual visitors.
+	</p>
+	<p>
+		Google Analytics uses cookies to collect this information. You can opt out of Google Analytics by installing the
+		<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">Google Analytics Opt-out Browser Add-on</a>.
+	</p>
+	<p>
+		For more information, see
+		<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">Google&rsquo;s Privacy Policy</a>.
+	</p>
+}
+
+templ privacyAdvertising() {
+	<p>
+		This website uses the <strong class="text-river-deep">Meta Pixel</strong> (provided by Meta Platforms, Inc.)
+		to measure the effectiveness of our advertising on Facebook and Instagram. The Meta Pixel collects information
+		about page visits and may use cookies to track activity across websites.
+	</p>
+	<p>
+		You can manage your ad preferences and opt out through your
+		<a href="https://www.facebook.com/settings/?tab=ads" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">Facebook Ad Settings</a>
+		or by using the
+		<a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">Digital Advertising Alliance opt-out tool</a>.
+	</p>
+}
+
+templ privacySpam() {
+	<p>
+		Our booking form uses <strong class="text-river-deep">Cloudflare Turnstile</strong> to prevent spam submissions.
+		Turnstile verifies that form submissions come from real visitors without requiring a traditional CAPTCHA.
+		It does not track users across websites.
+	</p>
+	<p>
+		For more information, see
+		<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-dark transition-colors">Cloudflare&rsquo;s Privacy Policy</a>.
+	</p>
+}
+
+templ privacyCookies() {
+	<p>
+		This website uses cookies set by Google Analytics and the Meta Pixel as described above.
+		These cookies help us understand site traffic and measure ad performance.
+		They do not contain personal information such as your name or email address.
+	</p>
+	<p>
+		You can control cookies through your browser settings. Most browsers allow you to block or delete cookies.
+		Note that disabling cookies may affect site functionality.
+	</p>
+}
+
+templ privacyThirdParty() {
+	<p>We use the following third-party services:</p>
+	<ul class="list-disc pl-5 space-y-1">
+		<li><strong class="text-river-deep">Google Analytics</strong> &mdash; website traffic analysis</li>
+		<li><strong class="text-river-deep">Meta Pixel</strong> &mdash; advertising measurement</li>
+		<li><strong class="text-river-deep">Cloudflare Turnstile</strong> &mdash; spam prevention</li>
+		<li><strong class="text-river-deep">Postmark</strong> &mdash; transactional email delivery (booking request notifications)</li>
+		<li><strong class="text-river-deep">Google Fonts</strong> &mdash; web font delivery</li>
+	</ul>
+	<p>
+		Each service operates under its own privacy policy. We recommend reviewing their policies if you have concerns
+		about how they handle data.
+	</p>
+}
+
+templ privacySharing() {
+	<p>
+		<strong class="text-river-deep">We do not sell, rent, or trade your personal information to third parties.</strong>
+	</p>
+	<p>
+		Your booking information is shared only with our guide team { "for" } the purpose of confirming and conducting your trip.
+		We may share information if required by law or to protect our legal rights.
+	</p>
+}
+
+templ privacyRetention() {
+	<p>
+		Booking request data is retained { "for" } as long as necessary to fulfill the purpose { "for" } which it was collected,
+		including trip coordination and follow-up. You may request deletion of your data at any time by contacting us.
+	</p>
+}
+
+templ privacyRights() {
+	<p>You have the right to:</p>
+	<ul class="list-disc pl-5 space-y-1">
+		<li>Request access to the personal information we hold about you</li>
+		<li>Request correction of inaccurate information</li>
+		<li>Request deletion of your information</li>
+		<li>Opt out of analytics tracking (see above)</li>
+	</ul>
+	<p>
+		To exercise any of these rights, contact us using the information below.
+	</p>
+}
+
+templ privacyContact() {
+	<p>If you have questions about this privacy policy or your data, contact us:</p>
+	<ul class="list-none space-y-1">
+		<li><strong class="text-river-deep">Lo Mo Outfitting LLC</strong></li>
+		<li>Email: <a href="mailto:matt@lomooutfitting.com" class="text-teal hover:text-teal-dark transition-colors">matt@lomooutfitting.com</a></li>
+		<li>Phone: <a href="tel:+14064652235" class="text-teal hover:text-teal-dark transition-colors">(406) 465-2235</a></li>
+		<li>Craig, Montana</li>
+	</ul>
+}

@@ -36,10 +36,11 @@ templ storeContent() {
 				<!-- Team photo -->
 				<div class="h-[280px] md:h-auto">
 					<img
-						src="/static/img/store/lomo-team-gear.jpg"
+						src="/static/img/store/lomo-team-gear.webp"
 						alt="The Lo Mo Outfitting team showing off their gear"
 						class="w-full h-full object-cover object-top"
 						loading="eager"
+						fetchpriority="high"
 					/>
 				</div>
 			</div>
@@ -72,7 +73,7 @@ templ storeContent() {
 				<!-- Hero: on-model shot -->
 				<div class="overflow-hidden rounded-card bg-[#f5f3ee]">
 					<img
-						src="/static/img/store/mens-hoodie-white-model.jpg"
+						src="/static/img/store/mens-hoodie-white-model.webp"
 						alt="Men's white sun hoodie with Lo Mo Outfitting logo on back, worn by model"
 						class="w-full h-full object-cover aspect-[3/4] md:aspect-[4/3]"
 						loading="lazy"
@@ -80,10 +81,10 @@ templ storeContent() {
 				</div>
 				<!-- Color options — 2x2 grid -->
 				<div class="grid grid-cols-2 gap-4 md:gap-6">
-					@lookbookImageLabeled("/static/img/store/mens-hoodie-black.jpg", "Men's Sun Hoodie — Black", "Black")
-					@lookbookImageLabeled("/static/img/store/mens-hoodie-turquoise.jpg", "Men's Sun Hoodie — Turquoise", "Turquoise")
-					@lookbookImageLabeled("/static/img/store/mens-hoodie-blue.jpg", "Men's Sun Hoodie — Blue", "Blue")
-					@lookbookImageLabeled("/static/img/store/mens-hoodie-olive.jpg", "Men's Sun Hoodie — Olive", "Olive")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-black.webp", "Men's Sun Hoodie — Black", "Black")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-turquoise.webp", "Men's Sun Hoodie — Turquoise", "Turquoise")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-blue.webp", "Men's Sun Hoodie — Blue", "Blue")
+					@lookbookImageLabeled("/static/img/store/mens-hoodie-olive.webp", "Men's Sun Hoodie — Olive", "Olive")
 				</div>
 			</div>
 		</div>
@@ -116,9 +117,9 @@ templ storeContent() {
 				</div>
 				<!-- Right: 3 images in a row -->
 				<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-					@lookbookImageLabeled("/static/img/store/womens-hoodie-blue.jpg", "Women's Sun Hoodie — Blue", "Blue")
-					@lookbookImageLabeled("/static/img/store/womens-hoodie-pink.jpg", "Women's Sun Hoodie — Pink", "Pink")
-					@lookbookImageLabeled("/static/img/store/womens-hoodie-purple.jpg", "Women's Sun Hoodie — Purple", "Purple")
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-blue.webp", "Women's Sun Hoodie — Blue", "Blue")
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-pink.webp", "Women's Sun Hoodie — Pink", "Pink")
+					@lookbookImageLabeled("/static/img/store/womens-hoodie-purple.webp", "Women's Sun Hoodie — Purple", "Purple")
 				</div>
 			</div>
 		</div>
@@ -130,8 +131,8 @@ templ storeContent() {
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 				<!-- Images: side by side -->
 				<div class="grid grid-cols-2 gap-4">
-					@lookbookImageLabeled("/static/img/store/mens-tshirt-black.jpg", "Men's T-Shirt — Black", "Black")
-					@lookbookImageLabeled("/static/img/store/mens-tshirt-gray.jpg", "Men's T-Shirt — Gray", "Gray")
+					@lookbookImageLabeled("/static/img/store/mens-tshirt-black.webp", "Men's T-Shirt — Black", "Black")
+					@lookbookImageLabeled("/static/img/store/mens-tshirt-gray.webp", "Men's T-Shirt — Gray", "Gray")
 				</div>
 				<!-- Copy: right side -->
 				<div>
@@ -177,9 +178,9 @@ templ storeContent() {
 			</div>
 
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-				@drinkwareItem("/static/img/store/metal-go-mug-20oz.jpg", "20 oz Metal Go Mug", "20 oz Metal Go Mug", "$25")
-				@drinkwareItem("/static/img/store/ceramic-mug-15oz.jpg", "15 oz Ceramic Mug", "15 oz Ceramic Mug", "$15")
-				@drinkwareItem("/static/img/store/ceramic-mug-11oz.jpg", "11 oz Ceramic Mug", "11 oz Ceramic Mug", "$12")
+				@drinkwareItem("/static/img/store/metal-go-mug-20oz.webp", "20 oz Metal Go Mug", "20 oz Metal Go Mug", "$25")
+				@drinkwareItem("/static/img/store/ceramic-mug-15oz.webp", "15 oz Ceramic Mug", "15 oz Ceramic Mug", "$15")
+				@drinkwareItem("/static/img/store/ceramic-mug-11oz.webp", "11 oz Ceramic Mug", "11 oz Ceramic Mug", "$12")
 			</div>
 		</div>
 	</section>
@@ -204,7 +205,7 @@ templ storeContent() {
 				</div>
 				<div class="overflow-hidden rounded-card">
 					<img
-						src="/static/img/store/trucker-hat.jpg"
+						src="/static/img/store/trucker-hat.webp"
 						alt="Lo Mo Outfitting trucker hat worn outdoors"
 						class="w-full aspect-square object-cover object-top"
 						loading="lazy"

@@ -9,7 +9,7 @@ templ homeContent() {
 	<section class="relative w-full bg-river-deep overflow-hidden min-h-[600px] md:min-h-[85vh] flex flex-col justify-end">
 		<!-- Background photo with overlay; video layers on top when available -->
 		<div class="absolute inset-0">
-			<img src="/static/img/hero-river.jpg" alt="Missouri River near Craig, Montana" class="w-full h-full object-cover" loading="eager"/>
+			<img src="/static/img/hero-river.jpg" alt="Missouri River near Craig, Montana" class="w-full h-full object-cover" loading="eager" fetchpriority="high"/>
 			<!-- Ambient videos — crossfade loop, loads only on fast connections -->
 			<video
 				id="hero-video"
@@ -92,7 +92,7 @@ templ homeContent() {
 			<!-- Featured: Full Day -->
 			<div class="bg-river-deep border border-river-deep rounded-card overflow-hidden mb-4 sm:bg-white sm:border-[#E0DBD2] sm:border-l-[3px] sm:border-l-teal sm:grid sm:grid-cols-[1fr_1.2fr]">
 				<div class="aspect-[4/3] sm:aspect-auto sm:min-h-full overflow-hidden">
-					<img src="/static/img/trips/full-day.jpg" alt="Anglers with a rainbow trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+					<img src="/static/img/trips/full-day.webp" alt="Anglers with a rainbow trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
 				</div>
 				<div class="p-6 sm:p-8 flex flex-col justify-center">
 					<span class="font-body font-bold text-[0.5625rem] uppercase tracking-[0.08em] bg-teal text-white px-2 py-[3px] rounded-[2px] inline-block mb-3 self-start">
@@ -115,7 +115,7 @@ templ homeContent() {
 				<!-- Half Day -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
 					<div class="aspect-[16/9] overflow-hidden">
-						<img src="/static/img/trips/half-day.jpg" alt="Guide and angler with a brown trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+						<img src="/static/img/trips/half-day.webp" alt="Guide and angler with a brown trout on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
 					</div>
 					<div class="p-6">
 						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
@@ -136,7 +136,7 @@ templ homeContent() {
 				<!-- Early Season -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
 					<div class="aspect-[16/9] overflow-hidden">
-						<img src="/static/img/trips/off-season.png" alt="Angler with a brown trout in early season on the Missouri" class="w-full h-full object-cover" loading="lazy"/>
+						<img src="/static/img/trips/off-season.webp" alt="Angler with a brown trout in early season on the Missouri" class="w-full h-full object-cover" loading="lazy"/>
 					</div>
 					<div class="p-6">
 						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
@@ -157,7 +157,7 @@ templ homeContent() {
 				<!-- Winter -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
 					<div class="aspect-[16/9] overflow-hidden">
-						<img src="/static/img/trips/winter.jpg" alt="Winter fly fishing on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+						<img src="/static/img/trips/winter.webp" alt="Winter fly fishing on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
 					</div>
 					<div class="p-6">
 						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
@@ -178,7 +178,7 @@ templ homeContent() {
 				<!-- Groups -->
 				<div class="bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
 					<div class="aspect-[16/9] overflow-hidden">
-						<img src="/static/img/trips/multiple-boats.jpg" alt="Two anglers with a rainbow trout on a group trip" class="w-full h-full object-cover" loading="lazy"/>
+						<img src="/static/img/trips/multiple-boats.webp" alt="Two anglers with a rainbow trout on a group trip" class="w-full h-full object-cover" loading="lazy"/>
 					</div>
 					<div class="p-6">
 						<span class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal block mb-2">
@@ -214,9 +214,9 @@ templ homeContent() {
 			</p>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-				@guideCard("/static/img/guides/ria-french.jpg", "Ria French", "Ria French", "GUD-LIC-37359", "Great Falls native. Former paramedic turned full-time guide. On the Trout Unlimited board for the Missouri River Flyfishers chapter \u2014 she fishes this river when she\u2019s not working it.")
-				@guideCard("/static/img/guides/colter-day.jpg", "Colter Day", "Colter Day", "[VERIFY]", "Lifetime Montana local. Missouri River and Bitterroot specialist. Patient with beginners, pushes experienced anglers to fish better water.")
-				@guideCard("/static/img/guides/rain-keating.jpg", "Rain Keating", "Rain Keating", "[VERIFY]", "Guided the Snake, Flathead, and Green rivers before the Missouri got its hooks in him. He calls it home water now. His days off look a lot like his days on.")
+				@guideCard("/static/img/guides/ria-french.webp", "Ria French", "Ria French", "GUD-LIC-37359", "Great Falls native. Former paramedic turned full-time guide. On the Trout Unlimited board for the Missouri River Flyfishers chapter \u2014 she fishes this river when she\u2019s not working it.")
+				@guideCard("/static/img/guides/colter-day.webp", "Colter Day", "Colter Day", "", "Lifetime Montana local. Missouri River and Bitterroot specialist. Patient with beginners, pushes experienced anglers to fish better water.")
+				@guideCard("/static/img/guides/rain-keating.webp", "Rain Keating", "Rain Keating", "", "Guided the Snake, Flathead, and Green rivers before the Missouri got its hooks in him. He calls it home water now. His days off look a lot like his days on.")
 			</div>
 
 			<div class="mt-8 text-center">
@@ -304,9 +304,9 @@ templ homeContent() {
 			</h2>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-				@homeReviewCard("Folks I have to tell ya. Lo Mo Outfitting will put you on the fish rain, snow or sunshine. I have been fishing with Matt for almost 10 years. Honestly this fish count is upper teens and mid 20s every time I get in the boat. He will work hard for you and put you on the fish.", "James L.", "/static/img/reviewers/james-luptak.png")
-				@homeReviewCard("I've gone out with Lo Mo Outfitting a few times now and every trip has been a blast. My first time fly fishing was with Matt. He took the time to teach me everything without making it stressful or overwhelming. Highly recommend Matt if you want a fun day on the water.", "Maekayla V.", "/static/img/reviewers/maekayla-vandenburg.jpg")
-				@homeReviewCard("Our trip was absolutely awesome. The guide handled everything from start to finish. We were on fish all day with the right setups, and all we had to do was show up and enjoy it. If you want a stress-free, dialed-in fishing experience, this is it.", "J. Stone", "/static/img/reviewers/j-stone.jpg")
+				@homeReviewCard("Folks I have to tell ya. Lo Mo Outfitting will put you on the fish rain, snow or sunshine. I have been fishing with Matt for almost 10 years. Honestly this fish count is upper teens and mid 20s every time I get in the boat. He will work hard for you and put you on the fish.", "James L.", "/static/img/reviewers/james-luptak.webp")
+				@homeReviewCard("I've gone out with Lo Mo Outfitting a few times now and every trip has been a blast. My first time fly fishing was with Matt. He took the time to teach me everything without making it stressful or overwhelming. Highly recommend Matt if you want a fun day on the water.", "Maekayla V.", "/static/img/reviewers/maekayla-vandenburg.webp")
+				@homeReviewCard("Our trip was absolutely awesome. The guide handled everything from start to finish. We were on fish all day with the right setups, and all we had to do was show up and enjoy it. If you want a stress-free, dialed-in fishing experience, this is it.", "J. Stone", "/static/img/reviewers/j-stone.webp")
 			</div>
 
 			<div class="mt-8 text-center">
@@ -342,7 +342,7 @@ templ homeContent() {
 			<div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 items-start">
 				<!-- Photo -->
 				<div class="aspect-[3/4] bg-[#243d40] rounded-card overflow-hidden">
-					<img src="/static/img/matt-mohar.jpg" alt="Matt Mohar on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+					<img src="/static/img/matt-mohar.webp" alt="Matt Mohar on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
 				</div>
 
 				<!-- Copy -->

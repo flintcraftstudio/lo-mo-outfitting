@@ -92,6 +92,7 @@ func main() {
 	mux.Handle("GET /policies", handler.Policies())
 	mux.Handle("GET /reviews", handler.Reviews())
 	mux.Handle("GET /store", handler.Store())
+	mux.Handle("GET /privacy", handler.Privacy())
 
 	// Admin auth routes (public)
 	mux.Handle("GET /admin/login", adminhandler.LoginPage())
@@ -131,7 +132,7 @@ func main() {
 	// 404 catch-all
 	mux.Handle("GET /", handler.NotFound())
 
-	srv := middleware.Logging(logger)(mux)
+	srv := middleware.Logging(logger)(middleware.Security(mux))
 
 	slog.Info("server starting", "addr", cfg.Addr())
 	fmt.Printf("listening on %s\n", cfg.Addr())

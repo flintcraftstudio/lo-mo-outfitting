@@ -22,6 +22,8 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 			<meta property="og:title" content={ title }/>
 			<meta property="og:description" content={ description }/>
 			<meta property="og:image" content={ SiteURL + DefaultOGImage }/>
+			<meta property="og:image:width" content="1280"/>
+			<meta property="og:image:height" content="853"/>
 			if path != "" {
 				<meta property="og:url" content={ SiteURL + path }/>
 			}
@@ -42,10 +44,10 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 			<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 			if GtagID != "" {
 				<script async src={ "https://www.googletagmanager.com/gtag/js?id=" + GtagID }></script>
-				@gtagInit()
+				@gtagInit(GtagID)
 			}
 			if PixelID != "" {
-				@pixelInit()
+				@pixelInit(PixelID)
 				<noscript><img height="1" width="1" style="display:none" src={ "https://www.facebook.com/tr?id=" + PixelID + "&ev=PageView&noscript=1" }/></noscript>
 			}
 			if TurnstileSiteKey != "" {
@@ -63,7 +65,7 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 				"name": "Lo Mo Outfitting",
 				"description": "Guided fly fishing trips on Montana's Missouri, Bitterroot, Yellowstone, and Madison rivers. Local guides, no pretense.",
 				"url": "https://lomooutfitting.com",
-				"telephone": "+1-406-465-2235",
+				"telephone": "+14064652235",
 				"email": "matt@lomooutfitting.com",
 				"address": {
 					"@type": "PostalAddress",
@@ -93,8 +95,11 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 			</script>
 		</head>
 		<body class="min-h-screen font-body antialiased">
+			<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-teal focus:text-white focus:px-4 focus:py-2 focus:rounded-btn focus:text-eyebrow focus:font-bold focus:uppercase focus:tracking-[0.1em]">
+				Skip to content
+			</a>
 			@Nav()
-			<main>
+			<main id="main-content">
 				@body
 			</main>
 			@Footer()
@@ -102,26 +107,22 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 	</html>
 }
 
-templ gtagInit() {
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', '{ GtagID }');
-	</script>
+script gtagInit(id string) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', id);
 }
 
-templ pixelInit() {
-	<script>
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '{ PixelID }');
-		fbq('track', 'PageView');
-	</script>
+script pixelInit(id string) {
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', id);
+	fbq('track', 'PageView');
 }

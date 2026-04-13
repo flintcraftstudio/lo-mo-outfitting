@@ -10,7 +10,7 @@ templ Footer() {
 				<!-- Col 1: Brand -->
 				<div>
 					<div class="flex items-center gap-3 mb-3">
-						<img src="/static/img/logo-mascot.png" alt="Lo Mo Outfitting mascot" class="h-12 w-auto rounded-lg"/>
+						<img src="/static/img/logo-mascot.webp" alt="Lo Mo Outfitting mascot" class="h-12 w-auto rounded-lg"/>
 						<p class="font-display font-bold text-base text-ivory">Lo Mo Outfitting LLC</p>
 					</div>
 					<p class="font-body font-light text-body-sm text-ivory/40 leading-relaxed max-w-[200px]">
@@ -31,6 +31,7 @@ templ Footer() {
 						<li><a href="/policies" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Policies & FAQ</a></li>
 						<li><a href="/store" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Store</a></li>
 						<li><a href="/contact" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Contact</a></li>
+						<li><a href="/privacy" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">Privacy Policy</a></li>
 					</ul>
 				</div>
 
@@ -42,6 +43,12 @@ templ Footer() {
 						<li><a href="mailto:matt@lomooutfitting.com" class="font-body text-body-sm text-ivory/60 hover:text-ivory transition-colors">matt@lomooutfitting.com</a></li>
 						<li><span class="font-body text-body-sm text-ivory/60">Craig, Montana</span></li>
 					</ul>
+					<!-- Social -->
+					<div class="mt-4 flex items-center gap-3">
+						<a href="https://www.facebook.com/p/Lo-Mo-Outfitting-61572788765917/" target="_blank" rel="noopener noreferrer" class="text-ivory/40 hover:text-ivory transition-colors" aria-label="Lo Mo Outfitting on Facebook">
+							<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+						</a>
+					</div>
 				</div>
 			</div>
 
@@ -49,7 +56,7 @@ templ Footer() {
 			<div class="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
 				<p class="font-body font-light text-xs text-ivory/30">&copy; { fmt.Sprint(Year()) } Lo Mo Outfitting LLC &middot; All rights reserved.</p>
 				<p class="font-body font-light text-xs text-ivory/30">Montana Outfitter License #63793</p>
-				<p class="font-body font-light text-xs text-ivory/30 flex items-center gap-1">Site by <a href="https://flintcraftstudio.com" class="hover:text-ivory/50 transition-colors inline-flex items-center gap-1"><img src="/static/img/flintcraft-logo.png" alt="" class="h-3.5 w-auto inline" aria-hidden="true"/>FlintCraft Studio</a></p>
+				<p class="font-body font-light text-xs text-ivory/30 flex items-center gap-1">Site by <a href="https://flintcraftstudio.com" class="hover:text-ivory/50 transition-colors inline-flex items-center gap-1"><img src="/static/img/flintcraft-logo.webp" alt="" class="h-3.5 w-auto inline" aria-hidden="true"/>FlintCraft Studio</a></p>
 			</div>
 		</div>
 	</footer>
