@@ -17,6 +17,7 @@ templ Nav() {
 				<a href="/#trips" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/60 hover:text-ivory transition-colors">Trips</a>
 				<a href="/guides" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/guides' ? 'text-ivory' : 'text-ivory/60'">Guides</a>
 				<a href="/about" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/about' ? 'text-ivory' : 'text-ivory/60'">About</a>
+				<a href="/store" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/store' ? 'text-ivory' : 'text-ivory/60'">Store</a>
 				<a href="/contact" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/contact' ? 'text-ivory' : 'text-ivory/60'">Contact</a>
 				<span class="border-l border-white/10 h-5"></span>
 				<a href="tel:+14064652235" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-teal">(406) 465-2235</a>
@@ -48,6 +49,7 @@ templ Nav() {
 			<a href="/#trips" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] text-ivory/70" @click="open = false">Trips</a>
 			<a href="/guides" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/guides' ? 'text-ivory' : 'text-ivory/70'" @click="open = false">Guides</a>
 			<a href="/about" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/about' ? 'text-ivory' : 'text-ivory/70'" @click="open = false">About</a>
+			<a href="/store" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/store' ? 'text-ivory' : 'text-ivory/70'" @click="open = false">Store</a>
 			<a href="/contact" class="font-body font-semibold text-eyebrow uppercase tracking-[0.1em] hover:text-ivory transition-colors" :class="path === '/contact' ? 'text-ivory' : 'text-ivory/70'" @click="open = false">Contact</a>
 		</div>
 	</nav>
