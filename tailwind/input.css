@@ -140,15 +140,30 @@
     animation: none;
   }
 
-  .review-card {
+  .review-card,
+  .scroll-reveal {
     opacity: 1;
     transform: none;
   }
 
-  .review-card.is-visible {
+  .review-card.is-visible,
+  .scroll-reveal.is-visible {
     animation: none;
   }
 }
+
+/* Scroll-reveal — generic entry animation triggered by IntersectionObserver */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.scroll-reveal.is-visible {
+  animation: card-rise 0.5s ease-out forwards;
+}
+
+.scroll-reveal-delay-1 { animation-delay: 0.1s; }
+.scroll-reveal-delay-2 { animation-delay: 0.2s; }
 
 /* Hero background video — fades in over the poster image */
 .hero-video {

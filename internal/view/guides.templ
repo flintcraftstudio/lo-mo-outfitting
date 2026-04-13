@@ -24,53 +24,119 @@ templ guidesContent() {
 
 	<!-- Guide Cards -->
 	<section class="w-full py-16 md:py-24 bg-bone">
-		<div class="max-w-site mx-auto px-6">
+		<div class="max-w-site mx-auto px-6 space-y-6">
+
+			<!-- Matt Mohar — Featured -->
+			<div class="scroll-reveal bg-river-deep border border-river-deep rounded-card overflow-hidden sm:grid sm:grid-cols-[1fr_1.5fr] items-stretch">
+				<div class="aspect-[4/3] sm:aspect-auto overflow-hidden">
+					<img src="/static/img/matt-mohar.jpg" alt="Matt Mohar on the Missouri River" class="w-full h-full object-cover" loading="lazy"/>
+				</div>
+				<div class="p-6 sm:p-8 flex flex-col justify-center">
+					<span class="font-body font-bold text-[0.5625rem] uppercase tracking-[0.08em] bg-teal text-white px-2 py-[3px] rounded-[2px] inline-block mb-3 self-start">
+						Owner &middot; Head Guide
+					</span>
+					<h3 class="font-display font-bold text-h2 text-ivory mb-1">Matt Mohar</h3>
+					<p class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal mb-1">Missouri River</p>
+					<p class="font-body text-body-sm text-ivory/40 mb-3">License: GUD-LIC-63793</p>
+					<p class="font-body font-light text-body-sm text-ivory/70 leading-relaxed italic mb-4">
+						The guy who books your trip, picks your guide, and built this outfit from scratch.
+					</p>
+					<p class="font-body font-light text-body-sm text-ivory/60 leading-relaxed">
+						Born and raised in Montana. I started Lo Mo because I wanted to run trips the way I&rsquo;d want to book them &mdash; good guides, straight talk, no filler. Every guide on this page is someone I&rsquo;d fish with on my day off. All bookings come through me. I&rsquo;ll match you with the right person for your dates, your skill level, and the water you want to fish.
+					</p>
+				</div>
+			</div>
+
+			<!-- Guide grid -->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 				@guidesPageCard(
 					"Ria French",
-					"GUD-LIC-37359",
+					"/static/img/guides/ria-french.jpg",
+					"Ria French with a brown trout on the Missouri River",
 					"Missouri River",
+					"GUD-LIC-37359",
+					"Paramedic turned guide. Trout Unlimited board member.",
 					"I grew up fishing the Missouri with my dad out of Great Falls. Did fifteen years as a paramedic before I decided the river was where I needed to be. Started guiding full-time in 2019 and haven\u2019t looked back. I\u2019m on the board of Trout Unlimited for the Missouri River Flyfishers chapter \u2014 conservation isn\u2019t a bumper sticker for me, it\u2019s why this river is still worth fishing. I\u2019ve got a ten-year-old who already outfishes me on a good day, which I consider a success.",
 				)
 				@guidesPageCard(
 					"Colter Day",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/colter-day.jpg",
+					"Colter Day with a brown trout on the Missouri River",
 					"Missouri River \u00b7 Bitterroot River",
+					"",
+					"Lifelong Montanan. All skill levels welcome.",
 					"I\u2019ve lived in Montana my whole life. Guide on the Missouri out of Craig, and spend a good part of the season on the Bitterroot too. I fish with anglers at every level \u2014 beginners who\u2019ve never held a fly rod, and experienced anglers who want to fish water they couldn\u2019t find on their own. Both days are good days.",
 				)
 				@guidesPageCard(
 					"Andrew Osborn",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/andrew-osborn.jpg",
+					"Andrew Osborn with a brown trout in the river",
 					"Missouri River",
+					"",
+					"Late convert. Better teacher for it.",
 					"Moved to Montana from Nebraska a couple of years ago and the rivers here changed everything. I\u2019ve been fishing hard ever since \u2014 Missouri, Yellowstone, Madison. I came to fly fishing later than most of the guides on this crew, which I think makes me a better teacher. I remember what it\u2019s like to not know what you\u2019re doing. I\u2019ll get you there.",
 				)
 				@guidesPageCard(
 					"Dylan Huseby",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/dylan-huseby.jpg",
+					"Dylan Huseby in the Montana outdoors",
 					"Missouri River",
+					"",
+					"Loves the cast as much as the catch.",
 					"I guide because I love teaching the cast as much as I love making it. A good drift is a good drift whether you\u2019ve been fishing for thirty years or thirty minutes. I fish the Missouri because it rewards patience and punishes sloppiness \u2014 which makes it a great place to learn, and a great place to keep learning.",
 				)
 				@guidesPageCard(
 					"Sam Botz",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/sam-botz.jpg",
+					"Sam Botz with a brown trout on the Missouri River",
 					"Missouri River",
+					"",
+					"Streamer junkie. Night fishing. Trophy browns.",
 					"Grew up in Bozeman hunting and fishing from the time I could hold a rod. I fish everything \u2014 streamers, mice at night, tiny tricos at first light when most people are still in their waders. Big fish are the goal but the method is the obsession. If you want to fish something technical or go looking for a brown that\u2019ll ruin your whole idea of what a trout looks like, I\u2019m your guide.",
 				)
 				@guidesPageCard(
 					"Rain Keating",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/rain-keating.jpg",
+					"Rain Keating with a bull trout in the river",
 					"Missouri River",
+					"",
+					"Snake, Flathead, Green \u2014 then the Mo pulled him in.",
 					"Not from Montana, but I got here as fast as I could. Guided on the Snake, the Flathead, and the Green before the Missouri pulled me in for good. I live here now. My days off are spent the same way my days on are \u2014 on the water, or walking behind my bird dog in the prairie. The Mo is home water. I fish it like it is.",
 				)
 				@guidesPageCard(
 					"Dave Buck",
-					"[VERIFY \u2014 GUD license number]",
+					"/static/img/guides/dave-buck.png",
+					"Dave Buck with a brown trout on the Bitterroot River",
 					"Bitterroot River \u00b7 Missouri River",
+					"",
+					"Air Force vet. Bitterroot specialist.",
 					"Grew up hunting and fishing in central Oregon. Joined the Air Force, moved to Spokane, worked as a police officer in western Washington \u2014 and kept sneaking off to Montana every chance I got. Eventually I stopped sneaking and moved to Conner. The Bitterroot is my river. I guide it year-round and fish it when I\u2019m not guiding. I do some work on the Missouri and other Montana rivers too, but if you want someone who knows the Bitterroot the way some guides know the Mo, I\u2019m the call.",
 				)
 			</div>
 		</div>
 	</section>
+
+	<script>
+		(function() {
+			var cards = document.querySelectorAll('.scroll-reveal');
+			if (!cards.length) return;
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+			var observer = new IntersectionObserver(function(entries) {
+				entries.forEach(function(entry) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.15 });
+
+			cards.forEach(function(card, i) {
+				card.style.animationDelay = (i % 2 === 0 ? '0s' : '0.12s');
+				observer.observe(card);
+			});
+		})();
+	</script>
 
 	<!-- CTA -->
 	<section class="w-full py-section bg-river-deep">
@@ -100,13 +166,23 @@ templ guidesContent() {
 	</section>
 }
 
-templ guidesPageCard(name, license, homeWater, bio string) {
-	<div class="bg-white border border-[#E0DBD2] rounded-card p-6">
-		<h3 class="font-display font-bold text-h3 text-river-deep mb-1">{ name }</h3>
-		<p class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal mb-1">{ homeWater }</p>
-		<p class="font-body text-body-sm text-stone/60 mb-4">License: { license }</p>
-		<p class="font-body font-light text-body-sm text-stone leading-relaxed">
-			{ bio }
-		</p>
+templ guidesPageCard(name, photo, alt, homeWater, license, tagline, bio string) {
+	<div class="scroll-reveal bg-white border border-[#E0DBD2] rounded-card overflow-hidden">
+		<div class="aspect-[4/3] overflow-hidden">
+			<img src={ photo } alt={ alt } class="w-full h-full object-cover" loading="lazy"/>
+		</div>
+		<div class="p-6">
+			<h3 class="font-display font-bold text-h3 text-river-deep mb-1">{ name }</h3>
+			<p class="font-body font-bold text-label uppercase tracking-[0.12em] text-teal mb-1">{ homeWater }</p>
+			if license != "" {
+				<p class="font-body text-body-sm text-stone/60 mb-3">License: { license }</p>
+			}
+			<p class="font-body font-medium text-body-sm text-river-deep/80 italic mb-3">
+				{ tagline }
+			</p>
+			<p class="font-body font-light text-body-sm text-stone leading-relaxed">
+				{ bio }
+			</p>
+		</div>
 	</div>
 }
