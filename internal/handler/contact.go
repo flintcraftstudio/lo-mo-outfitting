@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -11,6 +13,7 @@ import (
 
 	"github.com/firefly-software-mt/standard-template/internal/database"
 	"github.com/firefly-software-mt/standard-template/internal/mail"
+	"github.com/firefly-software-mt/standard-template/internal/meta"
 	"github.com/firefly-software-mt/standard-template/internal/view"
 )
 
@@ -47,7 +50,7 @@ func Contact() http.HandlerFunc {
 }
 
 // ContactSubmit handles POST /contact, validates input, saves to database, and sends booking email.
-func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB) http.HandlerFunc {
+func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB, capi *meta.Client) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
 			http.Error(w, "bad request", http.StatusBadRequest)
@@ -78,7 +81,7 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 		errors := validateBooking(values)
 
 		if len(errors) > 0 {
-			if err := view.BookingForm(errors, values, false).Render(r.Context(), w); err != nil {
+			if err := view.BookingForm(errors, values, false, "").Render(r.Context(), w); err != nil {
 				slog.Error("render error", "err", err)
 			}
 			return
@@ -89,7 +92,7 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			token := r.FormValue("cf-turnstile-response")
 			if !verifyTurnstile(turnstileSecret, token, r.RemoteAddr) {
 				errors = map[string]string{"form": "Verification failed. Please try again."}
-				if err := view.BookingForm(errors, values, false).Render(r.Context(), w); err != nil {
+				if err := view.BookingForm(errors, values, false, "").Render(r.Context(), w); err != nil {
 					slog.Error("render error", "err", err)
 				}
 				return
@@ -117,7 +120,7 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 		if err != nil {
 			slog.Error("database insert error", "err", err)
 			errors = map[string]string{"form": "Failed to save your request. Please try again or call us directly."}
-			if err := view.BookingForm(errors, values, false).Render(r.Context(), w); err != nil {
+			if err := view.BookingForm(errors, values, false, "").Render(r.Context(), w); err != nil {
 				slog.Error("render error", "err", err)
 			}
 			return
@@ -150,7 +153,27 @@ func ContactSubmit(mailer *mail.Client, turnstileSecret string, db *database.DB)
 			}
 		}
 
-		if err := view.BookingForm(nil, nil, true).Render(r.Context(), w); err != nil {
+		// Generate event ID for Meta pixel deduplication
+		eventID := generateEventID()
+
+		// Fire Meta Conversions API event
+		if capi != nil {
+			firstName, lastName := splitName(values["client_name"])
+			go capi.SendContact(meta.ContactEvent{
+				EventID:   eventID,
+				SourceURL: view.SiteURL + "/contact",
+				Email:     values["client_email"],
+				Phone:     values["client_phone"],
+				FirstName: firstName,
+				LastName:  lastName,
+				ClientIP:  r.RemoteAddr,
+				UserAgent: r.UserAgent(),
+				FBC:       cookieVal(r, "_fbc"),
+				FBP:       cookieVal(r, "_fbp"),
+			})
+		}
+
+		if err := view.BookingForm(nil, nil, true, eventID).Render(r.Context(), w); err != nil {
 			slog.Error("render error", "err", err)
 		}
 	}
@@ -242,6 +265,36 @@ func formatBookingEmail(v map[string]string) string {
 	b.WriteString(fmt.Sprintf("  Phone: %s\n", v["client_phone"]))
 
 	return b.String()
+}
+
+// generateEventID creates a random ID for Meta pixel/CAPI deduplication.
+func generateEventID() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		return fmt.Sprintf("evt_%d", time.Now().UnixNano())
+	}
+	return hex.EncodeToString(b)
+}
+
+// splitName splits a full name into first and last parts.
+func splitName(name string) (string, string) {
+	parts := strings.Fields(name)
+	if len(parts) == 0 {
+		return "", ""
+	}
+	if len(parts) == 1 {
+		return parts[0], ""
+	}
+	return parts[0], strings.Join(parts[1:], " ")
+}
+
+// cookieVal returns the value of a named cookie, or empty string if not present.
+func cookieVal(r *http.Request, name string) string {
+	c, err := r.Cookie(name)
+	if err != nil {
+		return ""
+	}
+	return c.Value
 }
 
 // verifyTurnstile checks a Turnstile token against the Cloudflare API.

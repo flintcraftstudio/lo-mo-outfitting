@@ -1,0 +1,111 @@
+/*
+ * FlintCraft Studio — Signature Component Styles
+ * signature.css
+ *
+ * Standalone CSS — not Tailwind. This file travels with the component
+ * into any client site regardless of their CSS stack.
+ *
+ * Typography: DM Sans is used for the signature text. If the client site
+ * does not load DM Sans, the signature falls back to system-ui.
+ */
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+
+.fc-signature {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.5rem;
+  text-decoration: none;
+  opacity:         0.6;
+  transition:      opacity 200ms ease;
+
+  /* Prevent the signature from inheriting the client site's link styles */
+  border:          none;
+  outline-offset:  4px;
+}
+
+.fc-signature:hover,
+.fc-signature:focus-visible {
+  opacity: 1;
+}
+
+.fc-signature:focus-visible {
+  outline: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+/* ── Mark ────────────────────────────────────────────────────────────────── */
+
+.fc-signature__mark {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  width:       20px;
+  height:      20px;
+}
+
+.fc-signature__mark img {
+  display: inline-block;
+  width:  20px;
+  height: 20px;
+  max-width: none;
+  object-fit: contain;
+
+  /* SVG color override via filter — only applies when variant CSS sets it */
+  filter: var(--fc-mark-filter, none);
+}
+
+/* ── Text ─────────────────────────────────────────────────────────────────── */
+
+.fc-signature__text {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  text-align:     center;
+  gap:            0.1rem;
+}
+
+.fc-signature__name {
+  font-family:    "DM Sans", system-ui, sans-serif;
+  font-size:      0.6875rem;    /* 11px */
+  font-weight:    500;
+  line-height:    1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fc-signature__tagline {
+  font-family:    "DM Sans", system-ui, sans-serif;
+  font-size:      0.625rem;     /* 10px */
+  font-weight:    300;
+  line-height:    1.3;
+  letter-spacing: 0.01em;
+}
+
+/* ── Dark variant — white text + logo, for dark footer backgrounds ────────── */
+
+.fc-signature--dark {
+  color: #ffffff;
+}
+
+.fc-signature--dark .fc-signature__mark img {
+  --fc-mark-filter: none;
+}
+
+/* ── Light variant — dark text + logo, for light footer backgrounds ──────── */
+
+.fc-signature--light {
+  color: #1a1e2b;
+}
+
+.fc-signature--light .fc-signature__mark img {
+  --fc-mark-filter: none;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-signature {
+    transition: none;
+  }
+}

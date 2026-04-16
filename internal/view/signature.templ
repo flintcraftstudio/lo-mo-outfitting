@@ -1,0 +1,29 @@
+package view
+
+// FlintCraftSignature renders the FlintCraft Studio attribution badge.
+// variant: "light" | "dark"
+//   "dark"  — white text and logo, for use on dark footer backgrounds
+//   "light" — dark text and logo, for use on light footer backgrounds
+templ FlintCraftSignature(variant string) {
+	<a
+		href="https://flintcraftstudio.com"
+		target="_blank"
+		rel="noopener noreferrer"
+		class={ "fc-signature", templ.KV("fc-signature--dark", variant == "dark"), templ.KV("fc-signature--light", variant == "light") }
+		aria-label="Site by FlintCraft Studio — Purpose-built websites for established businesses."
+	>
+		<span class="fc-signature__mark" aria-hidden="true">
+			<img
+				src="/static/img/flintcraft-mark.svg"
+				alt=""
+				width="20"
+				height="20"
+				loading="lazy"
+			/>
+		</span>
+		<span class="fc-signature__text">
+			<span class="fc-signature__name">FlintCraft Studio</span>
+			<span class="fc-signature__tagline">Purpose-built websites for established businesses.</span>
+		</span>
+	</a>
+}

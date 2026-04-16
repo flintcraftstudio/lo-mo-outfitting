@@ -15,6 +15,7 @@ type Config struct {
 	GtagID             string
 	TurnstileSiteKey   string
 	TurnstileSecretKey string
+	MetaCAPIToken      string
 	DatabasePath       string
 	AdminPasswordHash  string
 }
@@ -37,6 +38,7 @@ func Load() (*Config, error) {
 		PostmarkFrom:       os.Getenv("POSTMARK_FROM"),
 		PostmarkTo:         os.Getenv("POSTMARK_TO"),
 		PixelID:            os.Getenv("PIXEL_ID"),
+		MetaCAPIToken:      os.Getenv("META_CAPI_TOKEN"),
 		GtagID:             os.Getenv("GTAG_ID"),
 		TurnstileSiteKey:   os.Getenv("TURNSTILE_SITE_KEY"),
 		TurnstileSecretKey: os.Getenv("TURNSTILE_SECRET_KEY"),

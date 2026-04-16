@@ -24,7 +24,7 @@ templ contactContent(errors map[string]string, values map[string]string, success
 	<section class="w-full py-16 md:py-24 bg-bone">
 		<div class="max-w-site mx-auto px-6">
 			<div class="max-w-2xl">
-				@BookingForm(errors, values, success)
+				@BookingForm(errors, values, success, "")
 			</div>
 		</div>
 	</section>
@@ -45,7 +45,7 @@ templ contactContent(errors map[string]string, values map[string]string, success
 	</section>
 }
 
-templ BookingForm(errors map[string]string, values map[string]string, success bool) {
+templ BookingForm(errors map[string]string, values map[string]string, success bool, eventID string) {
 	<form hx-post="/contact" hx-swap="outerHTML" hx-target="this" hx-disabled-elt="find button[type=submit]" hx-on::after-swap="(this.querySelector('.text-red-700')||this.querySelector('.text-red-600'))?.scrollIntoView({behavior:'smooth',block:'center'})" class="space-y-10">
 		if success {
 			<div class="rounded-card border border-teal/30 bg-teal/10 p-8">
@@ -57,6 +57,9 @@ templ BookingForm(errors map[string]string, values map[string]string, success bo
 					If you need to reach us sooner, call <a href="tel:+14064652235" class="text-teal font-semibold">(406) 465-2235</a> or email <a href="mailto:matt@lomooutfitting.com" class="text-teal font-semibold">matt@lomooutfitting.com</a>.
 				</p>
 			</div>
+			if PixelID != "" && eventID != "" {
+				@pixelContact(eventID)
+			}
 		} else {
 			<!-- Section 1: Trip Details -->
 			<fieldset>
@@ -376,4 +379,10 @@ templ radioOption(name string, value string, label string, values map[string]str
 		/>
 		<span class="font-body font-light text-body-sm text-river-deep group-hover:text-river-deep/80">{ label }</span>
 	</label>
+}
+
+script pixelContact(eventID string) {
+	if (typeof fbq !== 'undefined') {
+		fbq('track', 'Contact', {}, {eventID: eventID});
+	}
 }

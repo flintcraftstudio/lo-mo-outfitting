@@ -11,6 +11,7 @@ import (
 	"github.com/firefly-software-mt/standard-template/internal/handler"
 	adminhandler "github.com/firefly-software-mt/standard-template/internal/handler/admin"
 	"github.com/firefly-software-mt/standard-template/internal/mail"
+	"github.com/firefly-software-mt/standard-template/internal/meta"
 	"github.com/firefly-software-mt/standard-template/internal/middleware"
 	"github.com/firefly-software-mt/standard-template/internal/view"
 )
@@ -64,6 +65,15 @@ func main() {
 		slog.Info("postmark not configured, contact form emails disabled")
 	}
 
+	// Meta Conversions API client (nil if not configured)
+	var capi *meta.Client
+	if cfg.PixelID != "" && cfg.MetaCAPIToken != "" {
+		capi = meta.NewClient(cfg.PixelID, cfg.MetaCAPIToken)
+		slog.Info("meta conversions api configured")
+	} else {
+		slog.Info("meta conversions api not configured, server-side events disabled")
+	}
+
 	mux := http.NewServeMux()
 
 	// Static files
@@ -88,7 +98,7 @@ func main() {
 	mux.Handle("GET /about", handler.About())
 	mux.Handle("GET /guides", handler.Guides())
 	mux.Handle("GET /contact", handler.Contact())
-	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey, db))
+	mux.Handle("POST /contact", handler.ContactSubmit(mailer, cfg.TurnstileSecretKey, db, capi))
 	mux.Handle("GET /policies", handler.Policies())
 	mux.Handle("GET /reviews", handler.Reviews())
 	mux.Handle("GET /store", handler.Store())

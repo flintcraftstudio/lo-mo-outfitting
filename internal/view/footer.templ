@@ -53,10 +53,10 @@ templ Footer() {
 			</div>
 
 			<!-- Bottom bar -->
-			<div class="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+			<div class="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row items-center justify-between gap-3">
 				<p class="font-body font-light text-xs text-ivory/30">&copy; { fmt.Sprint(Year()) } Lo Mo Outfitting LLC &middot; All rights reserved.</p>
 				<p class="font-body font-light text-xs text-ivory/30">Montana Outfitter License #63793</p>
-				<p class="font-body font-light text-xs text-ivory/30 flex items-center gap-1">Site by <a href="https://flintcraftstudio.com" class="hover:text-ivory/50 transition-colors inline-flex items-center gap-1"><img src="/static/img/flintcraft-logo.webp" alt="" class="h-3.5 w-auto inline" aria-hidden="true"/>FlintCraft Studio</a></p>
+				@FlintCraftSignature("dark")
 			</div>
 		</div>
 	</footer>
