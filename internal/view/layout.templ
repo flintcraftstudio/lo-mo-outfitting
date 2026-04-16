@@ -39,9 +39,9 @@ templ BaseWithPath(title, description, path string, body templ.Component) {
 			<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png"/>
 			<link rel="manifest" href="/static/favicon/site.webmanifest"/>
 			<meta name="theme-color" content="#1A2E30"/>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+			<!-- Fonts preloaded from vendored woff2 files -->
+			<link rel="preload" href="/static/fonts/playfair-display-700-latin.woff2" as="font" type="font/woff2" crossorigin/>
+			<link rel="preload" href="/static/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin/>
 			if GtagID != "" {
 				<script async src={ "https://www.googletagmanager.com/gtag/js?id=" + GtagID }></script>
 				@gtagInit(GtagID)

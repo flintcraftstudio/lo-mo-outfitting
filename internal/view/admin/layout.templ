@@ -8,9 +8,7 @@ templ AdminBase(title string, body templ.Component) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<meta name="robots" content="noindex, nofollow"/>
 			<title>{ title } | Lo Mo Bookings</title>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+			<link rel="preload" href="/static/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin/>
 			<link rel="stylesheet" href="/static/css/site.css"/>
 			<style>
 				[x-cloak]{display:none!important}
@@ -60,9 +58,7 @@ templ AdminLoginBase(title string, body templ.Component) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<meta name="robots" content="noindex, nofollow"/>
 			<title>{ title } | Lo Mo Bookings</title>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+			<link rel="preload" href="/static/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin/>
 			<link rel="stylesheet" href="/static/css/site.css"/>
 		</head>
 		<body class="min-h-screen font-body antialiased flex items-center justify-center">
